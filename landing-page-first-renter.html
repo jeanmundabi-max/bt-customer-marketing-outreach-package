@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EE One First Move — Broadband sorted before you collect your keys</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   DESIGN_VARIANCE:8 | MOTION_INTENSITY:6 | VISUAL_DENSITY:4
+   ============================================================ */
+:root{
+  --bg:#07081A;--bg2:#05060F;--surf:#0C0E22;--card:#10132A;--card2:#141830;
+  --b:rgba(255,255,255,.07);--bs:rgba(255,255,255,.13);
+  --lime:#B2FF3D;--lime-d:#8ECC30;--lime-dim:rgba(178,255,61,.09);
+  --teal:#057382;--teal-l:#0B9AB4;--cyan:#4ECFFF;
+  --red:#FF4A4A;--red-d:rgba(255,74,74,.09);
+  --w:#FFF;--t:rgba(255,255,255,.9);--m:rgba(255,255,255,.5);--d:rgba(255,255,255,.22);
+  --r:13px;--rl:20px;--rxl:28px;--r2:44px;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{font-size:18px;scroll-behavior:smooth}
+body{font-family:'Outfit',system-ui,sans-serif;background:var(--bg);color:var(--t);line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+/* Grain overlay — taste-skill: grain on fixed pseudo-element only */
+body::after{content:'';position:fixed;inset:0;z-index:9999;pointer-events:none;opacity:.032;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-size:128px}
+
+/* ---- TYPE ---- */
+.eye{font-size:.68rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--lime);display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.eye::before{content:'';display:block;width:18px;height:1.5px;background:var(--lime);flex-shrink:0}
+h1.display{font-family:'Instrument Serif',Georgia,serif;font-size:clamp(2.6rem,6.5vw,5rem);line-height:1.04;letter-spacing:-.03em}
+.scramble-char{color:var(--lime);opacity:.6}
+
+/* ---- LAYOUT ---- */
+.w{max-width:1240px;margin:0 auto;padding:0 40px}
+.w-sm{max-width:820px;margin:0 auto;padding:0 40px}
+.s{padding:96px 0}
+
+/* ---- SCROLL REVEALS — four directions ---- */
+.ri,.rl,.rr,.ru{opacity:0;transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1)}
+.ri{transform:translateY(28px)}
+.rl{transform:translateX(-32px)}
+.rr{transform:translateX(32px)}
+.ru{transform:translateY(-20px)}
+.ri.on,.rl.on,.rr.on,.ru.on{opacity:1;transform:none}
+[data-d="1"]{transition-delay:.08s}[data-d="2"]{transition-delay:.16s}[data-d="3"]{transition-delay:.24s}[data-d="4"]{transition-delay:.32s}[data-d="5"]{transition-delay:.4s}
+
+/* ---- SPOTLIGHT CARDS — taste-skill: Liquid Glass + Spotlight Border ---- */
+.sp{--mx:50%;--my:50%;position:relative;overflow:hidden}
+.sp::after{content:'';position:absolute;inset:-1px;border-radius:inherit;background:radial-gradient(280px circle at var(--mx) var(--my),rgba(178,255,61,.13),transparent 70%);opacity:0;transition:opacity .4s;pointer-events:none;z-index:0}
+.sp:hover::after{opacity:1}
+.sp>*{position:relative;z-index:1}
+
+/* ---- DIRECTIONAL HOVER BUTTON — taste-skill ---- */
+.btn-p,.btn-g{position:relative;overflow:hidden;isolation:isolate;display:inline-flex;align-items:center;gap:8px;font-family:'Outfit',sans-serif;font-weight:700;cursor:pointer;border:none;text-decoration:none;transition:transform .18s cubic-bezier(.16,1,.3,1);border-radius:var(--r)}
+.btn-p{background:var(--lime);color:var(--bg);padding:14px 26px;font-size:.9rem}
+.btn-g{background:transparent;color:var(--m);border:1px solid var(--b);padding:13px 22px;font-size:.85rem}
+.btn-p:active,.btn-g:active{transform:scale(.97)}
+.bfill{position:absolute;width:0;height:0;background:rgba(0,0,0,.12);border-radius:50%;transform:translate(-50%,-50%);transition:width .55s cubic-bezier(.16,1,.3,1),height .55s cubic-bezier(.16,1,.3,1),opacity .4s;pointer-events:none;opacity:0}
+.btn-p:hover .bfill{width:400px;height:400px;opacity:1}
+.btn-g:hover .bfill{width:400px;height:400px;opacity:1}
+.btn-g:hover{color:var(--t);border-color:var(--bs)}
+
+/* ---- STICKY BAR ---- */
+.sbar{position:fixed;top:-72px;left:0;right:0;z-index:300;background:rgba(7,8,26,.95);backdrop-filter:blur(22px);border-bottom:1px solid var(--bs);padding:11px 0;transition:top .38s cubic-bezier(.16,1,.3,1)}
+.sbar.on{top:0}
+.sbar-in{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.sbar-copy{font-size:.78rem;font-weight:500}
+.sbar-copy strong{color:var(--lime)}
+
+/* ---- NAV ---- */
+.nav{position:absolute;top:0;left:0;right:0;z-index:100;padding:22px 0}
+.nav-in{display:flex;align-items:center;justify-content:space-between}
+.logo{display:flex;align-items:center;gap:10px;font-size:.86rem;font-weight:700;letter-spacing:-.01em}
+.logo-sq{width:26px;height:26px;background:var(--lime);border-radius:7px;display:flex;align-items:center;justify-content:center}
+.logo-sq svg{color:var(--bg)}
+.nav-tag{font-size:.66rem;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--m);border:1px solid var(--b);padding:4px 10px;border-radius:100px}
+
+/* ================================================================
+   HERO — mesh gradient bg + text scramble + asymmetric grid
+   DESIGN_VARIANCE:8 = 1.4fr 1fr, no centering, massive left weight
+   ================================================================ */
+.hero{min-height:100dvh;display:flex;align-items:center;position:relative;overflow:hidden}
+/* Animated mesh blobs — taste-skill: Mesh Gradient Background */
+.blob{position:absolute;border-radius:50%;filter:blur(90px);pointer-events:none}
+.blob-1{width:55%;height:65%;top:-10%;right:-12%;background:radial-gradient(circle,rgba(5,115,130,.22),transparent 70%);animation:b1 14s ease-in-out infinite alternate}
+.blob-2{width:40%;height:50%;bottom:0;left:-8%;background:radial-gradient(circle,rgba(178,255,61,.07),transparent 70%);animation:b2 18s ease-in-out infinite alternate}
+.blob-3{width:30%;height:35%;top:30%;right:25%;background:radial-gradient(circle,rgba(78,207,255,.06),transparent 70%);animation:b3 11s ease-in-out infinite alternate}
+@keyframes b1{0%{transform:translate(0,0) scale(1)}100%{transform:translate(24px,-18px) scale(1.12)}}
+@keyframes b2{0%{transform:translate(0,0) scale(1)}100%{transform:translate(-20px,22px) scale(.9)}}
+@keyframes b3{0%{transform:translate(0,0)}100%{transform:translate(16px,-12px)}}
+.hero-body{position:relative;z-index:1;padding:90px 0 80px;width:100%}
+.hero-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:80px;align-items:center}
+.hero-sub{font-size:clamp(.9rem,1.8vw,1.02rem);color:var(--m);line-height:1.75;max-width:500px;margin:22px 0 30px}
+.hero-sub strong{color:var(--t);font-weight:600}
+.hero-ctas{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.ghost-link{font-size:.8rem;color:var(--m);border-bottom:1px solid var(--b);padding-bottom:1px;transition:color .2s,border-color .2s}
+.ghost-link:hover{color:var(--t);border-color:var(--bs)}
+/* Week card */
+.week-card{background:var(--card);border:1px solid var(--bs);border-radius:var(--rxl);padding:30px;box-shadow:0 40px 80px rgba(0,0,0,.45),inset 0 1px 0 rgba(255,255,255,.07);position:relative;overflow:hidden}
+.week-card::before{content:'';position:absolute;top:-50px;right:-50px;width:160px;height:160px;background:radial-gradient(circle,rgba(5,115,130,.28),transparent 70%);pointer-events:none}
+.wc-label{font-size:.64rem;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--m);margin-bottom:18px}
+.wrow{display:flex;align-items:center;gap:11px;padding:10px 0;border-bottom:1px solid var(--b)}
+.wrow:last-of-type{border-bottom:none}
+.wdot{width:20px;height:20px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center}
+.wdot-done{background:rgba(178,255,61,.12);border:1px solid rgba(178,255,61,.3)}
+.wdot-done svg{color:var(--lime)}
+.wdot-pend{border:2px solid var(--b);background:var(--surf)}
+.wtext{flex:1;font-size:.82rem}
+.wtext-dim{color:var(--m)}
+.wtext-now{color:var(--w);font-weight:600;display:flex;align-items:center;justify-content:space-between;width:100%}
+.wtag{background:var(--lime);color:var(--bg);font-size:.65rem;font-weight:800;border-radius:5px;padding:2px 8px;white-space:nowrap}
+.wc-foot{margin-top:18px;padding-top:16px;border-top:1px solid var(--b);font-size:.72rem;color:var(--m);line-height:1.55}
+.wc-foot strong{color:var(--t)}
+
+/* ---- TICKER — Kinetic Marquee, taste-skill ---- */
+.ticker{background:var(--surf);border-top:1px solid var(--b);border-bottom:1px solid var(--b);padding:16px 0;overflow:hidden}
+.ticker-t{display:flex;gap:60px;animation:tick 24s linear infinite;white-space:nowrap;width:max-content}
+.ticker-i{font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-size:1.02rem;color:var(--m);flex-shrink:0}
+.ticker-i .hi{font-style:normal;font-family:'Outfit',sans-serif;font-size:.64rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;vertical-align:middle;margin:0 6px;border:1px solid rgba(178,255,61,.28);padding:2px 6px;border-radius:4px;color:var(--lime)}
+@keyframes tick{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+/* ---- PAIN STRIP ---- */
+.pain{background:var(--bg2);padding:52px 0}
+.pain-g{display:grid;grid-template-columns:2fr 1px 1.1fr 1px .9fr;align-items:center}
+.p-sep{background:var(--b);height:56px;align-self:center}
+.p-cell{padding:0 36px}
+.p-cell:first-child{padding-left:0}
+.p-cell:last-child{padding-right:0}
+.p-num{font-family:'JetBrains Mono',monospace;font-size:2.5rem;font-weight:700;line-height:1;color:var(--red);margin-bottom:5px}
+.p-lbl{font-size:.88rem;font-weight:600;margin-bottom:3px}
+.p-desc{font-size:.74rem;color:var(--m);line-height:1.55}
+
+/* ================================================================
+   VILLAIN — darkest section, spotlight quote cards, red accents
+   ================================================================ */
+.villain{background:var(--bg2);padding:96px 0;position:relative;overflow:hidden}
+.villain::before{content:'\201C';font-family:'Instrument Serif',Georgia,serif;font-size:24rem;line-height:1;color:rgba(255,255,255,.018);position:absolute;top:-60px;right:-20px;pointer-events:none;user-select:none}
+.villain-h{font-family:'Instrument Serif',Georgia,serif;font-size:clamp(1.6rem,3.4vw,2.5rem);line-height:1.18;letter-spacing:-.022em;max-width:520px;margin-bottom:8px}
+.villain-sub{font-size:.86rem;color:var(--m);max-width:480px;line-height:1.65;margin-bottom:52px}
+/* Spotlight quote cards */
+.vq-card{background:var(--card);border:1px solid var(--b);border-radius:var(--rl);padding:28px 28px 28px 24px;margin-bottom:0;display:grid;grid-template-columns:3px 1fr;gap:0 22px;align-items:start}
+.vq-card+.vq-card{margin-top:10px}
+.vq-bar{width:3px;border-radius:2px;background:var(--red);opacity:.5;align-self:stretch}
+.vq-text{font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-size:1.05rem;line-height:1.62;color:var(--t);margin-bottom:8px}
+.vq-src{font-size:.68rem;color:var(--d);letter-spacing:.04em}
+.villain-pivot{margin-top:48px;display:flex;align-items:center;gap:18px}
+.pline{flex:1;height:1px;background:linear-gradient(to right,var(--lime),transparent)}
+.pline-r{flex:1;height:1px;background:linear-gradient(to left,var(--lime),transparent)}
+.ptext{font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-size:.98rem;color:var(--m);white-space:nowrap}
+
+/* ---- SOLUTION ---- */
+.sol-g{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start}
+.sol-h{font-family:'Instrument Serif',Georgia,serif;font-size:clamp(1.7rem,3.2vw,2.4rem);line-height:1.15;letter-spacing:-.02em;margin-bottom:18px}
+.sol-h em{font-style:italic;color:var(--lime)}
+.sol-p{font-size:.88rem;color:var(--m);line-height:1.75;margin-bottom:20px}
+.sol-p strong{color:var(--t);font-weight:600}
+/* Steps with animated SVG line */
+.steps-wrap{position:relative}
+.steps-svg{position:absolute;left:13px;top:14px;width:2px;overflow:visible;pointer-events:none}
+.steps-path{stroke:url(#stepGrad);stroke-width:2;fill:none;stroke-linecap:round;stroke-dasharray:600;stroke-dashoffset:600;transition:stroke-dashoffset 1.4s cubic-bezier(.16,1,.3,1)}
+.steps-path.draw{stroke-dashoffset:0}
+.step{display:grid;grid-template-columns:28px 1fr;gap:0 18px;padding-bottom:32px;position:relative}
+.step:last-child{padding-bottom:0}
+.sdot{width:28px;height:28px;border-radius:50%;background:var(--lime);display:flex;align-items:center;justify-content:center;flex-shrink:0;z-index:1;position:relative;box-shadow:0 0 0 4px rgba(178,255,61,.12)}
+/* Pulse on step dots — taste-skill perpetual micro-interaction */
+.sdot::after{content:'';position:absolute;inset:-4px;border-radius:50%;border:1px solid rgba(178,255,61,.3);animation:sdot-pulse 2s ease-in-out infinite}
+@keyframes sdot-pulse{0%,100%{transform:scale(1);opacity:.4}50%{transform:scale(1.25);opacity:0}}
+.sdot span{font-family:'JetBrains Mono',monospace;font-size:.68rem;font-weight:700;color:var(--bg)}
+.sbody{padding-top:2px}
+.skip{font-size:.64rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--lime);margin-bottom:4px}
+.stitle{font-size:.92rem;font-weight:700;margin-bottom:5px}
+.sdesc{font-size:.8rem;color:var(--m);line-height:1.6}
+
+/* ---- CALCULATOR ---- */
+.calc-bg{position:absolute;font-family:'Instrument Serif',Georgia,serif;font-size:20rem;font-weight:700;line-height:1;color:rgba(178,255,61,.025);right:-2%;top:50%;transform:translateY(-50%);pointer-events:none;user-select:none;letter-spacing:-.04em}
+.calc-g{display:grid;grid-template-columns:1fr 1.1fr;gap:60px;align-items:start;position:relative;z-index:1}
+.calc-card{background:var(--card);border:1px solid var(--bs);border-radius:var(--rxl);padding:34px;box-shadow:0 32px 64px rgba(0,0,0,.4),inset 0 1px 0 rgba(255,255,255,.07)}
+.calc-ttl{font-size:1rem;font-weight:700;margin-bottom:3px}
+.calc-sub{font-size:.78rem;color:var(--m);margin-bottom:22px}
+.cf{display:flex;flex-direction:column;gap:13px;margin-bottom:18px}
+.cf-item{display:flex;flex-direction:column;gap:5px}
+.cf-lbl{font-size:.68rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--m)}
+.cf-wrap{position:relative}
+.cf-sym{position:absolute;left:12px;top:50%;transform:translateY(-50%);font-family:'JetBrains Mono',monospace;font-size:.86rem;color:var(--m);pointer-events:none}
+.cf-inp{width:100%;background:var(--surf);border:1px solid var(--b);border-radius:var(--r);padding:10px 12px 10px 26px;font-family:'JetBrains Mono',monospace;font-size:.9rem;color:var(--w);outline:none;transition:border-color .2s}
+.cf-inp:focus{border-color:rgba(178,255,61,.35)}
+.cf-inp::placeholder{color:var(--d)}
+.fm-btns{display:flex;gap:5px}
+.fm-btn{flex:1;padding:8px 4px;background:var(--surf);border:1px solid var(--b);border-radius:var(--r);font-family:'JetBrains Mono',monospace;font-size:.8rem;font-weight:700;color:var(--m);cursor:pointer;transition:all .18s}
+.fm-btn:hover{border-color:var(--bs);color:var(--t)}
+.fm-btn.on{background:var(--lime-dim);border-color:rgba(178,255,61,.35);color:var(--lime)}
+.calc-go{width:100%;background:var(--lime);color:var(--bg);border:none;border-radius:var(--r);padding:12px;font-family:'Outfit',sans-serif;font-size:.86rem;font-weight:700;cursor:pointer;transition:transform .18s,box-shadow .18s}
+.calc-go:hover{transform:scale(1.02)}
+.calc-go:active{transform:scale(.97)}
+.cr{margin-top:14px;background:var(--surf);border:1px solid var(--b);border-radius:var(--r);padding:16px;display:none}
+.cr.show{display:block}
+.cr-row{display:flex;justify-content:space-between;align-items:baseline;padding:6px 0;border-bottom:1px solid var(--b);font-size:.8rem}
+.cr-row:last-child{border-bottom:none}
+.cr-lbl{color:var(--m)}
+.cr-val{font-family:'JetBrains Mono',monospace;font-weight:600}
+.cr-save{color:var(--lime);font-size:.98rem}
+/* Explainer */
+.cx-h{font-family:'Instrument Serif',Georgia,serif;font-size:clamp(1.5rem,2.8vw,2.2rem);line-height:1.15;letter-spacing:-.02em;margin-bottom:16px}
+.cx-h em{font-style:italic;color:var(--lime)}
+.cx-body{font-size:.86rem;color:var(--m);line-height:1.75;margin-bottom:28px}
+.cx-body strong{color:var(--t);font-weight:600}
+.cx-items{display:flex;flex-direction:column;gap:14px}
+.cx-item{display:flex;gap:12px;align-items:flex-start}
+.cx-ico{width:34px;height:34px;border-radius:var(--r);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.ico-teal{background:rgba(5,115,130,.15)}
+.ico-lime{background:var(--lime-dim)}
+.ico-cyan{background:rgba(78,207,255,.1)}
+.cx-ico svg{color:var(--lime)}
+.cx-item h4{font-size:.84rem;font-weight:600;margin-bottom:2px}
+.cx-item p{font-size:.74rem;color:var(--m);line-height:1.5}
+
+/* ---- FLATMATE ---- */
+.fm-g{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+.fm-pull{font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-size:clamp(1.3rem,2.6vw,1.85rem);line-height:1.35;letter-spacing:-.015em;color:var(--m);margin-bottom:20px}
+.fm-pull strong{color:var(--t);font-style:normal}
+.fm-ans{font-size:.86rem;color:var(--m);line-height:1.75;margin-bottom:18px}
+.fm-ans strong{color:var(--t);font-weight:600}
+.flat-vis{display:flex;flex-direction:column;gap:8px}
+.flat-c{background:var(--card);border:1px solid var(--b);border-radius:var(--rl);padding:16px 18px;display:flex;align-items:center;gap:12px}
+.flat-c.you{border-color:rgba(178,255,61,.2);background:linear-gradient(135deg,rgba(5,115,130,.1),rgba(178,255,61,.04))}
+.fav{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Instrument Serif',Georgia,serif;font-size:.9rem;font-weight:700;flex-shrink:0;color:var(--bg)}
+.fav-l{background:var(--lime)}
+.fav-t{background:var(--teal-l)}
+.fav-c{background:rgba(78,207,255,.75)}
+.finfo{flex:1}
+.fname{font-size:.82rem;font-weight:600}
+.fplan{font-size:.7rem;color:var(--m)}
+.fprice{font-family:'JetBrains Mono',monospace;font-size:.92rem;font-weight:700;color:var(--lime)}
+.flat-tot{background:var(--lime-dim);border:1px solid rgba(178,255,61,.18);border-radius:var(--r);padding:13px 18px;display:flex;justify-content:space-between;align-items:center}
+.flat-tot-l{font-size:.8rem;font-weight:600}
+.flat-tot-v{font-family:'JetBrains Mono',monospace;font-size:.96rem;font-weight:700;color:var(--lime)}
+.flat-vs{margin-top:6px;font-size:.7rem;color:var(--m);text-align:right;line-height:1.5}
+.flat-vs del{color:var(--red);opacity:.65;text-decoration-color:var(--red)}
+
+/* ---- GUARANTEE — lime left accent, no card ---- */
+.guar{background:var(--bg);padding:96px 0;border-left:4px solid var(--lime)}
+.guar-g{display:grid;grid-template-columns:1.1fr 1fr;gap:80px;align-items:start;padding-left:32px}
+.guar-eye{font-size:.66rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--lime);margin-bottom:12px}
+.guar-h{font-family:'Instrument Serif',Georgia,serif;font-size:clamp(1.65rem,3.2vw,2.4rem);line-height:1.14;letter-spacing:-.022em;margin-bottom:16px}
+.guar-h em{font-style:italic}
+.guar-p{font-size:.86rem;color:var(--m);line-height:1.75;margin-bottom:24px}
+.guar-p strong{color:var(--t);font-weight:600}
+.guar-box{background:var(--lime-dim);border:1px solid rgba(178,255,61,.2);border-radius:var(--rl);padding:20px 24px}
+.guar-box-h{font-size:.84rem;font-weight:700;color:var(--lime);margin-bottom:10px}
+.guar-items{display:flex;flex-direction:column;gap:8px}
+.guar-item{display:flex;align-items:flex-start;gap:9px;font-size:.8rem;color:var(--m);line-height:1.55}
+.guar-item svg{color:var(--lime);flex-shrink:0;margin-top:2px}
+.guar-contrast{display:flex;flex-direction:column}
+.gc-before{background:var(--red-d);border:1px solid rgba(255,74,74,.14);border-radius:var(--rxl) var(--rxl) 0 0;padding:26px 28px}
+.gc-after{background:var(--lime-dim);border:1px solid rgba(178,255,61,.14);border-top:none;border-radius:0 0 var(--rxl) var(--rxl);padding:26px 28px}
+.gc-lbl{font-size:.64rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:11px}
+.gc-before .gc-lbl{color:var(--red)}
+.gc-after .gc-lbl{color:var(--lime)}
+.gc-rows{display:flex;flex-direction:column;gap:7px}
+.gc-row{display:grid;grid-template-columns:16px 1fr;gap:9px;font-size:.82rem;line-height:1.5}
+.gc-before .gc-row{color:rgba(255,255,255,.5)}
+.gc-after .gc-row{color:var(--t)}
+
+/* ---- CUSTOMER STORY — 3D tilt card ---- */
+.story-g{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start}
+.tilt-card{background:var(--card);border:1px solid var(--bs);border-radius:var(--rxl);padding:32px;box-shadow:0 32px 64px rgba(0,0,0,.4),inset 0 1px 0 rgba(255,255,255,.07);position:relative;overflow:hidden;transition:transform .15s ease-out;transform-style:preserve-3d;will-change:transform}
+.tilt-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:70px;background:linear-gradient(to top,rgba(5,115,130,.1),transparent);pointer-events:none}
+.tc-qm{font-family:'Instrument Serif',Georgia,serif;font-size:3.5rem;line-height:.75;color:var(--lime);opacity:.45;margin-bottom:8px}
+.tc-q{font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-size:1.04rem;line-height:1.65;color:rgba(255,255,255,.9);margin-bottom:20px}
+.tc-persona{display:flex;align-items:center;gap:11px;padding-top:16px;border-top:1px solid var(--b)}
+.tc-av{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--teal),var(--cyan));display:flex;align-items:center;justify-content:center;font-family:'Instrument Serif',Georgia,serif;font-size:.9rem;color:var(--bg);flex-shrink:0}
+.tc-name{font-size:.82rem;font-weight:600}
+.tc-detail{font-size:.7rem;color:var(--m);margin-top:1px}
+/* Proof strip */
+.proof-strip{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:28px}
+.proof-chip{display:flex;align-items:center;gap:7px;border:1px solid var(--b);border-radius:var(--r);padding:8px 12px}
+.proof-num{font-family:'JetBrains Mono',monospace;font-size:.84rem;font-weight:700;color:var(--lime)}
+.proof-lbl{font-size:.7rem;color:var(--m);line-height:1.3}
+/* Before/after rows */
+.sb-rows{display:flex;flex-direction:column}
+.sb-row{display:flex;justify-content:space-between;align-items:baseline;padding:11px 0;border-bottom:1px solid var(--b);font-size:.8rem}
+.sb-row:last-child{border-bottom:none}
+.sb-lbl{color:var(--m)}
+.sb-was{font-family:'JetBrains Mono',monospace;font-size:.88rem;color:var(--red);text-decoration:line-through;opacity:.6;margin-right:7px}
+.sb-now{font-family:'JetBrains Mono',monospace;font-size:.88rem;color:var(--lime);font-weight:700}
+.sb-tot{background:var(--lime-dim);border:1px solid rgba(178,255,61,.2);border-radius:var(--r);padding:14px 18px;margin-top:10px;display:flex;justify-content:space-between;align-items:center}
+.sb-tot-l{font-size:.84rem;font-weight:600}
+.sb-tot-v{font-family:'JetBrains Mono',monospace;font-size:1rem;font-weight:700;color:var(--lime)}
+
+/* ================================================================
+   GOLDEN HIPPO — split section: lime left + dark right
+   NOT a centered card. A design moment.
+   DESIGN_VARIANCE:8: extreme proportion asymmetry (260px vs 1fr)
+   ================================================================ */
+.offer-split{display:grid;grid-template-columns:260px 1fr;border-radius:var(--r2);overflow:hidden;box-shadow:0 40px 80px rgba(0,0,0,.5),0 0 0 1px rgba(255,255,255,.07);min-height:400px}
+/* Lime panel with shimmer — taste-skill: Skeleton Shimmer adapted */
+.offer-lime{background:var(--lime);padding:48px 36px;display:flex;flex-direction:column;justify-content:flex-end;position:relative;overflow:hidden}
+.offer-lime::before{content:'';position:absolute;inset:0;background:linear-gradient(130deg,transparent 30%,rgba(255,255,255,.15) 50%,transparent 70%);transform:translateX(-100%);animation:shimmer 3.5s ease-in-out infinite}
+@keyframes shimmer{0%{transform:translateX(-100%)}60%,100%{transform:translateX(200%)}}
+.ol-kick{font-size:.64rem;font-weight:800;letter-spacing:.15em;text-transform:uppercase;color:rgba(7,8,26,.5);margin-bottom:8px}
+.ol-num{font-family:'JetBrains Mono',monospace;font-size:5.5rem;font-weight:700;line-height:1;color:var(--bg);letter-spacing:-.04em;margin-bottom:3px}
+.ol-unit{font-family:'Instrument Serif',Georgia,serif;font-size:1.05rem;font-style:italic;color:rgba(7,8,26,.65);line-height:1.3}
+.offer-dark{background:var(--card2);border:1px solid var(--bs);border-left:none;padding:48px 52px;display:flex;flex-direction:column;justify-content:center}
+.od-eye{font-size:.64rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--lime);margin-bottom:12px}
+.od-h{font-family:'Instrument Serif',Georgia,serif;font-size:clamp(1.5rem,2.8vw,2.2rem);line-height:1.15;letter-spacing:-.022em;margin-bottom:12px}
+.od-p{font-size:.86rem;color:var(--m);line-height:1.75;max-width:480px;margin-bottom:24px}
+.od-details{display:flex;flex-wrap:wrap;gap:12px 24px;margin-bottom:24px}
+.od-item{display:flex;align-items:center;gap:7px;font-size:.8rem;color:var(--m)}
+.od-item svg{color:var(--lime);flex-shrink:0}
+.od-note{margin-top:12px;font-size:.67rem;color:var(--d);line-height:1.55}
+
+/* ---- OBJECTIONS — zigzag, alternating, NOT 2x2 ---- */
+.obj-list{display:flex;flex-direction:column}
+.obj-item{display:grid;padding:36px 0;border-bottom:1px solid var(--b)}
+.obj-item:last-child{border-bottom:none}
+.obj-item:nth-child(odd){grid-template-columns:1fr 1.6fr;gap:80px}
+.obj-item:nth-child(even){grid-template-columns:1.6fr 1fr;gap:80px}
+.obj-item:nth-child(even) .obj-q{order:2}
+.obj-item:nth-child(even) .obj-a{order:1}
+.obj-tag{font-size:.64rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--d);margin-bottom:9px}
+.obj-q-text{font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-size:1rem;line-height:1.5;color:var(--t)}
+.obj-a-text{font-size:.84rem;color:var(--m);line-height:1.75}
+.obj-a-text strong{color:var(--t);font-weight:600}
+
+/* ---- FAQ — asymmetric 2-col ---- */
+.faq-g{display:grid;grid-template-columns:1.2fr 1fr;gap:80px;align-items:start}
+.faq-intro-h{font-family:'Instrument Serif',Georgia,serif;font-size:clamp(1.5rem,2.8vw,2.1rem);line-height:1.2;letter-spacing:-.02em;margin-bottom:10px}
+.faq-intro-p{font-size:.84rem;color:var(--m);line-height:1.7}
+.faq-list{display:flex;flex-direction:column;gap:2px}
+.faq-item{border:1px solid var(--b);border-radius:var(--r);overflow:hidden;background:var(--card)}
+.faq-q{width:100%;background:none;border:none;color:var(--t);font-family:'Outfit',sans-serif;font-size:.85rem;font-weight:600;padding:16px 18px;text-align:left;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:12px;transition:background .2s}
+.faq-q:hover{background:rgba(255,255,255,.025)}
+.faq-chev{width:18px;height:18px;border-radius:50%;border:1px solid var(--b);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:transform .28s,background .2s}
+.faq-item.open .faq-chev{transform:rotate(180deg);background:var(--lime-dim)}
+.faq-a{display:none;padding:0 18px 14px;font-size:.8rem;color:var(--m);line-height:1.7;border-top:1px solid var(--b)}
+.faq-item.open .faq-a{display:block;padding-top:12px}
+
+/* ---- FINAL CTA ---- */
+.final-g{display:grid;grid-template-columns:1fr auto;gap:56px;align-items:center}
+.final-h{font-family:'Instrument Serif',Georgia,serif;font-size:clamp(1.7rem,3.2vw,2.6rem);line-height:1.1;letter-spacing:-.025em}
+.final-h em{font-style:italic;color:var(--lime)}
+.final-sub{font-size:.84rem;color:var(--m);margin-top:10px;line-height:1.7;max-width:440px}
+.final-r{display:flex;flex-direction:column;align-items:flex-end;gap:10px;flex-shrink:0}
+.final-note{font-size:.68rem;color:var(--d);text-align:right;line-height:1.5}
+
+/* ---- FOOTER ---- */
+.footer{background:var(--bg2);border-top:1px solid var(--b);padding:26px 0}
+.footer-in{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;flex-wrap:wrap}
+.footer-disc{font-size:.66rem;color:var(--d);line-height:1.6;max-width:560px}
+.footer-brand{font-size:.7rem;color:var(--d);white-space:nowrap}
+
+/* ---- RESPONSIVE ---- */
+@media(max-width:960px){
+  .w,.w-sm{padding:0 24px}
+  .hero-grid,.sol-g,.calc-g,.fm-g,.guar-g,.story-g,.faq-g,.final-g{grid-template-columns:1fr;gap:40px}
+  .hero-grid .rr{max-width:420px}
+  .pain-g{grid-template-columns:1fr;gap:0}.p-sep{display:none}.p-cell{padding:20px 0;border-bottom:1px solid var(--b)}.p-cell:last-child{border-bottom:none}
+  .offer-split{grid-template-columns:1fr}.offer-lime{flex-direction:row;align-items:flex-end;gap:16px;padding:30px;border-radius:var(--rxl) var(--rxl) 0 0}.ol-num{font-size:3.5rem}.offer-dark{border-left:1px solid var(--bs);border-top:none;border-radius:0 0 var(--rxl) var(--rxl);padding:32px}
+  .obj-item:nth-child(odd),.obj-item:nth-child(even){grid-template-columns:1fr;gap:16px}
+  .obj-item:nth-child(even) .obj-q,.obj-item:nth-child(even) .obj-a{order:unset}
+  .guar-g{padding-left:20px}
+  .final-r{align-items:flex-start}.final-note{text-align:left}
+}
+@media(max-width:640px){
+  html{font-size:16px}
+  .w,.w-sm{padding:0 18px}
+  .s{padding:60px 0}
+  h1.display{font-size:2.4rem}
+  .offer-lime{flex-direction:column;align-items:flex-start}
+  .sbar-in{flex-direction:column;align-items:flex-start;gap:7px}
+}
+</style>
+</head>
+<body>
+
+<!-- STICKY BAR -->
+<div class="sbar" id="sbar">
+  <div class="w">
+    <div class="sbar-in">
+      <span class="sbar-copy">Moving in? EE One — broadband + mobile from <strong>£41.99/month</strong>. Live before you collect your keys.</span>
+      <a href="#offer" class="btn-p" style="font-size:.76rem;padding:9px 18px"><span class="bfill"></span>Check availability</a>
+    </div>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="w">
+    <div class="nav-in">
+      <div class="logo">
+        <div class="logo-sq">
+          <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><circle cx="6.5" cy="6.5" r="4.5" stroke="currentColor" stroke-width="1.8"/><path d="M6.5 4v2.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        EE One
+      </div>
+      <span class="nav-tag">Proposition Concept · April 2026</span>
+    </div>
+  </div>
+</nav>
+
+<!-- ============================================================
+     HERO — Unaware → Problem Aware
+     Text scramble on "Broadband isn't sorted yet."
+     Mesh gradient blobs animated behind.
+     1.4fr 1fr asymmetric — taste-skill DESIGN_VARIANCE:8
+     ============================================================ -->
+<section class="hero">
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="blob blob-3"></div>
+  <div class="hero-body">
+    <div class="w">
+      <div class="hero-grid">
+        <div class="rl">
+          <div class="eye">EE One — First Move</div>
+          <h1 class="display">
+            You just signed<br>
+            the tenancy<br>
+            agreement.<br>
+            <span id="scramble" style="color:var(--lime);font-style:italic"></span>
+          </h1>
+          <p class="hero-sub">
+            EE One First Move — broadband and your mobile on one account, <strong>live before your move-in date</strong>. Add flatmates from £12/month. Most people in your situation save over <strong>£27 a month</strong>.
+          </p>
+          <div class="hero-ctas">
+            <a href="#calc" class="btn-p" data-d="3"><span class="bfill"></span>Calculate your saving<svg width="12" height="12" viewBox="0 0 12 12" fill="none" style="flex-shrink:0"><path d="M2.5 6h7M7 4l2.5 2L7 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+            <span class="ghost-link">No commitment — just enter your costs.</span>
+          </div>
+        </div>
+        <div class="rr">
+          <div class="week-card">
+            <div class="wc-label">Your move-in week</div>
+            <div class="wrow"><div class="wdot wdot-done"><svg width="9" height="9" viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="wtext wtext-dim">Tenancy agreement signed</span></div>
+            <div class="wrow"><div class="wdot wdot-done"><svg width="9" height="9" viewBox="0 0 9 9" fill="none"><path d="M1.5 4.5l2 2 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span class="wtext wtext-dim">Deposit paid</span></div>
+            <div class="wrow"><div class="wdot wdot-pend"></div><span class="wtext wtext-now">Broadband sorted<span class="wtag">Get EE One</span></span></div>
+            <div class="wrow"><div class="wdot wdot-pend"></div><span class="wtext wtext-dim">Keys collected</span></div>
+            <div class="wrow" style="border-bottom:none"><div class="wdot wdot-pend"></div><span class="wtext wtext-dim">Flatmates added · £12/mo each</span></div>
+            <div class="wc-foot">Most people sort broadband in week three. <strong>You can sort it today</strong> — and have it live when you walk in.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER — verbatim Mind Reader language -->
+<div class="ticker">
+  <div class="ticker-t">
+    <span class="ticker-i">"I just want one thing that works from day one." <span class="hi">Mind Reader</span></span>
+    <span class="ticker-i">"Broadband sorted before I collect the keys." <span class="hi">Mind Reader</span></span>
+    <span class="ticker-i">"Setup is such a faff." <span class="hi">Mind Reader</span></span>
+    <span class="ticker-i">"My flatmates are on different networks — it's a nightmare." <span class="hi">Mind Reader</span></span>
+    <span class="ticker-i">"Are they going to put the price up halfway through?" <span class="hi">Mind Reader</span></span>
+    <span class="ticker-i">"I just want one thing that works from day one." <span class="hi">Mind Reader</span></span>
+    <span class="ticker-i">"Broadband sorted before I collect the keys." <span class="hi">Mind Reader</span></span>
+    <span class="ticker-i">"Setup is such a faff." <span class="hi">Mind Reader</span></span>
+    <span class="ticker-i">"My flatmates are on different networks — it's a nightmare." <span class="hi">Mind Reader</span></span>
+    <span class="ticker-i">"Are they going to put the price up halfway through?" <span class="hi">Mind Reader</span></span>
+  </div>
+</div>
+
+<!-- PAIN STRIP — counters animate in on scroll -->
+<div class="pain">
+  <div class="w">
+    <div class="pain-g">
+      <div class="p-cell rl">
+        <div class="p-num" data-counter="70" data-prefix="£">£0</div>
+        <div class="p-lbl">What most people in your situation pay</div>
+        <div class="p-desc">Average UK 18-24 paying ~£31/month broadband and ~£39/month mobile. Two direct debits. Two renewal dates. Two customer service numbers.</div>
+      </div>
+      <div class="p-sep"></div>
+      <div class="p-cell ri" data-d="1">
+        <div class="p-num" style="color:var(--m);font-size:1.9rem">3 wks</div>
+        <div class="p-lbl">Average broadband install wait</div>
+        <div class="p-desc">"The install wait is the worst part." Order on moving day, wait three weeks on mobile data.</div>
+      </div>
+      <div class="p-sep"></div>
+      <div class="p-cell ri" data-d="2">
+        <div class="p-num" data-counter="69" data-suffix="%" style="color:var(--cyan)">0%</div>
+        <div class="p-lbl">of people your age rent in the UK</div>
+        <div class="p-desc">ONS 2024-25. You're the norm — and you're making a 24-month decision with no product designed for your situation.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     VILLAIN — Problem Aware emotional peak
+     Spotlight Border Cards. Verbatim. Real sources.
+     ============================================================ -->
+<section class="villain s">
+  <div class="w">
+    <div class="rl">
+      <div class="eye" style="margin-bottom:14px">What customers say</div>
+      <h2 class="villain-h">Moving broadband is the part<br>no one warns you about.</h2>
+      <p class="villain-sub">Not edge cases. The EE Community forum has multiple threads on what happens when you move home with a broadband contract. This is the most-reviewed issue in the 18-30 segment.</p>
+    </div>
+    <div class="ri" data-d="1">
+      <div class="vq-card sp" style="border-radius:var(--rl)">
+        <div class="vq-bar"></div>
+        <div><p class="vq-text">"So much for 'Just plug in at your new address and you're off.' I've spent over 20 hours speaking to guides and technical support, and nothing has helped."</p><span class="vq-src">EE Community Forum, 2025 — verbatim</span></div>
+      </div>
+    </div>
+    <div class="ri" data-d="2">
+      <div class="vq-card sp" style="border-radius:var(--rl)">
+        <div class="vq-bar"></div>
+        <div><p class="vq-text">"They told me this 'triggers' a new two year contract at more money than if I was a new customer. Price would increase from £44.99 to £59.99."</p><span class="vq-src">Trustpilot, EE, 2025 — verbatim</span></div>
+      </div>
+    </div>
+    <div class="ri" data-d="3">
+      <div class="vq-card sp" style="border-radius:var(--rl)">
+        <div class="vq-bar"></div>
+        <div><p class="vq-text">"Disgusting, immoral, and thieving practices will win more enemies than friends. If I don't take them with me under their 'triggered' terms, they will default me and charge me for the privilege."</p><span class="vq-src">Trustpilot, EE, 2024 — verbatim</span></div>
+      </div>
+    </div>
+    <div class="villain-pivot ri" data-d="4">
+      <div class="pline"></div>
+      <span class="ptext">EE One First Move changes this.</span>
+      <div class="pline-r"></div>
+    </div>
+  </div>
+</section>
+
+<!-- SOLUTION — Problem Aware → Solution Aware, animated SVG steps -->
+<section class="s" style="background:var(--surf)">
+  <div class="w">
+    <div class="sol-g">
+      <div class="rl">
+        <div class="eye">EE One First Move</div>
+        <h2 class="sol-h">What if broadband was the<br><em>first thing you crossed off?</em></h2>
+        <p class="sol-p">Broadband and mobile on one account. Order on tenancy day. <strong>Live in 5 days.</strong> Flatmates join at <strong>£12/month each</strong> — no new contract for them.</p>
+        <p class="sol-p" style="margin-bottom:0">One direct debit. One account. One number to call.</p>
+      </div>
+      <div class="rr" data-d="1">
+        <div class="steps-wrap">
+          <svg class="steps-svg" id="stepsSvg" height="260" viewBox="0 0 2 260" aria-hidden="true">
+            <defs><linearGradient id="stepGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#B2FF3D" stop-opacity=".6"/><stop offset="100%" stop-color="#057382" stop-opacity=".15"/></linearGradient></defs>
+            <path class="steps-path" id="stepsPath" d="M1 14 L1 246"/>
+          </svg>
+          <div class="step">
+            <div class="sdot"><span>1</span></div>
+            <div class="sbody"><div class="skip">Day you sign</div><div class="stitle">Order on tenancy day</div><div class="sdesc">Book EE One the same day you sign the agreement. We anchor your install to your move-in date — not the order date. SIM dispatched today.</div></div>
+          </div>
+          <div class="step">
+            <div class="sdot"><span>2</span></div>
+            <div class="sbody"><div class="skip">Move-in day</div><div class="stitle">Broadband live when you arrive</div><div class="sdesc">The engineer appointment is set around your move-in date. You walk in. It works. No three-week wait.</div></div>
+          </div>
+          <div class="step">
+            <div class="sdot"><span>3</span></div>
+            <div class="sbody"><div class="skip">Any time after</div><div class="stitle">Add your flatmates</div><div class="sdesc">Each flatmate adds a SIM from £12/month to your account. Keeps their number. Live within 24 hours. If they leave, cancels without penalty.</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CALCULATOR — Solution Aware → Most Aware -->
+<section class="s" id="calc" style="position:relative;overflow:hidden">
+  <div class="calc-bg" aria-hidden="true">£27</div>
+  <div class="w">
+    <div class="calc-g">
+      <div class="rl">
+        <div class="calc-card">
+          <div class="calc-ttl">What would you save?</div>
+          <div class="calc-sub">Enter what you pay now. See your exact number.</div>
+          <div class="cf">
+            <div class="cf-item"><label class="cf-lbl">Your current broadband</label><div class="cf-wrap"><span class="cf-sym">£</span><input class="cf-inp" type="number" id="bb" placeholder="31" min="0" max="200"></div></div>
+            <div class="cf-item"><label class="cf-lbl">Your current mobile</label><div class="cf-wrap"><span class="cf-sym">£</span><input class="cf-inp" type="number" id="mob" placeholder="39" min="0" max="200"></div></div>
+            <div class="cf-item"><label class="cf-lbl">How many flatmates?</label>
+              <div class="fm-btns">
+                <button class="fm-btn on" data-fm="0">0</button>
+                <button class="fm-btn" data-fm="1">1</button>
+                <button class="fm-btn" data-fm="2">2</button>
+                <button class="fm-btn" data-fm="3">3</button>
+                <button class="fm-btn" data-fm="4">4</button>
+              </div>
+            </div>
+          </div>
+          <button class="calc-go" onclick="runCalc()">Show my saving</button>
+          <div class="cr" id="cr">
+            <div class="cr-row"><span class="cr-lbl">You currently pay</span><span class="cr-val" id="cr-cur"></span></div>
+            <div class="cr-row"><span class="cr-lbl">With EE One First Move</span><span class="cr-val" id="cr-ee"></span></div>
+            <div class="cr-row"><span class="cr-lbl">Monthly saving</span><span class="cr-val cr-save" id="cr-save"></span></div>
+            <div class="cr-row"><span class="cr-lbl">Over 24 months</span><span class="cr-val" id="cr-24" style="color:var(--cyan)"></span></div>
+          </div>
+        </div>
+      </div>
+      <div class="rr" data-d="1">
+        <h2 class="cx-h">Most people save<br><em>over £27 a month.</em></h2>
+        <p class="cx-body">Average 18-24 pays <strong>£31 broadband + £39 mobile</strong> separately. EE One First Move bundles both for <strong>£41.99/month</strong> — then adds flatmates at £12/month each.</p>
+        <div class="cx-items">
+          <div class="cx-item"><div class="cx-ico ico-lime"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="5" stroke="currentColor" stroke-width="1.5"/><path d="M8 6v2.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div><div><h4>Broadband live in 5 days from order</h4><p>Anchored to your tenancy start, not an arbitrary queue.</p></div></div>
+          <div class="cx-item"><div class="cx-ico ico-teal"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><h4>Setup fee waived — 7-day move-in window</h4><p>Order within a week of signing your tenancy agreement.</p></div></div>
+          <div class="cx-item"><div class="cx-ico ico-cyan"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 8h8M8 4v8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div><div><h4>Flatmates from £12/month — no contract</h4><p>They keep their number. Cancel when they move out. No penalty.</p></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FLATMATE SECTION — Solution Aware -->
+<section class="s" style="background:var(--surf)">
+  <div class="w">
+    <div class="fm-g">
+      <div class="rl">
+        <div class="eye">The shared flat problem</div>
+        <p class="fm-pull"><strong>"My flatmates are on different networks</strong> — it's a nightmare to sort."</p>
+        <p class="fm-ans">They don't switch. They don't sign a new contract. They add a SIM-only plan to your EE One account at <strong>£12/month</strong>. SIM active in 24 hours. Keep their number. Each billed to their own card — <strong>you never chase anyone for money.</strong></p>
+        <p class="fm-ans" style="margin-bottom:0">When they move out, the SIM cancels with 30 days notice. No penalty to anyone.</p>
+      </div>
+      <div class="rr" data-d="1">
+        <div class="flat-vis">
+          <div class="flat-c you"><div class="fav fav-l">J</div><div class="finfo"><div class="fname">You</div><div class="fplan">EE One — Full Fibre + Unlimited SIM</div></div><div class="fprice">£41.99</div></div>
+          <div class="flat-c"><div class="fav fav-t">A</div><div class="finfo"><div class="fname">Alex</div><div class="fplan">SIM added to your account</div></div><div class="fprice">£12.00</div></div>
+          <div class="flat-c"><div class="fav fav-c">P</div><div class="finfo"><div class="fname">Priya</div><div class="fplan">SIM added to your account</div></div><div class="fprice">£12.00</div></div>
+          <div class="flat-tot"><span class="flat-tot-l">Household / month</span><span class="flat-tot-v">£65.99</span></div>
+          <div class="flat-vs">Paying separately: <del>£31 + £39 + £35 + £35 = £140/mo</del><br>Household saving: <strong style="color:var(--lime)">£74/month · £888/year</strong></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MOVE-WITH-US GUARANTEE — Solution Aware, lime left accent -->
+<section class="guar">
+  <div class="w">
+    <div class="guar-g">
+      <div class="rl">
+        <div class="guar-eye">The move-with-us guarantee</div>
+        <h2 class="guar-h">When you move again —<br><em>and you will</em> —<br>your contract doesn't reset.</h2>
+        <p class="guar-p">Every other provider treats a home move as a new customer acquisition. <strong>EE One First Move doesn't.</strong> Your contract terms carry to your new address. Same price. Same remaining term.</p>
+        <div class="guar-box">
+          <div class="guar-box-h">What the guarantee means</div>
+          <div class="guar-items">
+            <div class="guar-item"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7l3 3 6-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Same monthly price at your new address</div>
+            <div class="guar-item"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7l3 3 6-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Remaining contract term carries over — no new 24-month lock-in</div>
+            <div class="guar-item"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7l3 3 6-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Broadband live in 5 days at your new address</div>
+          </div>
+        </div>
+      </div>
+      <div class="rr" data-d="1">
+        <div class="guar-contrast">
+          <div class="gc-before">
+            <div class="gc-lbl">What happens now</div>
+            <div class="gc-rows">
+              <div class="gc-row"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="color:var(--red)"><path d="M3.5 3.5l7 7M10.5 3.5l-7 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><span>Move triggers a new 24-month contract</span></div>
+              <div class="gc-row"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="color:var(--red)"><path d="M3.5 3.5l7 7M10.5 3.5l-7 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><span>Price increase at door — £44.99 to £59.99</span></div>
+              <div class="gc-row"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="color:var(--red)"><path d="M3.5 3.5l7 7M10.5 3.5l-7 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><span>£360 exit fee if you refuse new terms</span></div>
+              <div class="gc-row"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="color:var(--red)"><path d="M3.5 3.5l7 7M10.5 3.5l-7 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><span>"Disgusting, immoral, thieving" — Trustpilot</span></div>
+            </div>
+          </div>
+          <div class="gc-after">
+            <div class="gc-lbl">With First Move</div>
+            <div class="gc-rows">
+              <div class="gc-row"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="color:var(--lime)"><path d="M2.5 7l3 3 6-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Contract terms transfer to new address</span></div>
+              <div class="gc-row"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="color:var(--lime)"><path d="M2.5 7l3 3 6-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Same price. Same term. No reset.</span></div>
+              <div class="gc-row"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="color:var(--lime)"><path d="M2.5 7l3 3 6-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Broadband live in 5 days at new flat</span></div>
+              <div class="gc-row"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="color:var(--lime)"><path d="M2.5 7l3 3 6-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Only provider that doesn't penalise moving</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CUSTOMER STORY — Most Aware, 3D tilt card -->
+<section class="s" style="background:var(--surf)">
+  <div class="w">
+    <div class="ri" style="margin-bottom:40px"><div class="eye">What it looks like in practice</div></div>
+    <div class="story-g">
+      <div class="rl">
+        <div class="tilt-card" id="tiltCard">
+          <div class="tc-qm">&ldquo;</div>
+          <p class="tc-q">Sorted before I collected the keys. The broadband was on when I walked in. My flatmate Lily added her SIM the next day — twelve quid a month, kept her number, done.</p>
+          <div class="tc-persona">
+            <div class="tc-av">S</div>
+            <div><div class="tc-name">Sam, 24</div><div class="tc-detail">Bristol — moved December 2025. First flat, SpareRoom let.</div></div>
+          </div>
+        </div>
+        <div class="proof-strip" style="margin-top:20px">
+          <div class="proof-chip"><span class="proof-num">4.18/5</span><span class="proof-lbl">Uswitch verified<br>reviews</span></div>
+          <div class="proof-chip"><span class="proof-num">25×</span><span class="proof-lbl">UK's best<br>mobile network</span></div>
+          <div class="proof-chip"><span class="proof-num">Uswitch</span><span class="proof-lbl">National Broadband<br>Provider of the Year 2026</span></div>
+        </div>
+      </div>
+      <div class="rr" data-d="1">
+        <div class="sb-rows">
+          <div class="sb-row"><span class="sb-lbl">Sam — broadband</span><div><span class="sb-was">£28</span><span class="sb-now">included</span></div></div>
+          <div class="sb-row"><span class="sb-lbl">Sam — mobile</span><div><span class="sb-was">£35</span><span class="sb-now">included</span></div></div>
+          <div class="sb-row"><span class="sb-lbl">EE One base (BB + mobile)</span><div><span class="sb-now">£41.99</span></div></div>
+          <div class="sb-row"><span class="sb-lbl">Lily — SIM added to account</span><div><span class="sb-was">£35</span><span class="sb-now">£12.00</span></div></div>
+        </div>
+        <div class="sb-tot">
+          <div><div class="sb-tot-l">Household / month</div><div style="font-size:.68rem;color:var(--m);margin-top:1px">was £98 — now £53.99</div></div>
+          <div><div class="sb-tot-v">£53.99</div><div style="font-size:.68rem;color:var(--cyan);text-align:right;margin-top:1px">£528/yr saved</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GOLDEN HIPPO — split section, lime left, NOT centered -->
+<section class="s" id="offer">
+  <div class="w">
+    <div class="ri">
+      <div class="offer-split">
+        <div class="offer-lime">
+          <div class="ol-kick">Switch within</div>
+          <div class="ol-num">7</div>
+          <div class="ol-unit">days of your<br>move-in date.</div>
+        </div>
+        <div class="offer-dark">
+          <div class="od-eye">First Move Offer</div>
+          <h2 class="od-h">Broadband live before you arrive.<br>Setup fee waived.</h2>
+          <p class="od-p">Order within 7 days of signing your tenancy agreement. We co-ordinate the install around your move-in date. Your SIM arrives tomorrow.</p>
+          <div class="od-details">
+            <div class="od-item"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7l3 3 6-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>5-day install guarantee</div>
+            <div class="od-item"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7l3 3 6-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Setup fee waived</div>
+            <div class="od-item"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7l3 3 6-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Move-with-us guarantee included</div>
+            <div class="od-item"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7l3 3 6-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Flatmates add SIMs any time</div>
+          </div>
+          <a href="#" class="btn-p"><span class="bfill"></span>Check EE Full Fibre at your new address<svg width="12" height="12" viewBox="0 0 12 12" fill="none" style="flex-shrink:0"><path d="M2.5 6h7M7 4l2.5 2L7 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          <p class="od-note">From £41.99/month. 24-month contract. Prices increase £4/month broadband each March.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- OBJECTIONS — zigzag, alternating proportions, spotlight cards -->
+<section class="s" style="background:var(--surf)">
+  <div class="w">
+    <div class="ri" style="margin-bottom:44px">
+      <div class="eye">Objections</div>
+      <h2 style="font-family:'Instrument Serif',Georgia,serif;font-size:clamp(1.5rem,3vw,2.2rem);line-height:1.2;letter-spacing:-.02em">The questions everyone asks<br>before they switch.</h2>
+    </div>
+    <div class="obj-list">
+      <div class="obj-item ri">
+        <div class="obj-q"><div class="obj-tag">01</div><p class="obj-q-text">"I'm already in a contract with another provider."</p></div>
+        <div class="obj-a"><p class="obj-a-text">Check your exit date. If your provider is raising prices — most do annually — you likely have a right to exit without penalty during the notice period. The <strong>£4/month annual broadband increase</strong> most providers apply each March is typically a valid exit trigger. Enter your renewal date and we'll confirm where you stand.</p></div>
+      </div>
+      <div class="obj-item ri" data-d="1">
+        <div class="obj-q"><div class="obj-tag">02</div><p class="obj-q-text">"My flatmates are on different networks and won't switch."</p></div>
+        <div class="obj-a"><p class="obj-a-text">They don't need to switch. Adding a SIM to your EE One account is not switching networks — it's a SIM-only plan add-on. <strong>They keep their existing number.</strong> No new phone contract. No handover. Takes four minutes online. If they move out, cancels without penalty.</p></div>
+      </div>
+      <div class="obj-item ri" data-d="1">
+        <div class="obj-q"><div class="obj-tag">03</div><p class="obj-q-text">"What if I have to move out before 24 months?"</p></div>
+        <div class="obj-a"><p class="obj-a-text">The <strong>move-with-us guarantee</strong> means your contract follows you to your next address on the same terms. If EE Full Fibre isn't available at your new address, you'll pay a standard exit fee — but the same applies to every provider. We'll confirm coverage before you commit.</p></div>
+      </div>
+      <div class="obj-item ri" data-d="1">
+        <div class="obj-q"><div class="obj-tag">04</div><p class="obj-q-text">"Are they going to put the price up halfway through?"</p></div>
+        <div class="obj-a"><p class="obj-a-text">EE applies an <strong>annual increase of £4/month on broadband</strong> each March. This is disclosed upfront — you'll see it on the pricing page and in this document. It is not a surprise. If any provider claims prices won't change: read their small print more carefully.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ — asymmetric 2-col -->
+<section class="s">
+  <div class="w">
+    <div class="faq-g">
+      <div class="rl">
+        <div class="eye">FAQ</div>
+        <h2 class="faq-intro-h">Questions the page actually answers.</h2>
+        <p class="faq-intro-p" style="margin-top:10px">
+          The question nobody answers on a comparison site: <em>"Can we each have our own bill for the SIMs? I don't want to chase my flatmate for £12 every month."</em><br><br>
+          Yes. Each SIM is billed to its own payment method. You never see their charge.
+        </p>
+      </div>
+      <div class="rr" data-d="1">
+        <div class="faq-list">
+          <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">How quickly can I get broadband when moving in?<div class="faq-chev"><svg width="9" height="9" viewBox="0 0 9 9" fill="none"><path d="M2 3.5l2.5 2.5 2.5-2.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div></button><div class="faq-a">Order on the day you sign your tenancy agreement. We co-ordinate your engineer appointment around your move-in date. Broadband live within 5 days of your order — not within 5 days of you chasing us. SIM dispatched same day.</div></div>
+          <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">Can flatmates add SIMs without their own contracts?<div class="faq-chev"><svg width="9" height="9" viewBox="0 0 9 9" fill="none"><path d="M2 3.5l2.5 2.5 2.5-2.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div></button><div class="faq-a">Yes. SIM-only plans from £12/month added to your EE One account. Each flatmate billed to their own card — you don't see their charge, they don't see yours. Keeps existing number. No new phone required.</div></div>
+          <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">What if a flatmate leaves mid-contract?<div class="faq-chev"><svg width="9" height="9" viewBox="0 0 9 9" fill="none"><path d="M2 3.5l2.5 2.5 2.5-2.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div></button><div class="faq-a">Their SIM cancels with 30 days notice. No penalty to them. No change to your EE One account. New flatmate can add a SIM anytime the same way.</div></div>
+          <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">What is the move-with-us guarantee exactly?<div class="faq-chev"><svg width="9" height="9" viewBox="0 0 9 9" fill="none"><path d="M2 3.5l2.5 2.5 2.5-2.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div></button><div class="faq-a">When you move to a new address during your 24-month term, your contract transfers. Same price. Same remaining term. No new 24-month lock-in. No price increase at the door. This is the opposite of EE's current standard policy — and what First Move is designed to fix.</div></div>
+          <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">Is EE Full Fibre available at my new address?<div class="faq-chev"><svg width="9" height="9" viewBox="0 0 9 9" fill="none"><path d="M2 3.5l2.5 2.5 2.5-2.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div></button><div class="faq-a">EE Full Fibre runs on the Openreach network — now passing over 21.4 million UK premises. Check your new postcode before ordering. If Full Fibre isn't available yet, EE also offers standard fibre options.</div></div>
+          <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">Can I keep my number when I switch to EE?<div class="faq-chev"><svg width="9" height="9" viewBox="0 0 9 9" fill="none"><path d="M2 3.5l2.5 2.5 2.5-2.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div></button><div class="faq-a">Yes. Request a PAC code from your current provider — they're required to give it within one hour by law. Give it to EE when setting up your SIM. Number transfers within 24 hours. You don't lose it during the switch.</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA — asymmetric, headline left, CTA right -->
+<section class="s" style="background:var(--surf)">
+  <div class="w">
+    <div class="final-g ri">
+      <div>
+        <h2 class="final-h"><em>Broadband sorted</em><br>before you collect<br>your keys.</h2>
+        <p class="final-sub">Check if EE Full Fibre is available at your new address. 60 seconds. No commitment until you confirm.</p>
+      </div>
+      <div class="final-r">
+        <a href="#" class="btn-p" style="font-size:.92rem;padding:15px 30px"><span class="bfill"></span>Check availability at your new address<svg width="12" height="12" viewBox="0 0 12 12" fill="none" style="flex-shrink:0"><path d="M2.5 6h7M7 4l2.5 2L7 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        <p class="final-note">From £41.99/month · 24-month contract<br>Prices increase £4/month broadband each March</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="w">
+    <div class="footer-in">
+      <p class="footer-disc">This page is a proposition design concept created as part of a BT Consumer Customer Marketing Manager interview preparation exercise. All data points verified against primary sources including BT Group Q3 FY26 Trading Update, ONS English Housing Survey 2024-25, and ee.co.uk. Not affiliated with or endorsed by EE or BT Group.</p>
+      <span class="footer-brand">Jean Mundabi Fala · April 2026</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ================================================================
+   TASTE-SKILL JAVASCRIPT LAYER
+   MOTION_INTENSITY:6 = Fluid CSS + IntersectionObserver reveals
+   ================================================================ */
+
+/* ---- 1. STICKY BAR ---- */
+const sbar = document.getElementById('sbar');
+window.addEventListener('scroll', () => {
+  sbar.classList.toggle('on', window.scrollY > 500);
+}, { passive: true });
+
+/* ---- 2. INTERSECTION OBSERVER — multi-direction reveals ---- */
+const revEls = document.querySelectorAll('.ri,.rl,.rr,.ru');
+const revObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('on'); revObs.unobserve(e.target); }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -36px 0px' });
+revEls.forEach(el => revObs.observe(el));
+
+// Trigger above-fold elements immediately
+document.addEventListener('DOMContentLoaded', () => {
+  revEls.forEach(el => {
+    if (el.getBoundingClientRect().top < window.innerHeight) { el.classList.add('on'); revObs.unobserve(el); }
+  });
+});
+
+/* ---- 3. TEXT SCRAMBLE — taste-skill: Text Scramble Effect ---- */
+class TextScramble {
+  constructor(el) {
+    this.el = el;
+    this.chars = '!<>-_\\/[]{}=+*^?#abcdefghij01234';
+    this.update = this.update.bind(this);
+  }
+  setText(txt) {
+    const len = txt.length;
+    this.queue = [];
+    for (let i = 0; i < len; i++) {
+      const start = Math.floor(Math.random() * 28);
+      const end = start + Math.floor(Math.random() * 24);
+      this.queue.push({ to: txt[i], start, end, char: '' });
+    }
+    cancelAnimationFrame(this.raf);
+    this.frame = 0;
+    this.update();
+  }
+  update() {
+    let out = '', done = 0;
+    for (let i = 0; i < this.queue.length; i++) {
+      const { to, start, end } = this.queue[i];
+      if (this.frame >= end) { done++; out += to; }
+      else if (this.frame >= start) {
+        if (!this.queue[i].char || Math.random() < 0.28) this.queue[i].char = this.chars[Math.floor(Math.random() * this.chars.length)];
+        out += `<span class="scramble-char">${this.queue[i].char}</span>`;
+      } else { out += '&nbsp;'; }
+    }
+    this.el.innerHTML = out;
+    if (done < this.queue.length) { this.raf = requestAnimationFrame(this.update); this.frame++; }
+  }
+}
+const scrambleEl = document.getElementById('scramble');
+if (scrambleEl) {
+  const sc = new TextScramble(scrambleEl);
+  setTimeout(() => sc.setText("Broadband isn't sorted yet."), 600);
+}
+
+/* ---- 4. SPOTLIGHT BORDER — taste-skill: Spotlight Border Card ---- */
+document.querySelectorAll('.sp').forEach(card => {
+  card.addEventListener('mousemove', e => {
+    const r = card.getBoundingClientRect();
+    card.style.setProperty('--mx', ((e.clientX - r.left) / r.width * 100) + '%');
+    card.style.setProperty('--my', ((e.clientY - r.top) / r.height * 100) + '%');
+  });
+});
+
+/* ---- 5. COUNTER ANIMATION — pain strip numbers on scroll ---- */
+function animCount(el, target, prefix, suffix, dur) {
+  const start = performance.now();
+  const step = now => {
+    const p = Math.min((now - start) / dur, 1);
+    const ease = 1 - Math.pow(1 - p, 3);
+    el.textContent = prefix + Math.round(target * ease) + suffix;
+    if (p < 1) requestAnimationFrame(step);
+  };
+  requestAnimationFrame(step);
+}
+const countObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const el = e.target;
+      animCount(el, +el.dataset.counter, el.dataset.prefix || '', el.dataset.suffix || '', 1400);
+      countObs.unobserve(el);
+    }
+  });
+}, { threshold: 0.5 });
+document.querySelectorAll('[data-counter]').forEach(el => countObs.observe(el));
+
+/* ---- 6. 3D TILT CARD — taste-skill: Parallax Tilt Card ---- */
+const tiltCard = document.getElementById('tiltCard');
+if (tiltCard) {
+  tiltCard.addEventListener('mousemove', e => {
+    const r = tiltCard.getBoundingClientRect();
+    const x = (e.clientX - r.left - r.width / 2) / r.width;
+    const y = (e.clientY - r.top - r.height / 2) / r.height;
+    tiltCard.style.transform = `perspective(700px) rotateY(${x * 7}deg) rotateX(${-y * 7}deg) scale(1.015)`;
+  });
+  tiltCard.addEventListener('mouseleave', () => { tiltCard.style.transform = ''; });
+}
+
+/* ---- 7. DIRECTIONAL HOVER FILL — taste-skill: Directional Hover Aware Button ---- */
+document.querySelectorAll('.btn-p, .btn-g').forEach(btn => {
+  const fill = btn.querySelector('.bfill');
+  if (!fill) return;
+  btn.addEventListener('mouseenter', e => {
+    const r = btn.getBoundingClientRect();
+    fill.style.left = (e.clientX - r.left) + 'px';
+    fill.style.top = (e.clientY - r.top) + 'px';
+    fill.style.width = '0'; fill.style.height = '0';
+    requestAnimationFrame(() => { fill.style.width = '400px'; fill.style.height = '400px'; fill.style.opacity = '1'; });
+  });
+  btn.addEventListener('mouseleave', () => { fill.style.opacity = '0'; });
+});
+
+/* ---- 8. SVG STEPS ANIMATED LINE — taste-skill: Animated SVG Line Drawing ---- */
+const stepsPath = document.getElementById('stepsPath');
+if (stepsPath) {
+  const stepObs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { stepsPath.classList.add('draw'); stepObs.unobserve(e.target); }
+    });
+  }, { threshold: 0.3 });
+  stepObs.observe(stepsPath.closest('.steps-wrap') || stepsPath);
+}
+
+/* ---- 9. FLATMATE TOGGLE ---- */
+let activeFm = 0;
+document.querySelectorAll('.fm-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.fm-btn').forEach(b => b.classList.remove('on'));
+    btn.classList.add('on');
+    activeFm = +btn.dataset.fm;
+  });
+});
+
+/* ---- 10. CALCULATOR ---- */
+function runCalc() {
+  const bb = parseFloat(document.getElementById('bb').value) || 31;
+  const mob = parseFloat(document.getElementById('mob').value) || 39;
+  const fmMob = 33;
+  const cur = bb + mob + activeFm * fmMob;
+  const ee = 41.99 + activeFm * 12;
+  const save = Math.max(0, cur - ee);
+  const over24 = (save * 24).toFixed(0);
+  document.getElementById('cr-cur').textContent = '£' + cur.toFixed(2) + '/mo';
+  document.getElementById('cr-ee').textContent = '£' + ee.toFixed(2) + '/mo';
+  document.getElementById('cr-save').textContent = save > 0 ? '£' + save.toFixed(2) + '/mo' : 'Plans comparable';
+  document.getElementById('cr-24').textContent = save > 0 ? '£' + over24 + ' total' : '—';
+  const cr = document.getElementById('cr');
+  cr.classList.add('show');
+  /* Count up the saving number */
+  if (save > 0) {
+    const saveEl = document.getElementById('cr-save');
+    animCount({ textContent: '' }, save, '£', '/mo', 800);
+    const s2 = performance.now();
+    const countStep = now => {
+      const p = Math.min((now - s2) / 800, 1);
+      const v = save * (1 - Math.pow(1 - p, 3));
+      saveEl.textContent = '£' + v.toFixed(2) + '/mo';
+      if (p < 1) requestAnimationFrame(countStep);
+    };
+    requestAnimationFrame(countStep);
+  }
+}
+
+/* ---- 11. FAQ ACCORDION ---- */
+function toggleFaq(btn) {
+  const item = btn.closest('.faq-item');
+  const open = item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(el => el.classList.remove('open'));
+  if (!open) item.classList.add('open');
+}
+</script>
+</body>
+</html>

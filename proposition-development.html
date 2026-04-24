@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EE One First Move — Proposition Development | Jean Mundabi Fala</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:       #F7F8FA;
+  --white:    #FFFFFF;
+  --card:     #F0F2F5;
+  --ink:      #0A0B1E;
+  --muted:    rgba(10,11,30,0.52);
+  --dim:      rgba(10,11,30,0.30);
+  --border:   rgba(10,11,30,0.08);
+  --border-md:rgba(10,11,30,0.13);
+  --teal:     #057382;
+  --teal-bg:  rgba(5,115,130,0.07);
+  --teal-bdr: rgba(5,115,130,0.22);
+  --lime:     #3D8C00;
+  --lime-bg:  rgba(61,140,0,0.07);
+  --lime-bdr: rgba(61,140,0,0.2);
+  --amber:    #A05A00;
+  --amber-bg: rgba(160,90,0,0.07);
+  --red:      #C42B2B;
+  --red-bg:   rgba(196,43,43,0.06);
+  --cyan:     #0369A1;
+  --r:        10px;
+  --r-lg:     16px;
+}
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Outfit', system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+.page { max-width: 800px; margin: 0 auto; padding: 0 28px 100px; }
+
+/* NAV */
+.doc-nav {
+  padding: 18px 0;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  background: rgba(247,248,250,0.93);
+  backdrop-filter: blur(16px);
+  z-index: 50;
+}
+.nav-brand { font-size: 0.8rem; font-weight: 600; display: flex; align-items: center; gap: 10px; }
+.nav-brand .pill {
+  background: var(--teal);
+  color: #fff;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 2px 7px;
+  border-radius: 20px;
+}
+.nav-meta { font-size: 0.72rem; color: var(--dim); font-family: 'JetBrains Mono', monospace; }
+
+/* HEADER */
+.doc-header { padding: 44px 0 52px; border-bottom: 1px solid var(--border); margin-bottom: 56px; }
+.doc-eyebrow {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--teal);
+  margin-bottom: 18px;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+.doc-eyebrow::before { content:''; display:block; width:18px; height:2px; background:var(--teal); border-radius:2px; }
+.doc-title {
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-size: clamp(1.9rem, 5vw, 2.85rem);
+  line-height: 1.1;
+  letter-spacing: -0.025em;
+  color: var(--ink);
+  margin-bottom: 16px;
+}
+.doc-title em { font-style: italic; color: var(--teal); }
+.doc-sub {
+  font-size: 0.98rem;
+  color: var(--muted);
+  line-height: 1.75;
+  max-width: 640px;
+  margin-bottom: 30px;
+}
+.doc-meta {
+  display: flex; gap: 28px; flex-wrap: wrap;
+  padding-top: 24px;
+  border-top: 1px solid var(--border);
+}
+.meta-item { display: flex; flex-direction: column; gap: 3px; }
+.meta-label { font-size: 0.64rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--dim); }
+.meta-value { font-size: 0.84rem; font-weight: 500; }
+
+/* SECTION WRAPPER */
+.doc-section { margin-bottom: 56px; }
+.sec-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.64rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--teal);
+  margin-bottom: 8px;
+  display: flex; align-items: center; gap: 8px;
+}
+.sec-label::after { content:''; flex:1; height:1px; background:var(--border); }
+.doc-section h2 { font-size: 1.22rem; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 14px; color: var(--ink); line-height: 1.3; }
+.doc-section p { font-size: 0.93rem; color: var(--muted); line-height: 1.78; margin-bottom: 14px; }
+.doc-section p strong { color: var(--ink); font-weight: 600; }
+
+/* BRIEF BOX */
+.brief-box {
+  background: var(--white);
+  border: 1px solid var(--border-md);
+  border-left: 4px solid var(--teal);
+  border-radius: 0 var(--r) var(--r) 0;
+  padding: 28px 32px;
+  margin: 24px 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 28px;
+}
+.brief-col h4 { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase; color: var(--teal); margin-bottom: 8px; }
+.brief-col p { font-size: 0.84rem; color: var(--muted); line-height: 1.6; margin: 0; }
+.brief-col p strong { color: var(--ink); }
+
+/* ARCH GRID */
+.arch-grid { display: grid; grid-template-columns: 160px 1fr; gap: 0; margin: 24px 0; border: 1px solid var(--border-md); border-radius: var(--r-lg); overflow: hidden; }
+.arch-row { display: contents; }
+.arch-key {
+  background: var(--card);
+  padding: 18px 20px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--dim);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: flex-start;
+  border-right: 1px solid var(--border);
+}
+.arch-val {
+  background: var(--white);
+  padding: 18px 24px;
+  font-size: 0.9rem;
+  color: var(--ink);
+  border-bottom: 1px solid var(--border);
+  line-height: 1.6;
+}
+.arch-val em { font-style: italic; color: var(--teal); font-family: 'Instrument Serif', Georgia, serif; font-size: 1.02rem; }
+.arch-val .sub { font-size: 0.78rem; color: var(--muted); margin-top: 4px; }
+.arch-key:last-of-type, .arch-val:last-of-type { border-bottom: none; }
+
+/* PROOF STRIP */
+.proof-strip { display: flex; flex-direction: column; gap: 12px; margin: 20px 0; }
+.proof-item {
+  display: grid; grid-template-columns: 32px 1fr;
+  gap: 14px; align-items: flex-start;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 16px 20px;
+}
+.proof-icon {
+  width: 32px; height: 32px;
+  border-radius: 8px;
+  background: var(--teal-bg);
+  border: 1px solid var(--teal-bdr);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.proof-icon svg { width: 14px; height: 14px; }
+.proof-body h4 { font-size: 0.9rem; font-weight: 600; color: var(--ink); margin-bottom: 3px; }
+.proof-body p { font-size: 0.82rem; color: var(--muted); line-height: 1.58; margin: 0; }
+.proof-body .why { font-size: 0.76rem; color: var(--teal); font-weight: 600; margin-top: 4px; }
+
+/* POSITIONING MAP */
+.pos-map {
+  background: var(--white);
+  border: 1px solid var(--border-md);
+  border-radius: var(--r-lg);
+  padding: 32px;
+  margin: 24px 0;
+}
+.pos-map h4 { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase; color: var(--dim); margin-bottom: 20px; }
+.pos-axis { display: grid; grid-template-columns: 120px 1fr; gap: 0; }
+.pos-axis-label {
+  font-size: 0.7rem; font-weight: 600; color: var(--muted);
+  display: flex; align-items: center; justify-content: flex-end;
+  padding-right: 16px;
+}
+.pos-row {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-bottom: 14px;
+  border-bottom: 1px dashed var(--border);
+  margin-bottom: 14px;
+}
+.pos-row:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+.pos-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.pos-dot {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.pos-dot.ee { background: var(--teal); width: 13px; height: 13px; }
+.pos-dot.voda { background: #c9003f; }
+.pos-dot.vm { background: #6e1e9f; }
+.pos-dot.sky { background: #0072c6; }
+.pos-brand-name { font-size: 0.82rem; font-weight: 600; }
+.pos-tag { font-size: 0.74rem; color: var(--muted); }
+.pos-bar-wrap { flex: 1; height: 6px; background: var(--card); border-radius: 3px; overflow: hidden; }
+.pos-bar { height: 100%; border-radius: 3px; }
+.pos-row-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.pos-col h5 { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--dim); margin-bottom: 10px; }
+
+/* 90 DAY PHASES */
+.phases { display: flex; flex-direction: column; gap: 0; margin: 24px 0; }
+.phase {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: 0;
+  border-left: 1px solid var(--border-md);
+  position: relative;
+}
+.phase::before {
+  content:'';
+  position: absolute;
+  left: -5px; top: 22px;
+  width: 9px; height: 9px;
+  border-radius: 50%;
+  background: var(--white);
+  border: 2px solid var(--teal);
+}
+.phase-label {
+  padding: 20px 20px 20px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.phase-week {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: var(--teal);
+}
+.phase-name { font-size: 0.8rem; font-weight: 700; color: var(--ink); line-height: 1.3; }
+.phase-body {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 20px 24px;
+  margin: 12px 0 20px;
+}
+.phase-body h4 { font-size: 0.88rem; font-weight: 700; color: var(--ink); margin-bottom: 10px; }
+.task-list { display: flex; flex-direction: column; gap: 8px; }
+.task {
+  display: flex; gap: 10px; align-items: flex-start;
+  font-size: 0.83rem; color: var(--muted); line-height: 1.55;
+}
+.task-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.66rem; font-weight: 700;
+  color: var(--teal);
+  background: var(--teal-bg);
+  padding: 2px 6px; border-radius: 3px;
+  flex-shrink: 0; margin-top: 2px;
+}
+.task strong { color: var(--ink); font-weight: 600; }
+.phase-output {
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid var(--border);
+  font-size: 0.78rem;
+  color: var(--teal);
+  font-weight: 600;
+  display: flex; align-items: center; gap: 6px;
+}
+.phase-output::before { content: '→'; }
+
+/* DEPENDENCY TABLE */
+.dep-table { width: 100%; border-collapse: collapse; margin: 20px 0; border: 1px solid var(--border-md); border-radius: var(--r); overflow: hidden; }
+.dep-table th {
+  background: var(--card);
+  padding: 10px 14px;
+  text-align: left;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--dim);
+  border-bottom: 1px solid var(--border-md);
+}
+.dep-table td {
+  padding: 13px 14px;
+  font-size: 0.83rem;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+  background: var(--white);
+}
+.dep-table tr:last-child td { border-bottom: none; }
+.dep-table td:first-child { font-weight: 600; color: var(--ink); }
+.dep-table td:nth-child(2) { color: var(--muted); }
+.dep-risk {
+  font-size: 0.7rem; font-weight: 600;
+  padding: 2px 8px; border-radius: 3px;
+}
+.risk-hi { background: var(--red-bg); color: var(--red); }
+.risk-med { background: var(--amber-bg); color: var(--amber); }
+.risk-lo { background: var(--lime-bg); color: var(--lime); }
+
+/* MEASUREMENT */
+.measure-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 20px 0; }
+.measure-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 20px;
+}
+.measure-card .m-tier {
+  font-size: 0.64rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--dim); margin-bottom: 6px;
+}
+.measure-card .m-metric { font-size: 0.9rem; font-weight: 700; color: var(--ink); margin-bottom: 4px; line-height: 1.3; }
+.measure-card .m-how { font-size: 0.78rem; color: var(--muted); line-height: 1.5; }
+.measure-card .m-target { font-family: 'JetBrains Mono', monospace; font-size: 0.76rem; color: var(--teal); font-weight: 600; margin-top: 8px; }
+
+/* TEST TABLE */
+.test-strip { display: flex; flex-direction: column; gap: 10px; margin: 20px 0; }
+.test-item {
+  display: grid;
+  grid-template-columns: 36px 1fr auto;
+  gap: 14px;
+  align-items: flex-start;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 16px 20px;
+}
+.test-n {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.9rem; font-weight: 700;
+  color: var(--teal);
+  padding-top: 1px;
+}
+.test-body h4 { font-size: 0.88rem; font-weight: 600; color: var(--ink); margin-bottom: 3px; }
+.test-body p { font-size: 0.8rem; color: var(--muted); line-height: 1.55; margin: 0; }
+.test-effort {
+  font-size: 0.7rem; font-weight: 700;
+  padding: 3px 9px; border-radius: 4px;
+  white-space: nowrap; align-self: flex-start; margin-top: 2px;
+}
+.effort-lo { background: var(--lime-bg); color: var(--lime); }
+.effort-med { background: var(--amber-bg); color: var(--amber); }
+
+/* CALLOUT */
+.callout {
+  background: var(--teal-bg);
+  border: 1px solid var(--teal-bdr);
+  border-radius: var(--r);
+  padding: 20px 24px;
+  margin: 20px 0;
+  font-size: 0.88rem;
+  color: var(--ink);
+  line-height: 1.65;
+}
+.callout strong { color: var(--teal); }
+
+/* QUOTE */
+.pull-quote {
+  border-left: 3px solid var(--red);
+  padding: 14px 20px;
+  margin: 20px 0;
+  background: var(--red-bg);
+  border-radius: 0 var(--r) var(--r) 0;
+}
+.pull-quote p {
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-style: italic;
+  font-size: 0.98rem;
+  color: var(--ink);
+  line-height: 1.6;
+  margin-bottom: 5px;
+}
+.pull-quote cite { font-size: 0.69rem; color: var(--dim); }
+
+/* FOOTER */
+.doc-footer {
+  border-top: 1px solid var(--border-md);
+  padding-top: 36px;
+  margin-top: 72px;
+  display: flex; align-items: flex-start; justify-content: space-between; gap: 24px; flex-wrap: wrap;
+}
+.footer-author h4 { font-size: 0.87rem; font-weight: 600; margin-bottom: 4px; }
+.footer-author p { font-size: 0.75rem; color: var(--muted); line-height: 1.5; }
+.footer-note { font-size: 0.68rem; color: var(--dim); max-width: 360px; line-height: 1.65; }
+
+@media (max-width: 640px) {
+  .page { padding: 0 16px 64px; }
+  .brief-box { grid-template-columns: 1fr; gap: 20px; }
+  .arch-grid { grid-template-columns: 100px 1fr; }
+  .measure-grid { grid-template-columns: 1fr; }
+  .phase { grid-template-columns: 1fr; border-left: none; }
+  .phase::before { display: none; }
+  .doc-meta { gap: 16px; }
+  .pos-row-wrap { grid-template-columns: 1fr; }
+  .test-item { grid-template-columns: 28px 1fr; }
+  .test-effort { display: none; }
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <nav class="doc-nav">
+    <div class="nav-brand">
+      <span class="pill">Working Paper</span>
+      EE One First Move — Proposition Development
+    </div>
+    <div class="nav-meta">April 2026</div>
+  </nav>
+
+  <!-- HEADER -->
+  <header class="doc-header">
+    <div class="doc-eyebrow">Proposition Development Framework</div>
+    <h1 class="doc-title">How we build <em>EE One First Move</em> — from insight to launch</h1>
+    <p class="doc-sub">This document sets out the proposition architecture, the 90-day build sequence, the internal dependencies, and the testing approach for EE One First Move — a segment proposition targeting 18-30 first-renters at the point of moving in.</p>
+    <div class="doc-meta">
+      <div class="meta-item">
+        <span class="meta-label">Author</span>
+        <span class="meta-value">Jean Mundabi Fala</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Role context</span>
+        <span class="meta-value">Customer Marketing Manager candidate</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Document type</span>
+        <span class="meta-value">Proposition development paper</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Builds on</span>
+        <span class="meta-value">EE One Proposition Gap Diagnosis</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- 1: THE BRIEF -->
+  <section class="doc-section">
+    <div class="sec-label">01</div>
+    <h2>The brief — what we are building and why</h2>
+    <p>EE One is a strong product in the wrong conversation. The gap diagnosis identified three unaddressed segments, three funnel leaks, and a clear first-mover opportunity. A gap diagnosis tells us <strong>what is wrong</strong>. A proposition development paper tells us <strong>how we fix it</strong>.</p>
+    <p>The proposition we are building is called <strong>EE One First Move</strong>. It is not a new product. It is a new way of talking about, packaging, and distributing an existing one — targeted specifically at the moment a 22-year-old signs their first tenancy agreement.</p>
+
+    <div class="brief-box">
+      <div class="brief-col">
+        <h4>Business problem</h4>
+        <p>EE Consumer broadband ARPU is <strong>£41.8/month, down 1% YoY</strong>. Single-product customers are the floor. The first-renter segment — high-LTV, no incumbent, making a 24-month decision — is not being acquired at the moment of maximum intent.</p>
+      </div>
+      <div class="brief-col">
+        <h4>Customer problem</h4>
+        <p>A 22-year-old moving into their first flat has <strong>14 things to sort in 7 days</strong>. Broadband and mobile are two separate bills, two separate customer service numbers, and two separate direct debits. They do not know a simpler option exists.</p>
+      </div>
+      <div class="brief-col">
+        <h4>What success looks like</h4>
+        <p>In 90 days: a segment landing page converting at a <strong>higher rate than the current EE One page</strong> for 18-30 visitors. A move-in channel partner identified. A business case for the move-with-us guarantee in front of product.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2: PROPOSITION ARCHITECTURE -->
+  <section class="doc-section">
+    <div class="sec-label">02</div>
+    <h2>Proposition architecture</h2>
+    <p>A proposition has six components. Each one must be grounded in research — not assumed. Below is the architecture for EE One First Move, built from primary source data.</p>
+
+    <div class="arch-grid">
+      <div class="arch-key">Target</div>
+      <div class="arch-val">
+        <strong>18 to 30 year olds moving into their first privately rented flat in the UK.</strong>
+        <div class="sub">Not students in halls. Not couples buying together. Not families. Specifically: someone signing a tenancy agreement for the first time and setting up their household utilities from scratch — with or without flatmates.</div>
+      </div>
+
+      <div class="arch-key">The moment</div>
+      <div class="arch-val">
+        <strong>The 7-day window between tenancy agreement signing and the first night in the flat.</strong>
+        <div class="sub">This is when broadband and mobile decisions are made. Before this window: no urgency. After it: they have already committed to a provider for 24 months. EE One needs to be the first conversation, not the catch-up call.</div>
+      </div>
+
+      <div class="arch-key">The promise</div>
+      <div class="arch-val">
+        <em>"Your flat sorted. One account. One bill. Broadband live by move-in day."</em>
+        <div class="sub">The promise is certainty and simplicity — not price. At the move-in moment, a first-renter's primary anxiety is not saving £5/month. It is: will broadband actually be live when I need it? EE One owns that answer. No competitor does.</div>
+      </div>
+
+      <div class="arch-key">Proof points</div>
+      <div class="arch-val">
+        <strong>Three things EE can actually commit to that competitors cannot.</strong>
+        <div class="sub">See Section 3 for detail on each. The distinction matters: these are not features. They are claims — things EE can say and defend that no other provider can say in the same breath.</div>
+      </div>
+
+      <div class="arch-key">Pricing frame</div>
+      <div class="arch-val">
+        <strong>Show the total household cost, not the per-person cost.</strong>
+        <div class="sub">EE One from £41.99 sounds expensive against Vodafone's £24 broadband headline. But EE One covers broadband + mobile. A household of 3 on EE One pays £41.99 + £24 in flatmate SIMs = £65.99 for three people. That is £22/person. The comparison site frame loses. The household calculator wins.</div>
+      </div>
+
+      <div class="arch-key">Name and frame</div>
+      <div class="arch-val">
+        <strong>EE One First Move.</strong>
+        <div class="sub">Not a new brand. An extension of EE One — the word "First" does double duty: first flat, first move, first-renter. The proposition sits inside EE One, not beside it. This matters for brand architecture: we are not creating a sub-brand, we are naming a segment moment.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3: PROOF POINTS -->
+  <section class="doc-section">
+    <div class="sec-label">03</div>
+    <h2>The three proof points — and why they are defensible</h2>
+    <p>Proof points are not marketing claims. They are commitments the product, commercial, and operations teams can actually back. Each one below is matched to an internal owner, a gap it closes, and the reason it is differentiated in the market.</p>
+
+    <div class="proof-strip">
+      <div class="proof-item">
+        <div class="proof-icon">
+          <svg viewBox="0 0 14 14" fill="none" stroke="#057382" stroke-width="1.5" stroke-linecap="round">
+            <path d="M7 1v2M7 11v2M1 7h2M11 7h2M3.2 3.2l1.4 1.4M9.4 9.4l1.4 1.4M3.2 10.8l1.4-1.4M9.4 4.6l1.4-1.4"/>
+          </svg>
+        </div>
+        <div class="proof-body">
+          <h4>Proof point 1 — Move-in priority installation</h4>
+          <p>Broadband live within 5 working days of the key collection date — not 5 days from order. The installation is anchored to <strong>when the customer moves in</strong>, not when the order is processed. Every competitor's installation window is system-driven. EE's can be customer-driven.</p>
+          <p class="why">Why defensible: This requires an operational commitment from the install team, not a product change. The commercial case is clear — a first-renter who gets broadband live on day one has a dramatically different first-month NPS than one who waits 14 days.</p>
+        </div>
+      </div>
+      <div class="proof-item">
+        <div class="proof-icon">
+          <svg viewBox="0 0 14 14" fill="none" stroke="#057382" stroke-width="1.5" stroke-linecap="round">
+            <path d="M2 7c0-2.76 2.24-5 5-5s5 2.24 5 5-2.24 5-5 5"/><path d="M2 7h4"/>
+            <circle cx="7" cy="7" r="1.5"/>
+          </svg>
+        </div>
+        <div class="proof-body">
+          <h4>Proof point 2 — Flatmate SIMs from £12/month, added in one go</h4>
+          <p>The household SIM discount already exists inside EE One. This proof point is about <strong>packaging and framing</strong>. "Add your flatmates to your EE One account from £12/month each. One account. No separate contracts." The calculator shows the combined household saving vs paying separately — £327/year for a household of three.</p>
+          <p class="why">Why defensible: No other UK provider has a bundled mobile-for-flatmates offer that sits inside a broadband contract. Virgin Volt is individual. Vodafone Together saves £4/month. This saves £27/month at household level.</p>
+        </div>
+      </div>
+      <div class="proof-item">
+        <div class="proof-icon">
+          <svg viewBox="0 0 14 14" fill="none" stroke="#057382" stroke-width="1.5" stroke-linecap="round">
+            <path d="M7 13c3.31 0 6-2.69 6-6S10.31 1 7 1 1 3.69 1 7s2.69 6 6 6z"/>
+            <path d="M4 7l2 2 4-4"/>
+          </svg>
+        </div>
+        <div class="proof-body">
+          <h4>Proof point 3 — Move-with-us guarantee</h4>
+          <p>When you move home within the 24-month term, your contract terms stay the same. No new contract. No price reset. No early exit fee if you are moving to an area EE cannot serve. <strong>This is a policy change, not a product change.</strong> It reverses EE's single biggest churn trigger in the 18-30 segment and turns the forum's most visible complaint category into a competitive differentiator.</p>
+          <p class="why">Why defensible: No competitor offers it. The fact that EE's current policy is the opposite makes the switch genuinely newsworthy. This is a PR story as well as a proposition claim — "EE becomes the first UK broadband provider to guarantee contract continuity when you move home."</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout">
+      <strong>Important:</strong> None of these proof points require new infrastructure. They require internal alignment, a policy decision on home-move contract handling, and a repackaging of the household SIM discount. The proposition can be built before the product changes — and the product changes can follow the evidence from conversion data.
+    </div>
+  </section>
+
+  <!-- 4: POSITIONING -->
+  <section class="doc-section">
+    <div class="sec-label">04</div>
+    <h2>Positioning — what we own and what we do not fight for</h2>
+    <p>Positioning is not about being the best on every dimension. It is about choosing which dimension to win on and making everything else irrelevant. EE One First Move cannot win on headline price — Vodafone's £24 broadband entry point is lower. It should not try.</p>
+    <p>The dimension EE One First Move wins on is <strong>certainty at the move-in moment</strong>. This is a dimension no competitor is currently competing on. Nobody owns "your first flat, sorted." The market is fighting for price comparison clicks. EE One First Move exits that fight entirely.</p>
+
+    <div class="pos-map">
+      <h4>Competitive positioning — two dimensions</h4>
+      <div class="pos-row-wrap">
+        <div>
+          <h5>On price (headline entry)</h5>
+          <div class="pos-row">
+            <div class="pos-brand"><span class="pos-dot voda"></span><span class="pos-brand-name">Vodafone</span></div>
+            <div class="pos-bar-wrap"><div class="pos-bar" style="width:90%;background:#c9003f;opacity:.7"></div></div>
+            <span class="pos-tag" style="font-size:.74rem;color:var(--muted);white-space:nowrap">£24/mo BB</span>
+          </div>
+          <div class="pos-row">
+            <div class="pos-brand"><span class="pos-dot vm"></span><span class="pos-brand-name">Virgin M O2</span></div>
+            <div class="pos-bar-wrap"><div class="pos-bar" style="width:82%;background:#6e1e9f;opacity:.6"></div></div>
+            <span class="pos-tag" style="font-size:.74rem;color:var(--muted);white-space:nowrap">£26/mo student</span>
+          </div>
+          <div class="pos-row">
+            <div class="pos-brand"><span class="pos-dot ee"></span><span class="pos-brand-name">EE One First Move</span></div>
+            <div class="pos-bar-wrap"><div class="pos-bar" style="width:58%;background:var(--teal)"></div></div>
+            <span class="pos-tag" style="font-size:.74rem;color:var(--teal);font-weight:600;white-space:nowrap">£22/person (household of 3)</span>
+          </div>
+        </div>
+        <div>
+          <h5>On certainty at move-in (unique claims)</h5>
+          <div class="pos-row">
+            <div class="pos-brand"><span class="pos-dot ee"></span><span class="pos-brand-name">EE One First Move</span></div>
+            <div class="pos-bar-wrap"><div class="pos-bar" style="width:95%;background:var(--teal)"></div></div>
+            <span class="pos-tag" style="font-size:.74rem;color:var(--teal);font-weight:600;white-space:nowrap">3 unique claims</span>
+          </div>
+          <div class="pos-row">
+            <div class="pos-brand"><span class="pos-dot sky"></span><span class="pos-brand-name">Sky</span></div>
+            <div class="pos-bar-wrap"><div class="pos-bar" style="width:12%;background:#0072c6;opacity:.5"></div></div>
+            <span class="pos-tag" style="font-size:.74rem;color:var(--muted);white-space:nowrap">No segment offer</span>
+          </div>
+          <div class="pos-row">
+            <div class="pos-brand"><span class="pos-dot voda"></span><span class="pos-brand-name">Vodafone</span></div>
+            <div class="pos-bar-wrap"><div class="pos-bar" style="width:10%;background:#c9003f;opacity:.5"></div></div>
+            <span class="pos-tag" style="font-size:.74rem;color:var(--muted);white-space:nowrap">No segment offer</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <p>The positioning insight: <strong>EE One First Move competes on a dimension that comparison sites do not measure.</strong> MoneySuperMarket cannot rank "certainty at move-in." It can only rank price. By owning certainty, EE exits the comparison site game and builds a direct relationship with the customer at the most valuable moment in their telecoms lifecycle.</p>
+  </section>
+
+  <!-- 5: 90-DAY BUILD -->
+  <section class="doc-section">
+    <div class="sec-label">05</div>
+    <h2>The 90-day build — four phases</h2>
+    <p>Proposition development is not a single launch. It is a sequence of bets, each one building evidence for the next. The logic here is: <strong>test cheap before building expensive</strong>. Start with what can be validated on existing infrastructure, then fund the bigger builds with conversion data.</p>
+
+    <div class="phases">
+
+      <div class="phase">
+        <div class="phase-label">
+          <span class="phase-week">Wks 01–03</span>
+          <span class="phase-name">Validate the insight</span>
+        </div>
+        <div class="phase-body">
+          <h4>Before we build anything, we confirm the assumptions</h4>
+          <div class="task-list">
+            <div class="task"><span class="task-num">T1</span><span>Pull the <strong>NPS cut for 18-30 new EE One customers</strong> from the data warehouse. Split by those who moved in the last 3 months vs those who did not. What is the gap in satisfaction? This is the first data point.</span></div>
+            <div class="task"><span class="task-num">T2</span><span>Quantify the <strong>moving-home churn rate</strong> in the 18-30 cohort. How many customers move home annually? Of those, what percentage lapse vs renew? What is the revenue at risk? This is the commercial case for the move-with-us guarantee.</span></div>
+            <div class="task"><span class="task-num">T3</span><span>Pull <strong>search entry data</strong> for ee.co.uk/ee-one. What percentage of 18-30 visitors come from comparison sites vs direct search vs organic? What queries are driving them? This tells us whether we are in the right conversation.</span></div>
+            <div class="task"><span class="task-num">T4</span><span>Run <strong>3 qualitative interviews</strong> with recent 18-30 EE One customers who moved in the last 6 months. One hour each. Specific question: "Walk me through the week before and after you moved in. What were you trying to sort? When did you think about broadband?"</span></div>
+          </div>
+          <div class="phase-output">Output: a data pack with the commercial case for EE One First Move — used in Phase 2 stakeholder alignment</div>
+        </div>
+      </div>
+
+      <div class="phase">
+        <div class="phase-label">
+          <span class="phase-week">Wks 04–06</span>
+          <span class="phase-name">Build the case internally</span>
+        </div>
+        <div class="phase-body">
+          <h4>Get the internal yes — proposition, policy, and partnership</h4>
+          <div class="task-list">
+            <div class="task"><span class="task-num">T5</span><span>Write the <strong>internal proposition brief</strong>: target, moment, promise, proof points, pricing frame, channel strategy, success metrics. One page. This is the document that aligns brand, product, and commercial before anything is built.</span></div>
+            <div class="task"><span class="task-num">T6</span><span>Brief <strong>Rachel Ward's product team</strong> on the move-with-us guarantee. Present the commercial case: moving-home churn cost, community forum sentiment data, competitive gap analysis. Specific ask: change the home-move trigger from "new 24-month contract" to "contract continuation" for customers within existing term.</span></div>
+            <div class="task"><span class="task-num">T7</span><span>Scope the <strong>SpareRoom partnership</strong>. SpareRoom has 20 million users, zero competing broadband partner, and a tenancy confirmation email that goes to every new tenant. First meeting: what does a co-branded move-in moment integration cost vs the value of intercepting a first-renter at maximum intent?</span></div>
+            <div class="task"><span class="task-num">T8</span><span>Brief the <strong>creative team</strong> on EE One First Move. The creative territory: certainty, not savings. The visual world: the first night in a new flat — keys on the counter, boxes everywhere, phone in hand. Human, specific, not stock photography.</span></div>
+          </div>
+          <div class="phase-output">Output: signed-off proposition brief + product team alignment on move-with-us policy + SpareRoom commercial terms</div>
+        </div>
+      </div>
+
+      <div class="phase">
+        <div class="phase-label">
+          <span class="phase-week">Wks 07–09</span>
+          <span class="phase-name">Test before building</span>
+        </div>
+        <div class="phase-body">
+          <h4>Validate the proposition with real visitors before full launch</h4>
+          <div class="task-list">
+            <div class="task"><span class="task-num">T9</span><span>Run a <strong>3-variant A/B test on the current EE One hero headline</strong>. No new page required — swap the headline only. Variant A: "The perfect plan for your household" (control). Variant B: "Your first flat. One bill. Broadband live by move-in day." Variant C: "Sort your whole flat in one go." Measure: bounce rate and "Create EE One" click rate for 18-30 visitors.</span></div>
+            <div class="task"><span class="task-num">T10</span><span>Add the <strong>flatmate household calculator</strong> to the existing EE One page as a new section. No redesign. Measure: interaction rate and conversion lift for visitors who use it vs those who scroll past.</span></div>
+            <div class="task"><span class="task-num">T11</span><span>Send a <strong>single CRM email to existing 18-30 EE mobile customers on student plans</strong> who have not taken broadband. Subject: "Moving out of uni?" One clear offer. Measure: open rate, click rate, and EE One conversion from this cohort.</span></div>
+          </div>
+          <div class="phase-output">Output: conversion data for each variant — informs which headline, which framing, and which channel to invest in at launch</div>
+        </div>
+      </div>
+
+      <div class="phase">
+        <div class="phase-label">
+          <span class="phase-week">Wks 10–12</span>
+          <span class="phase-name">Launch and measure</span>
+        </div>
+        <div class="phase-body">
+          <h4>Go live with the evidence behind us</h4>
+          <div class="task-list">
+            <div class="task"><span class="task-num">T12</span><span>Publish the <strong>EE One First Move segment landing page</strong> — built on winning headline and framing from Phase 3 test. 15 sections. Savings calculator. Flatmate SIM mechanic. Move-with-us guarantee section. Distinct URL for tracking.</span></div>
+            <div class="task"><span class="task-num">T13</span><span>Launch <strong>SEO content programme</strong>: 4 articles targeting "broadband when moving flat UK", "how long does broadband take to set up", "best broadband for first flat", "how to add flatmates to broadband account." These are informational queries that comparison sites do not rank for. EE can own them.</span></div>
+            <div class="task"><span class="task-num">T14</span><span>Pilot the <strong>SpareRoom integration</strong> — if commercial terms are agreed — with a co-branded tenancy confirmation email. Measure: click-through to segment landing page and conversion to EE One sign-up vs standard acquisition channel CAC.</span></div>
+            <div class="task"><span class="task-num">T15</span><span>Brief <strong>PR on the move-with-us guarantee</strong> — if policy is confirmed. Pitch angle: "EE becomes the first UK broadband provider to guarantee your contract when you move home." Target: consumer tech, personal finance, and tenants' rights press. This is earned media that comparison site campaigns cannot generate.</span></div>
+          </div>
+          <div class="phase-output">Output: live segment page + first 30 days of conversion data + SpareRoom pilot results + PR coverage on move-with-us guarantee</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 6: INTERNAL DEPENDENCIES -->
+  <section class="doc-section">
+    <div class="sec-label">06</div>
+    <h2>Internal dependencies — who needs to say yes</h2>
+    <p>Propositions fail in execution more often than in strategy. The three proof points each require internal alignment with a team that does not report to customer marketing. This table maps each dependency, the ask, and the risk if it is not resolved.</p>
+
+    <table class="dep-table">
+      <thead>
+        <tr>
+          <th>Team / owner</th>
+          <th>The specific ask</th>
+          <th>Risk if not resolved</th>
+          <th>Timeline</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Product — Rachel Ward</td>
+          <td>Change the home-move trigger from "new 24-month contract at current pricing" to "contract continuation on existing terms." This is the move-with-us guarantee. It is a policy change, not a product build.</td>
+          <td><span class="dep-risk risk-hi">High</span> — Proof point 3 cannot be marketed without this. Launching without it means marketing a guarantee EE cannot deliver.</td>
+          <td>Week 4-6 alignment. Weeks 7-9 staging. Live at launch.</td>
+        </tr>
+        <tr>
+          <td>Commercial — Partnerships</td>
+          <td>Initiate a commercial discussion with SpareRoom for a co-branded move-in moment integration. Starting point: a tenancy confirmation email co-brand. Escalation: a dedicated "sort your broadband" module at tenancy sign.</td>
+          <td><span class="dep-risk risk-med">Medium</span> — The proposition launches without the highest-intent acquisition channel. Still viable on SEO and CRM, but CAC will be higher.</td>
+          <td>Scope in Week 5. First meeting Week 6. Pilot by Week 12.</td>
+        </tr>
+        <tr>
+          <td>Brand — Creative</td>
+          <td>Sign off on the "EE One First Move" name and creative territory. The brief: certainty at move-in, not savings or features. The visual world: the first night in a new flat. First iteration is a segment landing page, not a full campaign.</td>
+          <td><span class="dep-risk risk-lo">Low</span> — Segment page can launch with a brief visual treatment before full brand campaign. Brand sign-off needed before paid media activation.</td>
+          <td>Creative brief in Week 5. First visual treatment Week 7-8.</td>
+        </tr>
+        <tr>
+          <td>CRM / Data</td>
+          <td>Access to the 18-30 EE mobile customer cohort who are on student SIM plans. Specific data needed: age, plan type, account age. Used to build the student-to-first-renter CRM pipeline.</td>
+          <td><span class="dep-risk risk-med">Medium</span> — The student pipeline (Proof point 4) does not launch without this. Impact is on one of four acquisition channels, not the whole proposition.</td>
+          <td>Data access request Week 3. CRM pilot email Week 8.</td>
+        </tr>
+        <tr>
+          <td>Legal / Compliance</td>
+          <td>Draft the contractual language for the move-with-us guarantee. Specifically: what "same contract terms" means in the context of broadband installation at a new address. Edge cases: what if EE cannot serve the new postcode?</td>
+          <td><span class="dep-risk risk-hi">High</span> — Cannot publish the guarantee on the landing page without legal sign-off. A guarantee that is not backed by clear contract language creates more customer service risk than the current policy.</td>
+          <td>Legal brief Week 5. Draft language Week 7. Sign-off Week 9.</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- 7: MEASUREMENT -->
+  <section class="doc-section">
+    <div class="sec-label">07</div>
+    <h2>How we know the proposition is working</h2>
+    <p>Every metric below maps to a specific proposition claim. If the proposition is right, these numbers move. If they do not, we have a specific question to investigate — not a vague performance problem.</p>
+
+    <div class="measure-grid">
+      <div class="measure-card">
+        <div class="m-tier">Primary</div>
+        <div class="m-metric">Segment page conversion rate vs EE One control</div>
+        <div class="m-how">Track "Create EE One" clicks for 18-30 visitors on the First Move segment page vs the existing EE One page. Isolate by age band using analytics. Run as a controlled split test before full redirect.</div>
+        <div class="m-target">Target: +20% conversion rate vs control within 60 days of launch</div>
+      </div>
+      <div class="measure-card">
+        <div class="m-tier">Primary</div>
+        <div class="m-metric">ARPU of segment page acquisitions vs generic page</div>
+        <div class="m-how">Do customers acquired through the First Move page take flatmate SIMs at a higher rate? If the proposition is working, segment page acquisitions should have higher 90-day ARPU than generic EE One acquisitions.</div>
+        <div class="m-target">Target: First Move acquisition ARPU 40% above single-product ARPU within 90 days</div>
+      </div>
+      <div class="measure-card">
+        <div class="m-tier">Secondary</div>
+        <div class="m-metric">Moving-home churn rate in 18-30 cohort</div>
+        <div class="m-how">Baseline: measure the % of 18-30 EE customers who lapse within 30 days of changing their address on the account. After the move-with-us guarantee is live, track the same cohort. This is the retention signal for Proof Point 3.</div>
+        <div class="m-target">Target: 25% reduction in move-triggered churn within 6 months of guarantee launch</div>
+      </div>
+      <div class="measure-card">
+        <div class="m-tier">Secondary</div>
+        <div class="m-metric">Flatmate SIM attach rate on new EE One accounts</div>
+        <div class="m-how">Of all new EE One accounts opened by 18-30 customers, what percentage add at least one flatmate SIM within 30 days? This measures whether the flatmate packaging is landing — not just converting broadband, but converting the household.</div>
+        <div class="m-target">Target: 18% SIM attach rate on segment page acquisitions vs current baseline</div>
+      </div>
+      <div class="measure-card">
+        <div class="m-tier">Leading indicator</div>
+        <div class="m-metric">Bounce rate reduction on 18-30 EE One visitors</div>
+        <div class="m-how">Current EE One page has no first-renter framing. 18-30 visitors bounce because they see nothing for them. After the headline A/B test and segment page launch, measure bounce rate change for this cohort specifically.</div>
+        <div class="m-target">Target: bounce rate down 15 percentage points within 30 days of headline test</div>
+      </div>
+      <div class="measure-card">
+        <div class="m-tier">Leading indicator</div>
+        <div class="m-metric">Calculator interaction rate</div>
+        <div class="m-how">The savings calculator is the most direct measure of proposition engagement. If visitors use it, the framing is working. If they scroll past, the entry point into the calculator is wrong. Track interaction rate and completion rate separately.</div>
+        <div class="m-target">Target: 22% of page visitors interact with calculator within 45 days of launch</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8: WHAT WE TEST FIRST -->
+  <section class="doc-section">
+    <div class="sec-label">08</div>
+    <h2>The test sequencing — cheapest signals first</h2>
+    <p>The order of tests matters. We build evidence from low-cost, low-commitment tests before investing in new infrastructure. Each test below can be run on existing pages with no new development — and each one answers a specific proposition question before the next investment is made.</p>
+
+    <div class="test-strip">
+      <div class="test-item">
+        <div class="test-n">01</div>
+        <div class="test-body">
+          <h4>Hero headline A/B — existing EE One page</h4>
+          <p>Swap the headline only. Three variants. Measure click rate and bounce rate for 18-30 visitors. <strong>Question answered: which framing resonates — certainty, simplicity, or savings?</strong> This determines the hero for the segment landing page and for all downstream creative.</p>
+        </div>
+        <span class="test-effort effort-lo">Low effort</span>
+      </div>
+      <div class="test-item">
+        <div class="test-n">02</div>
+        <div class="test-body">
+          <h4>Flatmate calculator — added to existing EE One page</h4>
+          <p>Add a single new section — the household savings calculator — to the existing page. No redesign. Measure interaction rate and whether users who interact convert at a higher rate. <strong>Question answered: does showing the household saving change conversion, or does it not matter?</strong></p>
+        </div>
+        <span class="test-effort effort-lo">Low effort</span>
+      </div>
+      <div class="test-item">
+        <div class="test-n">03</div>
+        <div class="test-body">
+          <h4>CRM email to student SIM customers</h4>
+          <p>One email to the 18-30 cohort on student SIM plans who do not have broadband. Subject line: "Moving out of uni? Your EE One is ready." <strong>Question answered: is the student-to-first-renter pipeline viable, or does the cohort not convert at meaningful rates?</strong></p>
+        </div>
+        <span class="test-effort effort-lo">Low effort</span>
+      </div>
+      <div class="test-item">
+        <div class="test-n">04</div>
+        <div class="test-body">
+          <h4>Segment landing page — full build</h4>
+          <p>Only after Tests 01–03 have validated the headline, the flatmate framing, and the CRM channel. Build the full segment page with the winning creative treatment. <strong>This is where the budget goes — informed by real conversion data, not assumptions.</strong></p>
+        </div>
+        <span class="test-effort effort-med">Medium effort</span>
+      </div>
+      <div class="test-item">
+        <div class="test-n">05</div>
+        <div class="test-body">
+          <h4>SpareRoom pilot — tenancy confirmation email</h4>
+          <p>Co-branded email to new SpareRoom tenants within 24 hours of tenancy confirmation. Links to segment landing page. <strong>Question answered: what is the CAC from move-in moment targeting vs search and comparison sites?</strong> This becomes the commercial case for a deeper SpareRoom integration.</p>
+        </div>
+        <span class="test-effort effort-med">Medium effort</span>
+      </div>
+    </div>
+
+    <div class="callout">
+      <strong>The underlying principle:</strong> a proposition that requires a full re-platform to validate is too expensive to test. Every test here runs on existing infrastructure. By Week 9, we have data on five separate proposition hypotheses — before a single pound of additional paid media is committed.
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="doc-footer">
+    <div class="footer-author">
+      <h4>Jean Mundabi Fala</h4>
+      <p>Customer Marketing Manager candidate, BT Consumer<br>Marketing &amp; Effectiveness Manager, BT SMB</p>
+    </div>
+    <p class="footer-note">This paper was prepared as part of pre-interview strategic preparation for the Customer Marketing Manager role at BT Consumer. All data verified against primary sources. Not affiliated with or endorsed by EE or BT in any official capacity.</p>
+  </footer>
+
+</div>
+</body>
+</html>

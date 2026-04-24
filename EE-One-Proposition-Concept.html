@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EE One — Proposition Gap Diagnosis | Jean Mundabi Fala</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:        #F7F8FA;
+  --surface:   #FFFFFF;
+  --card:      #F0F2F5;
+  --card-white:#FFFFFF;
+  --border:    rgba(10,11,30,0.08);
+  --border-md: rgba(10,11,30,0.12);
+  --ink:       #0A0B1E;
+  --lime:      #4CAF00;
+  --lime-bg:   rgba(76,175,0,0.08);
+  --lime-bdr:  rgba(76,175,0,0.22);
+  --teal:      #057382;
+  --teal-bg:   rgba(5,115,130,0.07);
+  --cyan:      #0369A1;
+  --muted:     rgba(10,11,30,0.52);
+  --dim:       rgba(10,11,30,0.32);
+  --red:       #D92B2B;
+  --red-bg:    rgba(217,43,43,0.06);
+  --r:         10px;
+  --r-lg:      16px;
+}
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Outfit', system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+.page { max-width: 780px; margin: 0 auto; padding: 0 28px 80px; }
+
+/* ===== NAV ===== */
+.doc-nav {
+  padding: 18px 0;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  background: rgba(247,248,250,0.92);
+  backdrop-filter: blur(16px);
+  z-index: 50;
+}
+.nav-brand { font-size: 0.82rem; font-weight: 600; display: flex; align-items: center; gap: 8px; color: var(--ink); }
+.nav-brand span { color: var(--muted); font-weight: 400; }
+.nav-meta { font-size: 0.75rem; color: var(--dim); font-family: 'JetBrains Mono', monospace; }
+
+/* ===== HEADER ===== */
+.doc-header { padding: 40px 0 48px; border-bottom: 1px solid var(--border); margin-bottom: 52px; }
+.doc-eyebrow {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--teal);
+  margin-bottom: 18px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.doc-eyebrow::before { content: ''; display: block; width: 18px; height: 2px; background: var(--teal); }
+.doc-title {
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-size: clamp(1.9rem, 5vw, 2.8rem);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin-bottom: 18px;
+  color: var(--ink);
+}
+.doc-title em { font-style: italic; color: var(--teal); }
+.doc-subtitle { font-size: 1rem; color: var(--muted); line-height: 1.75; max-width: 600px; margin-bottom: 28px; }
+.doc-meta-row {
+  display: flex;
+  gap: 28px;
+  flex-wrap: wrap;
+  padding-top: 24px;
+  border-top: 1px solid var(--border);
+}
+.meta-item { display: flex; flex-direction: column; gap: 3px; }
+.meta-label { font-size: 0.66rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--dim); }
+.meta-value { font-size: 0.85rem; font-weight: 500; color: var(--ink); }
+
+/* ===== SECTIONS ===== */
+.doc-section { margin-bottom: 52px; }
+.section-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.66rem;
+  font-weight: 500;
+  color: var(--teal);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.section-num::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+.doc-section h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 14px;
+  line-height: 1.3;
+  color: var(--ink);
+}
+.doc-section p {
+  font-size: 0.94rem;
+  color: var(--muted);
+  line-height: 1.78;
+  margin-bottom: 14px;
+}
+.doc-section p strong { color: var(--ink); font-weight: 600; }
+
+/* ===== DATA CALLOUT ===== */
+.data-strip {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border-md);
+  border-radius: var(--r);
+  overflow: hidden;
+  margin: 24px 0;
+}
+.data-cell {
+  background: var(--card-white);
+  padding: 22px 18px;
+  text-align: center;
+}
+.data-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1.65rem;
+  font-weight: 700;
+  color: var(--teal);
+  line-height: 1;
+  margin-bottom: 6px;
+}
+.data-desc { font-size: 0.75rem; color: var(--muted); line-height: 1.45; }
+
+/* ===== GAPS ===== */
+.gap-list { display: flex; flex-direction: column; gap: 12px; margin: 20px 0; }
+.gap-item {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  background: var(--card-white);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 20px 22px;
+  transition: border-color .2s;
+}
+.gap-item:hover { border-color: var(--border-md); }
+.gap-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: var(--teal);
+  background: var(--teal-bg);
+  padding: 4px 8px;
+  border-radius: 4px;
+  flex-shrink: 0;
+  margin-top: 2px;
+  white-space: nowrap;
+}
+.gap-content h4 { font-size: 0.93rem; font-weight: 600; margin-bottom: 5px; color: var(--ink); }
+.gap-content p { font-size: 0.84rem; color: var(--muted); line-height: 1.62; margin: 0; }
+
+/* ===== COMPETITORS ===== */
+.comp-table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+.comp-table th {
+  padding: 10px 14px;
+  text-align: left;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--dim);
+  border-bottom: 1px solid var(--border-md);
+  background: var(--card);
+}
+.comp-table td {
+  padding: 12px 14px;
+  font-size: 0.84rem;
+  color: var(--muted);
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+  background: var(--card-white);
+}
+.comp-table td:first-child { color: var(--ink); font-weight: 500; }
+.comp-table tr:last-child td { border-bottom: none; }
+.comp-table { border: 1px solid var(--border-md); border-radius: var(--r); overflow: hidden; }
+.no-tag {
+  font-size: 0.7rem;
+  padding: 2px 7px;
+  border-radius: 3px;
+  background: var(--red-bg);
+  color: var(--red);
+  font-weight: 500;
+}
+.yes-tag {
+  font-size: 0.7rem;
+  padding: 2px 7px;
+  border-radius: 3px;
+  background: var(--lime-bg);
+  color: var(--lime);
+  font-weight: 500;
+}
+
+/* ===== PROPOSITION BOX ===== */
+.prop-box {
+  background: var(--card-white);
+  border: 1px solid var(--border-md);
+  border-top: 3px solid var(--teal);
+  border-radius: var(--r-lg);
+  padding: 32px;
+  margin: 24px 0;
+}
+.prop-box h3 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 5px;
+  color: var(--teal);
+}
+.prop-box .prop-tagline { font-size: 0.84rem; color: var(--muted); margin-bottom: 22px; line-height: 1.6; }
+.prop-adds { display: flex; flex-direction: column; gap: 14px; }
+.prop-add {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  font-size: 0.87rem;
+}
+.prop-add-icon {
+  width: 20px; height: 20px;
+  border-radius: 50%;
+  background: var(--teal-bg);
+  border: 1px solid rgba(5,115,130,0.25);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.prop-add-text strong { color: var(--ink); font-weight: 600; }
+.prop-add-text { color: var(--muted); line-height: 1.55; }
+
+/* ===== TIMELINE ===== */
+.timeline { margin: 20px 0; }
+.tl-item {
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  gap: 20px;
+  padding: 18px 0;
+  border-bottom: 1px solid var(--border);
+}
+.tl-item:last-child { border-bottom: none; }
+.tl-period {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--teal);
+  padding-top: 3px;
+  line-height: 1.4;
+}
+.tl-content h4 { font-size: 0.9rem; font-weight: 600; margin-bottom: 5px; color: var(--ink); }
+.tl-content p { font-size: 0.82rem; color: var(--muted); line-height: 1.62; margin: 0; }
+
+/* ===== COMMERCIAL CASE ===== */
+.commercial-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin: 20px 0;
+}
+.commercial-card {
+  background: var(--card-white);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 22px;
+  transition: border-color .2s;
+}
+.commercial-card:hover { border-color: var(--border-md); }
+.commercial-card .c-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--cyan);
+  margin-bottom: 5px;
+  line-height: 1;
+}
+.commercial-card .c-label { font-size: 0.8rem; font-weight: 600; margin-bottom: 5px; color: var(--ink); }
+.commercial-card .c-desc { font-size: 0.76rem; color: var(--muted); line-height: 1.52; }
+
+/* ===== QUOTE ===== */
+.pull-quote {
+  border-left: 3px solid var(--red);
+  padding: 16px 22px;
+  margin: 24px 0;
+  background: var(--red-bg);
+  border-radius: 0 var(--r) var(--r) 0;
+}
+.pull-quote p {
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-style: italic;
+  font-size: 1rem;
+  color: var(--ink);
+  margin-bottom: 6px !important;
+  line-height: 1.65;
+}
+.pull-quote cite { font-size: 0.7rem; color: var(--dim); }
+
+/* ===== FOOTER ===== */
+.doc-footer {
+  border-top: 1px solid var(--border-md);
+  padding-top: 36px;
+  margin-top: 72px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+.footer-author h4 { font-size: 0.88rem; font-weight: 600; margin-bottom: 4px; color: var(--ink); }
+.footer-author p { font-size: 0.76rem; color: var(--muted); line-height: 1.55; }
+.footer-note { font-size: 0.7rem; color: var(--dim); max-width: 360px; line-height: 1.65; }
+
+@media (max-width: 600px) {
+  .page { padding: 0 16px 60px; }
+  .data-strip { grid-template-columns: 1fr; }
+  .commercial-grid { grid-template-columns: 1fr; }
+  .doc-meta-row { gap: 16px; }
+  .tl-item { grid-template-columns: 80px 1fr; gap: 12px; }
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <nav class="doc-nav">
+    <div class="nav-brand">EE One <span>/ Proposition Gap Diagnosis</span></div>
+    <div class="nav-meta">April 2026</div>
+  </nav>
+
+  <!-- HEADER -->
+  <header class="doc-header">
+    <div class="doc-eyebrow">Pre-Interview Strategic Analysis</div>
+    <h1 class="doc-title">The <em>first-renter segment</em> is EE One's largest unaddressed growth lever</h1>
+    <p class="doc-subtitle">EE One is a strong product in the wrong conversation. This analysis identifies three proposition gaps, four funnel leaks, and a 90-day plan to own the move-in moment before any competitor does.</p>
+    <div class="doc-meta-row">
+      <div class="meta-item">
+        <span class="meta-label">Prepared by</span>
+        <span class="meta-value">Jean Mundabi Fala</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Role</span>
+        <span class="meta-value">Customer Marketing Manager candidate</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Date</span>
+        <span class="meta-value">April 2026</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Audit score</span>
+        <span class="meta-value" style="color:var(--red);font-family:'JetBrains Mono',monospace;font-size:0.8rem">41/100 — EE One page</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- 1 -->
+  <section class="doc-section">
+    <div class="section-num">01</div>
+    <h2>Who EE One is for right now</h2>
+    <p>EE One is positioned as "the perfect plan for your household." The page assumes the visitor already knows what EE One is, why bundling matters, and that they want EE specifically. That is a <strong>Solution Aware</strong> customer — settled, deliberate, already evaluating EE.</p>
+    <p>The hero CTA is "Create your EE One today." The social proof is award claims. The copy says "exclusive household savings" and "unlimited data boost on eligible existing mobile plans." Every word is written for someone who has already decided.</p>
+    <p>There is no before-and-after. No savings calculator. No scenario framing for someone who is working out their telecoms setup for the first time. No move-in language. The page works for one segment of the market and completely misses the other.</p>
+  </section>
+
+  <!-- 2 -->
+  <section class="doc-section">
+    <div class="section-num">02</div>
+    <h2>The gap — first-renters at move-in</h2>
+
+    <div class="data-strip">
+      <div class="data-cell">
+        <div class="data-num">69%</div>
+        <div class="data-desc">of 16-24 year olds in the UK are private renters (ONS 2024-25)</div>
+      </div>
+      <div class="data-cell">
+        <div class="data-num">32%</div>
+        <div class="data-desc">of all private rented sector tenants are aged 25-34 (ONS 2025)</div>
+      </div>
+      <div class="data-cell">
+        <div class="data-num">24mo</div>
+        <div class="data-desc">The broadband decision made at move-in is typically a 24-month commitment</div>
+      </div>
+    </div>
+
+    <p>These are the people making broadband decisions right now. And they are not Solution Aware. They are <strong>Problem Aware</strong> — they know paying two bills for broadband and mobile is annoying, but they do not know EE One exists or why it solves their specific situation.</p>
+    <p>More importantly: they are making a 24-month decision with <strong>no incumbent provider, no loyalty, and no sunk cost bias</strong>. They are the easiest possible acquisition target — if the proposition meets them where they are.</p>
+
+    <div class="pull-quote">
+      <p>"Moved home on 12th July. Two weeks later my broadband is still not working. I've spent over 20 hours speaking to technical support. So much for 'Just plug in at your new address and you're off.'"</p>
+      <cite>— EE Community Forum (real customer quote)</cite>
+    </div>
+
+    <p>The experience of setting up EE at a new home is EE's most visible failure point. It is also the exact moment a first-renter is forming their 24-month opinion of a brand.</p>
+  </section>
+
+  <!-- 3 -->
+  <section class="doc-section">
+    <div class="section-num">03</div>
+    <h2>What the current page does wrong</h2>
+
+    <div class="gap-list">
+      <div class="gap-item">
+        <span class="gap-num">F1</span>
+        <div class="gap-content">
+          <h4>The hero doesn't speak to anyone specific</h4>
+          <p>"The perfect plan for your household" could be Sky, Vodafone, or Virgin Media. A 22-year-old who just signed their first tenancy agreement lands on that page and sees nothing that confirms this is for them. They bounce. Not because EE One is wrong for them — but because the page doesn't know them.</p>
+        </div>
+      </div>
+      <div class="gap-item">
+        <span class="gap-num">F2</span>
+        <div class="gap-content">
+          <h4>The moving-home penalty is invisible on the acquisition page</h4>
+          <p>The EE Community forum has multiple threads where customers describe being put on new 24-month contracts at higher prices when they move home (one case: £44.99 to £59.99, with a £360 cancellation fee). This is EE's most visible negative word-of-mouth. The page that is supposed to acquire new customers says nothing about it. Every first-renter who has heard one of these stories has an objection that is never answered.</p>
+        </div>
+      </div>
+      <div class="gap-item">
+        <span class="gap-num">F3</span>
+        <div class="gap-content">
+          <h4>The saving is abstract without a calculator</h4>
+          <p>"Exclusive household savings of up to £20 a month" is a claim with no anchor. A first-renter paying ~£31 for broadband and ~£39 for mobile separately (UK average, 18-24 cohort) is spending ~£70/month. EE One at £41.99 saves them ~£27/month — £327 per year. The page never shows this. The saving is invisible.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 -->
+  <section class="doc-section">
+    <div class="section-num">04</div>
+    <h2>The three proposition gaps</h2>
+
+    <div class="gap-list">
+      <div class="gap-item">
+        <span class="gap-num">GAP 1</span>
+        <div class="gap-content">
+          <h4>No move-in moment targeting</h4>
+          <p>There is no EE One campaign, content strategy, or partnership designed to intercept the first-renter at the moment of maximum receptivity — the tenancy agreement signing, the SpareRoom confirmation, the Rightmove "move soon" date. EE's JD explicitly calls out "youth segment strategies" as a priority. But right now, the customer making a 24-month broadband decision in their first flat is choosing from a comparison table where EE looks more expensive than Vodafone and Virgin.</p>
+        </div>
+      </div>
+      <div class="gap-item">
+        <span class="gap-num">GAP 2</span>
+        <div class="gap-content">
+          <h4>No first-renter packaging</h4>
+          <p>EE One's household SIM discount (up to £20/month off for additional SIMs) is the right answer to the shared-flat problem. It already exists in the product. But it is not packaged for a 22-year-old who wants to say to three flatmates: "Get on my EE One account and your SIM is from £12/month." No flatmate framing. No household total calculator. No "add your flat to EE One" call to action.</p>
+        </div>
+      </div>
+      <div class="gap-item">
+        <span class="gap-num">GAP 3</span>
+        <div class="gap-content">
+          <h4>No moving-home guarantee</h4>
+          <p>First-renters move frequently. Moving home with EE currently triggers a new 24-month contract at a higher price. This is the single biggest churn accelerant in the 18-30 segment and generates the most visible negative word-of-mouth. A "move with us for free" guarantee — or a promise that your contract terms stay when you move — would be a genuinely differentiated claim. No competitor offers it. The fact that EE's current policy is the opposite makes it both a commercial problem and a first-mover positioning opportunity.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5 -->
+  <section class="doc-section">
+    <div class="section-num">05</div>
+    <h2>What competitors are not doing</h2>
+    <p>None of the five major UK providers own the first-renter, move-in moment.</p>
+    <table class="comp-table">
+      <thead>
+        <tr>
+          <th>Provider</th>
+          <th>Youth / Renter offer?</th>
+          <th>Move-in moment targeting?</th>
+          <th>Gap</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>EE One</td>
+          <td>Student Beans discount (separate from EE One)</td>
+          <td><span class="no-tag">None</span></td>
+          <td style="font-size:0.8rem">Product exists. Proposition does not.</td>
+        </tr>
+        <tr>
+          <td>Vodafone Together</td>
+          <td><span class="no-tag">None</span></td>
+          <td><span class="no-tag">None</span></td>
+          <td style="font-size:0.8rem">Cheaper entry price (from £24 BB). No segment play.</td>
+        </tr>
+        <tr>
+          <td>Virgin Media O2</td>
+          <td>Student deals from £26/mo (.ac.uk email)</td>
+          <td><span class="no-tag">None</span></td>
+          <td style="font-size:0.8rem">Cable only — not available in many rental areas</td>
+        </tr>
+        <tr>
+          <td>Sky</td>
+          <td><span class="no-tag">None</span></td>
+          <td><span class="no-tag">None</span></td>
+          <td style="font-size:0.8rem">Family-focused. No renter positioning.</td>
+        </tr>
+        <tr>
+          <td>Three</td>
+          <td><span class="no-tag">None</span></td>
+          <td><span class="no-tag">None</span></td>
+          <td style="font-size:0.8rem">5G home broad from ~£35. No bundle benefits.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p><strong>The gap nobody owns:</strong> The moment a UK 22-year-old signs a tenancy agreement. Broadband, mobile, flatmate SIMs — three decisions in seven days. No brand is present at that moment with a proposition designed for it. EE has the product, the network, and the brand trust to own it first.</p>
+  </section>
+
+  <!-- 6 -->
+  <section class="doc-section">
+    <div class="section-num">06</div>
+    <h2>The proposition concept — EE One First Move</h2>
+
+    <div class="prop-box">
+      <h3>EE One First Move</h3>
+      <p class="prop-tagline">An extension of the existing EE One product — positioned specifically for 18-30 first-renters at the point of moving in. No new infrastructure. No new pricing tier. A proposition, not a product.</p>
+      <div class="prop-adds">
+        <div class="prop-add">
+          <div class="prop-add-icon">
+            <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="#B2FF3D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div class="prop-add-text"><strong>Move-in priority installation:</strong> <span>Broadband live within 5 days of your key collection date — not 5 days from order. Anchored to the move, not the system.</span></div>
+        </div>
+        <div class="prop-add">
+          <div class="prop-add-icon">
+            <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="#B2FF3D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div class="prop-add-text"><strong>Flatmate SIMs from £12/month:</strong> <span>Already exists in EE One. Packaged and named — with a household calculator that shows the combined saving.</span></div>
+        </div>
+        <div class="prop-add">
+          <div class="prop-add-icon">
+            <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="#B2FF3D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div class="prop-add-text"><strong>Move-with-us guarantee:</strong> <span>When you move home within the 24-month term, your contract terms stay the same. No new contract. No price reset. This reverses EE's single biggest churn trigger in the 18-30 segment.</span></div>
+        </div>
+        <div class="prop-add">
+          <div class="prop-add-icon">
+            <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="#B2FF3D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div class="prop-add-text"><strong>Student crossover pipeline:</strong> <span>Students with Student Beans verification who are moving into their first post-university flat: first 3 months at student-discounted rate, then step up to EE One standard.</span></div>
+        </div>
+      </div>
+    </div>
+    <p>This requires no new product development. It requires a segment landing page, a content strategy at the move-in moment, a flatmate-framing of the existing household SIM discount, and a policy clarification on moving home.</p>
+  </section>
+
+  <!-- 7 -->
+  <section class="doc-section">
+    <div class="section-num">07</div>
+    <h2>First 90 days</h2>
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-period">Wks 1–4</div>
+        <div class="tl-content">
+          <h4>Understand and measure</h4>
+          <p>Audit the 18-30 customer journey from search to sign-up. Pull NPS data for this cohort specifically. Quantify moving-home churn: how many 18-30 customers lapse at home-move vs renew? What is the revenue at stake? Meet Rachel Ward's product team on the move-with-us guarantee feasibility.</p>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-period">Wks 5–8</div>
+        <div class="tl-content">
+          <h4>Build the segment case</h4>
+          <p>Write the business case for EE One First Move: TAM, LTV, ARPU uplift vs single-product customers, CAC via move-in partnerships vs comparison sites. Prototype the segment landing page. Scope the SpareRoom / Rightmove partnership. Test 3 hero headline variants on the existing EE One page — measure bounce rate and conversion.</p>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-period">Wks 9–12</div>
+        <div class="tl-content">
+          <h4>Launch the first version</h4>
+          <p>Publish the segment landing page. Launch content SEO targeting "broadband moving flat UK" and related queries. Pilot the student-to-EE-One pipeline via email to 18-30 existing EE mobile customers on student plans. Brief PR on the move-with-us guarantee — it is a genuinely newsworthy claim in UK broadband.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8 -->
+  <section class="doc-section">
+    <div class="section-num">08</div>
+    <h2>The commercial case</h2>
+    <div class="commercial-grid">
+      <div class="commercial-card">
+        <div class="c-num">4.7M</div>
+        <div class="c-label">Private renter households aged 16-34 in England</div>
+        <div class="c-desc">ONS 2025. Each household makes a broadband decision every 18-24 months.</div>
+      </div>
+      <div class="commercial-card">
+        <div class="c-num">£1,007</div>
+        <div class="c-label">Minimum revenue per EE One customer over 24 months</div>
+        <div class="c-desc">£41.99/month × 24 = £1,007.76 per household, before flatmate SIMs.</div>
+      </div>
+      <div class="commercial-card">
+        <div class="c-num">£77.99</div>
+        <div class="c-label">Household ARPU with 2 flatmate SIMs added</div>
+        <div class="c-desc">£41.99 broadband + mobile + £12 × 3 flatmate SIMs = £77.99/month per household.</div>
+      </div>
+      <div class="commercial-card">
+        <div class="c-num">£41.8</div>
+        <div class="c-label">Current EE Consumer broadband ARPU</div>
+        <div class="c-desc">Q3 FY26, down 1% YoY. EE One First Move household = 86% above single-product ARPU.</div>
+      </div>
+    </div>
+    <p>The acquisition advantage: first-renters have no incumbent provider. Zero win-back cost. A move-in moment partnership with SpareRoom (20M+ users) or Rightmove reaches them at higher intent than any comparison site, at a fraction of the CAC.</p>
+    <p>The retention advantage: reversing the moving-home penalty converts EE's most visible churn trigger into a loyalty signal. The forum complaints currently generating negative word-of-mouth are a fixable commercial policy — not a product issue.</p>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="doc-footer">
+    <div class="footer-author">
+      <h4>Jean Mundabi Fala</h4>
+      <p>Customer Marketing Manager candidate, BT Consumer<br>Marketing & Effectiveness Manager, BT SMB</p>
+    </div>
+    <p class="footer-note">This analysis was prepared as part of pre-interview strategic preparation. All data verified against primary sources. Not affiliated with or endorsed by EE or BT in any official capacity.</p>
+  </footer>
+
+</div>
+</body>
+</html>

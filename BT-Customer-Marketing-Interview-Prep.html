@@ -1,0 +1,2189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Interview Prep — BT Consumer — Customer Marketing Manager</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #FAFAF9;
+  --card-bg: #FFFFFF;
+  --card-border: #E7E5E4;
+  --card-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.06);
+  --card-shadow-expanded: 0 4px 12px rgba(0,0,0,0.06), 0 2px 4px rgba(0,0,0,0.04);
+  --text: #1C1917;
+  --text-secondary: #57534E;
+  --text-muted: #A8A29E;
+  --accent: #5333E8;
+  --accent-light: #EEF2FF;
+  --emerald: #059669;
+  --emerald-light: #ECFDF5;
+  --orange: #EA580C;
+  --orange-light: #FFF7ED;
+  --red: #DC2626;
+  --red-light: #FEF2F2;
+  --blue: #2563EB;
+  --blue-light: #EFF6FF;
+  --purple: #7C3AED;
+  --purple-light: #F5F3FF;
+  --sidebar-bg: #FFFFFF;
+  --sidebar-width: 260px;
+  --border: #E7E5E4;
+  --hover-bg: #F5F5F4;
+}
+
+.dark-mode {
+  --bg: #1C1917;
+  --card-bg: #292524;
+  --card-border: #44403C;
+  --card-shadow: 0 1px 3px rgba(0,0,0,0.2), 0 1px 2px rgba(0,0,0,0.14);
+  --card-shadow-expanded: 0 4px 12px rgba(0,0,0,0.3), 0 2px 4px rgba(0,0,0,0.2);
+  --text: #E7E5E4;
+  --text-secondary: #A8A29E;
+  --text-muted: #78716C;
+  --sidebar-bg: #292524;
+  --border: #44403C;
+  --hover-bg: #44403C;
+  --accent-light: rgba(83,51,232,0.12);
+  --emerald-light: rgba(5,150,105,0.12);
+  --orange-light: rgba(234,88,12,0.12);
+  --red-light: rgba(220,38,38,0.12);
+  --blue-light: rgba(37,99,235,0.12);
+  --purple-light: rgba(124,58,237,0.12);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.7;
+  font-size: 15px;
+  transition: background 0.3s ease, color 0.3s ease;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ====== SIDEBAR ====== */
+.sidebar {
+  position: fixed;
+  left: 0; top: 0; bottom: 0;
+  width: var(--sidebar-width);
+  background: var(--sidebar-bg);
+  border-right: 1px solid var(--border);
+  overflow-y: auto;
+  z-index: 100;
+  padding: 0 0 40px 0;
+}
+
+.sidebar-header {
+  padding: 24px 20px 16px;
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  background: var(--sidebar-bg);
+  z-index: 1;
+}
+
+.sidebar-logo {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 4px;
+}
+
+.sidebar-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+  line-height: 1.4;
+}
+
+.sidebar-subtitle {
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+.nav-section {
+  padding: 16px 0 4px;
+}
+
+.nav-section-label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  padding: 0 20px 6px;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 20px;
+  font-size: 12.5px;
+  color: var(--text-secondary);
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  border-left: 2px solid transparent;
+}
+
+.nav-item:hover {
+  background: var(--hover-bg);
+  color: var(--text);
+}
+
+.nav-item.active {
+  background: var(--accent-light);
+  color: var(--accent);
+  border-left-color: var(--accent);
+  font-weight: 500;
+}
+
+.nav-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.dot-primary { background: var(--emerald); }
+.dot-backup { background: var(--blue); }
+.dot-pushback { background: var(--orange); }
+.dot-stress { background: var(--red); }
+.dot-analysis { background: var(--purple); }
+.dot-default { background: var(--text-muted); }
+
+/* ====== MAIN ====== */
+.main {
+  margin-left: var(--sidebar-width);
+  min-height: 100vh;
+  padding: 40px 40px 80px;
+  max-width: 900px;
+}
+
+/* ====== HEADER ====== */
+.page-header {
+  margin-bottom: 40px;
+  padding-bottom: 32px;
+  border-bottom: 1px solid var(--border);
+}
+
+.page-eyebrow {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 8px;
+}
+
+.page-title {
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-size: 36px;
+  line-height: 1.15;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+
+.page-meta {
+  font-size: 13px;
+  color: var(--text-muted);
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.meta-item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* ====== TIMER ====== */
+.timer-bar {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 14px 20px;
+  margin-bottom: 32px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.timer-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.timer-btn {
+  padding: 5px 14px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: transparent;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.15s;
+  font-family: 'Inter', sans-serif;
+}
+
+.timer-btn:hover { background: var(--hover-bg); color: var(--text); }
+.timer-btn.active { background: var(--accent); color: white; border-color: var(--accent); }
+
+.timer-display {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--accent);
+  min-width: 60px;
+}
+
+.timer-controls {
+  display: flex;
+  gap: 6px;
+  margin-left: auto;
+}
+
+.timer-ctrl {
+  padding: 5px 10px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: transparent;
+  font-size: 12px;
+  cursor: pointer;
+  color: var(--text-secondary);
+  transition: all 0.15s;
+  font-family: 'Inter', sans-serif;
+}
+
+.timer-ctrl:hover { background: var(--hover-bg); }
+
+/* ====== SECTION ====== */
+.section {
+  margin-bottom: 48px;
+  scroll-margin-top: 24px;
+}
+
+.section-title {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+}
+
+/* ====== CARDS ====== */
+.card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 10px;
+  box-shadow: var(--card-shadow);
+  margin-bottom: 12px;
+  overflow: hidden;
+  transition: box-shadow 0.2s ease;
+}
+
+.card:hover { box-shadow: var(--card-shadow-expanded); }
+
+.card-header {
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  user-select: none;
+  gap: 12px;
+}
+
+.card-header-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+  min-width: 0;
+}
+
+.card-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+
+.label-primary { background: var(--emerald-light); color: var(--emerald); }
+.label-backup { background: var(--blue-light); color: var(--blue); }
+.label-opener { background: var(--accent-light); color: var(--accent); }
+.label-cheat { background: #FDF4FF; color: #7C3AED; }
+.label-pushback { background: var(--orange-light); color: var(--orange); }
+.label-stress { background: var(--red-light); color: var(--red); }
+.label-analysis { background: var(--purple-light); color: var(--purple); }
+.label-plan { background: var(--emerald-light); color: var(--emerald); }
+.label-question { background: var(--blue-light); color: var(--blue); }
+.label-closing { background: var(--accent-light); color: var(--accent); }
+
+.card-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+  line-height: 1.3;
+}
+
+.card-chevron {
+  color: var(--text-muted);
+  font-size: 12px;
+  transition: transform 0.2s ease;
+  flex-shrink: 0;
+}
+
+.card.open .card-chevron { transform: rotate(180deg); }
+
+.card-body {
+  display: none;
+  padding: 0 20px 20px;
+  border-top: 1px solid var(--border);
+}
+
+.card.open .card-body { display: block; }
+
+/* ====== CONTENT STYLES ====== */
+.card-body h3 {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  margin: 20px 0 8px;
+}
+
+.card-body h3:first-child { margin-top: 16px; }
+
+.card-body p {
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--text-secondary);
+  margin-bottom: 10px;
+}
+
+.card-body ul, .card-body ol {
+  padding-left: 18px;
+  margin-bottom: 10px;
+}
+
+.card-body li {
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--text-secondary);
+  margin-bottom: 4px;
+}
+
+.card-body strong { color: var(--text); font-weight: 600; }
+
+.callout {
+  border-radius: 8px;
+  padding: 14px 16px;
+  margin: 14px 0;
+  font-size: 13.5px;
+  line-height: 1.6;
+}
+
+.callout-green { background: var(--emerald-light); border-left: 3px solid var(--emerald); }
+.callout-blue { background: var(--blue-light); border-left: 3px solid var(--blue); }
+.callout-orange { background: var(--orange-light); border-left: 3px solid var(--orange); }
+.callout-red { background: var(--red-light); border-left: 3px solid var(--red); }
+.callout-purple { background: var(--purple-light); border-left: 3px solid var(--purple); }
+.callout-accent { background: var(--accent-light); border-left: 3px solid var(--accent); }
+
+.star-section {
+  margin: 16px 0;
+}
+
+.star-label {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 2px 8px;
+  border-radius: 4px;
+  margin-bottom: 6px;
+}
+
+.star-s { background: #FEF3C7; color: #92400E; }
+.star-t { background: #DBEAFE; color: #1E40AF; }
+.star-a { background: #D1FAE5; color: #065F46; }
+.star-r { background: #F3E8FF; color: #6B21A8; }
+
+.hook-box {
+  background: var(--accent-light);
+  border: 1px solid rgba(83,51,232,0.15);
+  border-radius: 8px;
+  padding: 12px 16px;
+  margin-top: 14px;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--text);
+}
+
+.hook-box strong {
+  display: block;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+  margin-bottom: 4px;
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  margin: 12px 0;
+}
+
+.data-table th {
+  text-align: left;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--border);
+}
+
+.data-table td {
+  padding: 9px 12px;
+  border-bottom: 1px solid var(--border);
+  color: var(--text-secondary);
+  vertical-align: top;
+  line-height: 1.5;
+}
+
+.data-table tr:last-child td { border-bottom: none; }
+.data-table tr:hover td { background: var(--hover-bg); }
+
+.metric-row {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin: 14px 0;
+}
+
+.metric-card {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 12px 16px;
+  min-width: 120px;
+  flex: 1;
+}
+
+.metric-label {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  margin-bottom: 4px;
+}
+
+.metric-value {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text);
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.metric-delta {
+  font-size: 11px;
+  margin-top: 2px;
+}
+
+.delta-up { color: var(--emerald); }
+.delta-down { color: var(--red); }
+
+.gap-card {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 14px 16px;
+  margin: 10px 0;
+}
+
+.gap-card-num {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+  margin-bottom: 4px;
+}
+
+.gap-card-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 6px;
+}
+
+.plan-phase {
+  border-left: 3px solid var(--accent);
+  padding-left: 16px;
+  margin: 12px 0;
+}
+
+.plan-phase-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+  margin-bottom: 6px;
+}
+
+.script-box {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 16px 18px;
+  font-size: 14px;
+  line-height: 1.75;
+  color: var(--text);
+  font-style: italic;
+  margin: 12px 0;
+}
+
+/* ====== TOP BAR ====== */
+.topbar {
+  position: fixed;
+  top: 0;
+  left: var(--sidebar-width);
+  right: 0;
+  height: 52px;
+  background: var(--card-bg);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0 32px;
+  gap: 12px;
+  z-index: 90;
+}
+
+.topbar-btn {
+  padding: 6px 14px;
+  border-radius: 7px;
+  border: 1px solid var(--border);
+  background: transparent;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.15s;
+  font-family: 'Inter', sans-serif;
+}
+
+.topbar-btn:hover { background: var(--hover-bg); color: var(--text); }
+
+.main { padding-top: 76px; }
+
+/* ====== PRINT ====== */
+@media print {
+  .sidebar, .topbar, .timer-bar { display: none !important; }
+  .main { margin-left: 0; padding: 20px; max-width: 100%; }
+  .card { break-inside: avoid; }
+  .card-body { display: block !important; }
+}
+
+@media (max-width: 768px) {
+  .sidebar { transform: translateX(-100%); transition: transform 0.3s ease; }
+  .sidebar.open { transform: translateX(0); }
+  .main { margin-left: 0; padding: 80px 20px 40px; }
+  .topbar { left: 0; }
+  .metric-card { min-width: 100px; }
+}
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<nav class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <div class="sidebar-logo">Interview Prep</div>
+    <div class="sidebar-title">BT Consumer</div>
+    <div class="sidebar-subtitle">Customer Marketing Manager</div>
+  </div>
+
+  <div class="nav-section">
+    <div class="nav-section-label">Setup</div>
+    <a class="nav-item" onclick="navTo('cheat-sheet')"><span class="nav-dot dot-default"></span>Cheat Sheet</a>
+    <a class="nav-item" onclick="navTo('how-to-use')"><span class="nav-dot dot-default"></span>How to Use</a>
+  </div>
+
+  <div class="nav-section">
+    <div class="nav-section-label">Openers</div>
+    <a class="nav-item" onclick="navTo('tmay')"><span class="nav-dot dot-primary"></span>Tell Me About Yourself</a>
+    <a class="nav-item" onclick="navTo('why-bt')"><span class="nav-dot dot-primary"></span>Why BT Consumer?</a>
+    <a class="nav-item" onclick="navTo('why-role')"><span class="nav-dot dot-primary"></span>Why This Role?</a>
+  </div>
+
+  <div class="nav-section">
+    <div class="nav-section-label">STAR Bank</div>
+    <a class="nav-item" onclick="navTo('star-proposition')"><span class="nav-dot dot-primary"></span>Proposition Development</a>
+    <a class="nav-item" onclick="navTo('star-commercial')"><span class="nav-dot dot-primary"></span>Commercial Analysis</a>
+    <a class="nav-item" onclick="navTo('star-insight')"><span class="nav-dot dot-primary"></span>Customer Insight</a>
+    <a class="nav-item" onclick="navTo('star-xfunc')"><span class="nav-dot dot-primary"></span>Cross-Functional Leadership</a>
+    <a class="nav-item" onclick="navTo('star-gtm')"><span class="nav-dot dot-primary"></span>Go-to-Market Execution</a>
+    <a class="nav-item" onclick="navTo('star-stakeholder')"><span class="nav-dot dot-primary"></span>Senior Stakeholder Influence</a>
+  </div>
+
+  <div class="nav-section">
+    <div class="nav-section-label">Pre-Interview Analysis</div>
+    <a class="nav-item" onclick="navTo('analysis')"><span class="nav-dot dot-analysis"></span>BT Consumer Proposition Audit</a>
+    <a class="nav-item" onclick="navTo('plan')"><span class="nav-dot dot-analysis"></span>90-Day Plan</a>
+  </div>
+
+  <div class="nav-section">
+    <div class="nav-section-label">Proposition Concept</div>
+    <a class="nav-item" onclick="navTo('prop-concept')"><span class="nav-dot dot-analysis"></span>18-30 Segment — EE One</a>
+  </div>
+
+  <div class="nav-section">
+    <div class="nav-section-label">Questions</div>
+    <a class="nav-item" onclick="navTo('questions')"><span class="nav-dot dot-backup"></span>Smart Question Bank</a>
+  </div>
+
+  <div class="nav-section">
+    <div class="nav-section-label">BT Behaviours</div>
+    <a class="nav-item" onclick="navTo('behaviour-cf')"><span class="nav-dot dot-primary"></span>Customer First</a>
+    <a class="nav-item" onclick="navTo('behaviour-cl')"><span class="nav-dot dot-primary"></span>Clear</a>
+    <a class="nav-item" onclick="navTo('behaviour-ch')"><span class="nav-dot dot-primary"></span>Challengers</a>
+    <a class="nav-item" onclick="navTo('behaviour-co')"><span class="nav-dot dot-primary"></span>Committed</a>
+    <a class="nav-item" onclick="navTo('behaviour-cn')"><span class="nav-dot dot-primary"></span>Connected</a>
+  </div>
+
+  <div class="nav-section">
+    <div class="nav-section-label">Pressure Tests</div>
+    <a class="nav-item" onclick="navTo('pushbacks')"><span class="nav-dot dot-pushback"></span>Mock Pushbacks</a>
+    <a class="nav-item" onclick="navTo('stress')"><span class="nav-dot dot-stress"></span>Stress Tests</a>
+    <a class="nav-item" onclick="navTo('weakness')"><span class="nav-dot dot-stress"></span>Weakness / Failure</a>
+  </div>
+
+  <div class="nav-section">
+    <div class="nav-section-label">Closing</div>
+    <a class="nav-item" onclick="navTo('closing')"><span class="nav-dot dot-primary"></span>Why Should We Hire You?</a>
+    <a class="nav-item" onclick="navTo('hm-profile')"><span class="nav-dot dot-default"></span>Interviewer Intel (Rachel + Matt)</a>
+  </div>
+</nav>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <button class="topbar-btn" onclick="expandAll()">Expand All</button>
+  <button class="topbar-btn" onclick="collapseAll()">Collapse All</button>
+  <button class="topbar-btn" onclick="toggleDark()">Dark Mode</button>
+  <button class="topbar-btn" onclick="window.print()">Print</button>
+</div>
+
+<!-- MAIN CONTENT -->
+<main class="main">
+
+  <div class="page-header">
+    <div class="page-eyebrow">BT Consumer &mdash; Grade D &mdash; April 2026</div>
+    <h1 class="page-title">Customer Marketing Manager<br>Interview Prep Deck</h1>
+    <div class="page-meta">
+      <span class="meta-item">Hiring Manager: <strong>Matt Hughes</strong></span>
+      <span class="meta-item">Recruiter: <strong>Abbie Duffy</strong></span>
+      <span class="meta-item">Location: <strong>Birmingham / Bristol / London</strong></span>
+    </div>
+  </div>
+
+  <!-- TIMER -->
+  <div class="timer-bar">
+    <span class="timer-label">Practice Timer</span>
+    <button class="timer-btn" onclick="setTimer(60)">60s</button>
+    <button class="timer-btn" onclick="setTimer(90)">90s</button>
+    <button class="timer-btn" onclick="setTimer(105)">105s</button>
+    <button class="timer-btn" onclick="setTimer(120)">2min</button>
+    <button class="timer-btn" onclick="setTimer(180)">3min</button>
+    <span class="timer-display" id="timerDisplay">—</span>
+    <div class="timer-controls">
+      <button class="timer-ctrl" onclick="startTimer()">▶ Start</button>
+      <button class="timer-ctrl" onclick="pauseTimer()">⏸</button>
+      <button class="timer-ctrl" onclick="resetTimer()">↺</button>
+    </div>
+  </div>
+
+  <!-- ====== SETUP ====== -->
+  <div class="section" id="cheat-sheet">
+    <div class="section-title">Setup</div>
+
+    <div class="card open">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-header-left">
+          <span class="card-label label-cheat">Cheat Sheet</span>
+          <span class="card-title">Interview Cheat Sheet — Read First</span>
+        </div>
+        <span class="card-chevron">▾</span>
+      </div>
+      <div class="card-body">
+        <h3>Role Context</h3>
+        <table class="data-table">
+          <tr><td><strong>Role</strong></td><td>Customer Marketing Manager — BT and EE brands (Broadband, TV, Mobile)</td></tr>
+          <tr><td><strong>Org context</strong></td><td>The JD explicitly says "new organisational structure" — BT and EE consumer marketing were unified under a single MD in 2024/2025. The team is still building its rhythm. Jean walks in knowing this.</td></tr>
+          <tr><td><strong>Commercial problem</strong></td><td>Broadband ARPU slid from £42.2 to £41.9 in H1 FY26 (down 1.4%). Broadband base fell 85k in FY25 before returning to growth in Q4. The role exists to build better propositions that reverse the ARPU trend.</td></tr>
+          <tr><td><strong>The opportunity</strong></td><td>Openreach passed 16 million full fibre premises, targeting 25 million by December 2026. Every copper-to-fibre upgrade is a proposition moment worth ~20% ARPU uplift. This role builds those propositions.</td></tr>
+          <tr><td><strong>New Consumer boss</strong></td><td>Claire Gillies joined from Bell Canada in March 2025 after Marc Allera departed. New leadership = openness to new approaches. This is a positive signal for an internal candidate with fresh thinking.</td></tr>
+        </table>
+
+        <h3>Competencies Being Assessed</h3>
+        <ol>
+          <li>Proposition development — end to end, insight to launch</li>
+          <li>Commercial analysis and storytelling to influence senior stakeholders</li>
+          <li>Customer insight, NPS, and competitor analysis</li>
+          <li>Cross-functional leadership and alignment</li>
+          <li>Go-to-market execution (Product, Pricing, Marketing working together)</li>
+          <li>Senior stakeholder confidence in a complex, fast-paced environment</li>
+        </ol>
+
+        <h3>JD Language to Mirror</h3>
+        <div class="callout callout-accent">
+          "Differentiated" &bull; "ARPU, retention, and acquisition" &bull; "End-to-end proposition lifecycle" &bull; "Segment strategies — youth, families, high-value" &bull; "New organisational structure" &bull; "Customer insight and NPS" &bull; "Commercially strong"
+        </div>
+
+        <h3>Jean's Critical Edge (the internal candidate advantage)</h3>
+        <ul>
+          <li><strong>Already knows how BT makes decisions</strong> — no ramp-up on internal politics or stakeholder mapping</li>
+          <li><strong>Built consumer propositions at Santander</strong> — insight-to-market, cross-functional, senior stakeholder. End-to-end.</li>
+          <li><strong>2.5 years of BT commercial data</strong> — understands the revenue levers from the inside</li>
+          <li><strong>Grade D already</strong> — no promotion risk, no compensation gap, no culture shock</li>
+          <li><strong>New Consumer MD is fresh</strong> — less territorial about "how we've always done it." Good moment to bring in new thinking.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- HOW TO USE -->
+  <div class="section" id="how-to-use">
+    <div class="card">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-header-left">
+          <span class="card-label label-cheat">Guide</span>
+          <span class="card-title">How to Use This Deck</span>
+        </div>
+        <span class="card-chevron">▾</span>
+      </div>
+      <div class="card-body">
+        <h3>Study Sequence</h3>
+        <ol>
+          <li>Read the Cheat Sheet — internalise the commercial context and the ARPU/churn numbers</li>
+          <li>Read the Pre-Interview Analysis (Cards 12-13) — your single biggest differentiator over external candidates</li>
+          <li>Rehearse Tell Me About Yourself until it is under 2 minutes</li>
+          <li>Rehearse one Primary STAR per competency — out loud, timed</li>
+          <li>Run through Mock Pushbacks the night before</li>
+          <li>Sleep. Do not cram on the morning.</li>
+        </ol>
+
+        <h3>Golden Rules</h3>
+        <ul>
+          <li><strong>Every answer ends with a BT Consumer hook</strong> — name something specific about their commercial situation</li>
+          <li><strong>Results must have numbers</strong> — "market differentiation" is an output, not a result. Tie it to something measurable.</li>
+          <li><strong>Pause before answering</strong> — one breath. Signals confidence, not panic.</li>
+          <li><strong>Lead with action in every STAR</strong> — the longest section should be A (how you worked), not S (context)</li>
+          <li><strong>If you don't know something, say so</strong> — "I'd want to validate that with customer data first" beats a bluff every time</li>
+          <li><strong>Active voice throughout</strong> — "I led", "I built", "I presented" — not "we" or "the team"</li>
+        </ul>
+
+        <div class="callout callout-orange">
+          <strong>The internal candidate trap:</strong> Do not rely on "I already work here" as your main pitch. Use it as a multiplier. "My Santander proposition work is directly relevant AND I already understand how BT makes decisions" — both, not just the second.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== OPENERS ====== -->
+  <div class="section" id="tmay">
+    <div class="section-title">Scripted Openers</div>
+
+    <div class="card open">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-header-left">
+          <span class="card-label label-opener">Opener</span>
+          <span class="card-title">"Tell Me About Yourself" — 1:45 Script</span>
+        </div>
+        <span class="card-chevron">▾</span>
+      </div>
+      <div class="card-body">
+        <div class="callout callout-blue">Target: 1 minute 45 seconds at normal speaking pace. Use the timer above. Read it aloud three times before the interview. Do not memorise word-for-word — internalise the structure.</div>
+
+        <div class="script-box">
+          "I'm a consumer marketing professional with a clear throughline: building propositions that grow revenue.<br><br>
+          At Santander, I spent two years as Marketing Effectiveness Manager developing and launching customer propositions. I led the Current Account repositioning after the 1|2|3 product was discontinued — competitive analysis, customer insight, working with agency partners, and pitching a differentiated offer built around the Ant and Dec partnership to senior leadership. I led the Santander Bikes go-to-market, coordinating with Transport for London and Operations to take it from brief to launch across awareness, consideration, and conversion. And I identified a family segment insight gap that became the Twinkl financial literacy proposition.<br><br>
+          Then I moved to BT to build analytical muscle. Two and a half years as SMB Performance Marketing Manager — building the single source of truth for marketing performance, driving full-funnel visibility from acquisition to retention, and influencing budget allocation decisions at senior level. I have seen how BT makes commercial decisions from the inside.<br><br>
+          This role at BT Consumer is the synthesis of both. Proposition development grounded in customer insight, backed by commercial analysis, built for a market I already understand. The full fibre rollout creates a once-in-a-generation proposition opportunity for this business, and I want to be the person building the customer offers that make it land."
+        </div>
+        <p><em>Pause. Let it breathe. Do not immediately say "so that's me" or apologise for the length.</em></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- WHY BT -->
+  <div class="section" id="why-bt">
+    <div class="card">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-header-left">
+          <span class="card-label label-opener">Opener</span>
+          <span class="card-title">"Why BT Consumer?" — Three Specific Reasons</span>
+        </div>
+        <span class="card-chevron">▾</span>
+      </div>
+      <div class="card-body">
+        <h3>Reason 1 — The full fibre proposition moment</h3>
+        <div class="script-box">
+          "Openreach has passed 16 million full fibre premises and is targeting 25 million by December 2026. Each of those premises is a proposition moment — an upgrade journey from copper to fibre that needs a customer offer compelling enough to beat Virgin and the alt-nets. That is not a marginal improvement to an existing product. That is a new proposition category being built from scratch. I want to be part of building it."
+        </div>
+
+        <h3>Reason 2 — The dual-brand design challenge</h3>
+        <div class="script-box">
+          "The decision to retain the BT brand alongside EE in consumer is genuinely interesting. Two brands, same network, different segments — youth and converged-service seekers on EE, legacy broadband loyalists on BT. How do you differentiate propositions across those two without cannibalising each other and without confusing customers? At Santander I worked across mass market and high-value segments simultaneously. The thinking required is the same."
+        </div>
+
+        <h3>Reason 3 — Internal network, no ramp-up</h3>
+        <div class="script-box">
+          "I am already here. Two and a half years at BT means I know the stakeholder landscape, I understand how commercial decisions get made, and I have relationships with teams that this role would need to work with. An external hire from Virgin or Sky would need three to six months to get to the same starting line. I am already there."
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WHY ROLE -->
+  <div class="section" id="why-role">
+    <div class="card">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-header-left">
+          <span class="card-label label-opener">Opener</span>
+          <span class="card-title">"Why This Role?" — Career Arc Connection</span>
+        </div>
+        <span class="card-chevron">▾</span>
+      </div>
+      <div class="card-body">
+        <div class="script-box">
+          "I have been building two capabilities in parallel over the last five years. At Santander — consumer proposition development, insight-to-launch, cross-functional go-to-market. At BT — commercial analysis, full-funnel visibility, senior stakeholder influence. This role requires both at the same time, applied to a category I already know.<br><br>
+          The JD describes it exactly: use customer insight and NPS to shape propositions, work across Product, Pricing and Marketing to build commercially strong go-to-market plans, manage the proposition lifecycle from launch to retirement. That is the work I have been preparing for. The difference here is that I get to do it for brands I already understand, with commercial data I already have context for. That shortens the time from day one to meaningful contribution significantly."
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== STAR BANK ====== -->
+  <div class="section" id="star-proposition">
+    <div class="section-title">STAR Bank</div>
+
+    <!-- Proposition Development -->
+    <div class="card open">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-header-left">
+          <span class="card-label label-primary">Primary STAR</span>
+          <span class="card-title">Proposition Development — Santander Current Account Repositioning</span>
+        </div>
+        <span class="card-chevron">▾</span>
+      </div>
+      <div class="card-body">
+        <div class="callout callout-accent"><strong>What they're really asking:</strong> Can you build a proposition from a blank page using insight, not just optimise an existing one? Have you made something compelling for customers, not just internally viable?</div>
+
+        <div class="callout callout-blue"><strong>Predicted questions:</strong> "Tell me about a customer proposition you developed end-to-end." / "How do you translate product features into customer offers?" / "Give me an example of a proposition that drove growth."</div>
+
+        <div class="star-section">
+          <span class="star-label star-s">S — Situation</span>
+          <p>Santander's flagship 1|2|3 Current Account — their main acquisition and retention engine — was discontinued. The product that had differentiated Santander from Barclays, Lloyds, and the challenger banks was gone. The team needed a new current account proposition that could compete against Monzo, Starling, Revolut, Nationwide, and the established banks simultaneously. No brief. No template. Starting from scratch.</p>
+        </div>
+
+        <div class="star-section">
+          <span class="star-label star-t">T — Task</span>
+          <p>Lead the proposition development process — from insight through to a market-ready offer. Responsible for the competitive analysis, customer insight synthesis, and the creative brief that would shape the final offer.</p>
+        </div>
+
+        <div class="star-section">
+          <span class="star-label star-a">A — Action</span>
+          <p>Started with the competitive landscape. Mapped every major current account in market — rates, features, target audiences, and the emotional angle each brand was leading with. Identified that challenger banks were winning on "modern and frictionless" while high street banks were winning on "safe and familiar." Santander was being outcompeted on both.</p>
+          <p>The customer insight told a different story. Santander customers were not leaving for better rates — they were staying for trust and familiarity. The insight became the brief: lean into Santander's character, not the product mechanics. Lead with personality, not interest rates.</p>
+          <p>Worked with the agency to develop positioning anchored on trust and mass-market entertainment appeal. Pitched the Ant and Dec partnership to senior leadership — a brand anchor that Nationwide could not replicate, Monzo would never do, and that spoke directly to the emotional driver in the data. Coordinated across Product, Pricing, Legal, and the agency to get the offer market-ready. Presented the business case to the senior marketing leadership team.</p>
+        </div>
+
+        <div class="star-section">
+          <span class="star-label star-r">R — Result</span>
+          <p>The proposition launched with Ant and Dec as its brand anchor. Delivered a clearly differentiated position in a commoditised category — the first time in several years Santander had a current account offer with a distinct character. The partnership became the centrepiece of Santander's mass-market current account strategy for the following two years.</p>
+        </div>
+
+        <div class="hook-box">
+          <strong>BT Consumer Hook</strong>
+          The challenge BT Consumer faces with the full fibre upsell proposition is structurally similar. The underlying product — faster broadband — is technically superior. But every competitor is also saying faster. The question is the same: what is the emotional and rational angle that makes our offer feel different, not just technically better? I would start in exactly the same place — with the customer insight.
+        </div>
+      </div>
+    </div>
+
+    <!-- Proposition Backup -->
+    <div class="card" id="star-proposition-backup">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-header-left">
+          <span class="card-label label-backup">Backup STAR</span>
+          <span class="card-title">Proposition Development — Santander Bikes GTM</span>
+        </div>
+        <span class="card-chevron">▾</span>
+      </div>
+      <div class="card-body">
+        <div class="star-section">
+          <span class="star-label star-s">S — Situation</span>
+          <p>Santander acquired naming rights to a major UK public bike-share scheme. High-visibility partnership with real brand salience potential — but no GTM plan existed. This was not an advertising campaign. It was a proposition with a physical product, a new user base, and multiple external stakeholders who had never worked with Santander before.</p>
+        </div>
+
+        <div class="star-section">
+          <span class="star-label star-t">T — Task</span>
+          <p>Lead the go-to-market execution — coordinating across Transport for London, Operations, and the Santander marketing team to ensure the proposition landed across all three stages of the customer journey: awareness, consideration, and conversion.</p>
+        </div>
+
+        <div class="star-section">
+          <span class="star-label star-a">A — Action</span>
+          <p>Mapped the full customer journey end-to-end — from someone first seeing a Santander-branded bike on a London street to becoming an active Santander banking customer. Identified three gaps: (1) the bikes generated awareness but the link to the banking product was unclear, (2) the conversion journey from scheme user to bank customer was too long — 11 clicks, reduced to 4 before launch, (3) the Operations team at TFL had a completely different definition of success than the Santander Marketing team.</p>
+          <p>Ran joint planning sessions to align TFL and Operations stakeholders around a shared commercial outcome. Built the GTM plan across all three stages. Briefed channel leads on the launch sequence. Coordinated across two organisations with different KPIs, different timelines, and different governance.</p>
+        </div>
+
+        <div class="star-section">
+          <span class="star-label star-r">R — Result</span>
+          <p>Successful market entry across awareness, consideration, and conversion — coordinating 3 external parties and 4 internal functions simultaneously. First time Santander had run a GTM this integrated across a physical-digital partnership. Zero launch-day issues attributed to brief misalignment.</p>
+        </div>
+
+        <div class="hook-box">
+          <strong>BT Consumer Hook</strong>
+          A BT/EE proposition launch involves Product Tribes, Technical teams, two brand teams, Pricing, and channel leads all moving together. Multi-stakeholder coordination at that scale requires exactly the same discipline. Inside one organisation, with internal relationships already in place, the coordination should be faster — not harder.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Commercial Analysis -->
+  <div class="section" id="star-commercial">
+    <div class="card open">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-header-left">
+          <span class="card-label label-primary">Primary STAR</span>
+          <span class="card-title">Commercial Analysis — BT SMB Single Source of Truth</span>
+        </div>
+        <span class="card-chevron">▾</span>
+      </div>
+      <div class="card-body">
+        <div class="callout callout-accent"><strong>What they're really asking:</strong> Can you take messy data and turn it into a decision that a senior leader will act on? Do you understand commercial levers — not just what the numbers say, but what they mean for strategy?</div>
+
+        <div class="star-section">
+          <span class="star-label star-s">S — Situation</span>
+          <p>BT's SMB Marketing team had no single view of marketing performance. Budget allocation decisions were being made with incomplete data — investments were defended with anecdote rather than evidence. The business had committed to revenue targets and no one could clearly show how marketing was contributing to them.</p>
+        </div>
+
+        <div class="star-section">
+          <span class="star-label star-t">T — Task</span>
+          <p>Build an analytical capability that gave the team decision-ready insights — not reports, but recommendations — and use it to influence how budget was allocated across channels and campaigns.</p>
+        </div>
+
+        <div class="star-section">
+          <span class="star-label star-a">A — Action</span>
+          <p>Built a single source of truth for SMB marketing performance — connecting acquisition, retention, and revenue data into one view for the first time. Translated the data into a narrative that non-analysts could act on: where investment was generating return, where it was not, and where gaps existed versus the revenue commitment.</p>
+          <p>Presented findings directly to senior leadership, framing the analysis not as "here is what happened" but as "here is where we need to move investment to hit the number." Partnered with Sales, Call Centre, and Retention teams to embed their feedback into the model — so the recommendation reflected the full commercial picture, not just the marketing funnel.</p>
+        </div>
+
+        <div class="star-section">
+          <span class="star-label star-r">R — Result</span>
+          <p>Influenced budget allocation decisions directly supporting revenue prioritisation against commitments. Became the recognised SME for SMB performance — regularly guiding discussions beyond standard reporting. The single source of truth became the standard for how marketing performance was reviewed in the team.</p>
+        </div>
+
+        <div class="hook-box">
+          <strong>BT Consumer Hook</strong>
+          The analytical framework I built for SMB translates directly to consumer proposition performance. ARPU, acquisition, and retention are the same commercial levers — just at a different scale and a different customer set. The muscle is already there. The consumer data is what I want to apply it to.
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-header-left">
+          <span class="card-label label-backup">Backup STAR</span>
+          <span class="card-title">Commercial Analysis — Private Banking LinkedIn Campaign (£30M in 30 days)</span>
+        </div>
+        <span class="card-chevron">▾</span>
+      </div>
+      <div class="card-body">
+        <div class="star-section">
+          <span class="star-label star-s">S — Situation</span>
+          <p>Santander Private Banking needed to acquire high-net-worth clients at a faster rate. Traditional above-the-line channels were generating reach but not qualified clients. Budget was being spent with no clear evidence of commercial return.</p>
+        </div>
+
+        <div class="star-section">
+          <span class="star-label star-t">T — Task</span>
+          <p>Identify and execute a channel strategy that would generate qualified Private Banking acquisitions efficiently — and build the business case that would convince leadership to shift budget.</p>
+        </div>
+
+        <div class="star-section">
+          <span class="star-label star-a">A — Action</span>
+          <p>Analysed the existing channel mix and identified LinkedIn as structurally misaligned: the target audience (high-net-worth professionals) was highly concentrated on LinkedIn, but investment there was minimal. Built the business case — projected cost-per-acquisition, expected audience quality, and revenue model — and presented it to the Private Banking MD.</p>
+          <p>When the pushback came ("social media feels too public for our clients"), addressed it directly: LinkedIn's targeting is invisible to non-targeted users. Their clients would not see Santander running wealth ads unless they were already in the target segment. Proposed a 90-day test at a defined budget cap before committing to a long-term shift — reducing the perceived risk of the decision.</p>
+        </div>
+
+        <div class="star-section">
+          <span class="star-label star-r">R — Result</span>
+          <p><strong>£30 million in new client acquisition within 30 days. 7x improvement in performance versus the previous approach.</strong> The campaign became the benchmark for Private Banking acquisition going forward.</p>
+        </div>
+
+        <div class="hook-box">
+          <strong>BT Consumer Hook</strong>
+          Presenting proposition business cases to Matt Hughes and the Consumer leadership team requires the same structure: lead with the commercial outcome, address the risk head-on, and make the ask specific enough that there is a clear decision to make. I know how to build that case.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Customer Insight -->
+  <div class="section" id="star-insight">
+    <div class="card open">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-header-left">
+          <span class="card-label label-primary">Primary STAR</span>
+          <span class="card-title">Customer Insight — Twinkl Family Segment Proposition</span>
+        </div>
+        <span class="card-chevron">▾</span>
+      </div>
+      <div class="card-body">
+        <div class="callout callout-accent"><strong>What they're really asking:</strong> Do you actually use insight to shape propositions, or just reference it? Can you go from a customer signal to a market-ready decision? Have you thought in segments?</div>
+
+        <div class="star-section">
+          <span class="star-label star-s">S — Situation</span>
+          <p>Santander needed to grow brand consideration among the family segment — one of the highest-value current account demographics (higher balance, longer tenure, lower churn) — but Santander was not seen as a "family bank." Research showed a clear gap in how families felt about financial education for their children.</p>
+        </div>
+
+        <div class="star-section">
+          <span class="star-label star-t">T — Task</span>
+          <p>Identify an insight-based proposition that would increase Santander's brand consideration among families — something differentiated, not just a product feature adjustment.</p>
+        </div>
+
+        <div class="star-section">
+          <span class="star-label star-a">A — Action</span>
+          <p>Ran a deep analysis of the family segment — their financial literacy concerns, their media habits, their brand perception of Santander versus competitors. The insight that emerged was specific: parents with primary-school-age children were concerned about their children not understanding money, and they trusted educational organisations more than banks on this topic.</p>
+          <p>Identified Twinkl — an educational content platform used by primary schools across the UK — as a non-obvious partner. No competitor had claimed this space. Developed a "Number Games" proposition: financial literacy content for families, co-created with Twinkl, accessible through Santander. Built the brief, managed the partnership development, and presented the proposition to senior stakeholders with a clear segment rationale and commercial projection.</p>
+        </div>
+
+        <div class="star-section">
+          <span class="star-label star-r">R — Result</span>
+          <p>Proposition launched as the Twinkl financial literacy partnership — built Santander's brand consideration in the family segment by giving the bank a credible role in family financial education that no competitor occupied. The insight-to-launch cycle was run without a dedicated insight team. I drove it from customer data and secondary research.</p>
+        </div>
+
+        <div class="hook-box">
+          <strong>BT Consumer Hook</strong>
+          Families are one of the three named segments in this JD — alongside youth and high-value. The insight question for BT families is the same one I solved at Santander: what does this segment actually need that they are not getting from any provider today? It is unlikely to be "faster broadband." It is probably connected home safety, parental controls, or total household cost simplification. That is where I would start.
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-header-left">
+          <span class="card-label label-backup">Backup STAR</span>
+          <span class="card-title">Customer Insight — Santander Current Account Competitor Analysis</span>
+        </div>
+        <span class="card-chevron">▾</span>
+      </div>
+      <div class="card-body">
+        <div class="star-section">
+          <span class="star-label star-a">A — Action (key emphasis)</span>
+          <p>Mapped every major current account: Nationwide FlexAccount, Monzo, Starling, Revolut, Halifax, Lloyds, HSBC. For each: features, pricing, target audience, emotional positioning, and NPS/review signals. Specifically looked for white space — where no major bank was playing.</p>
+          <p>The analysis challenged two significant internal assumptions: (1) that customers were primarily rate-driven — they were not. Trust was the primary driver for the Santander base. (2) that challenger banks were the main competitive threat — for Santander's customer base, Nationwide and Lloyds were the actual churn destinations, not Monzo.</p>
+        </div>
+
+        <div class="star-section">
+          <span class="star-label star-r">R — Result</span>
+          <p>One piece of research redirected the entire go-to-market strategy — away from rate-led positioning and toward the trust-and-personality brief that became the Ant and Dec partnership.</p>
+        </div>
+
+        <div class="hook-box">
+          <strong>BT Consumer Hook</strong>
+          The dual-brand challenge at BT Consumer needs exactly this kind of rigorous competitor mapping. The question is not just "what are Virgin and Sky doing?" — it is "what is the actual decision-making process for a customer choosing between BT broadband, EE broadband, Virgin Volt, and Sky Superfast?" Understanding where you are actually losing — and to whom — is the starting point for any proposition that will move the needle.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Cross-Functional -->
+  <div class="section" id="star-xfunc">
+    <div class="card open">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-header-left">
+          <span class="card-label label-primary">Primary STAR</span>
+          <span class="card-title">Cross-Functional Leadership — BT Marketing-Sales Bridge</span>
+        </div>
+        <span class="card-chevron">▾</span>
+      </div>
+      <div class="card-body">
+        <div class="callout callout-accent"><strong>What they're really asking:</strong> Can you get people who do not report to you — in Product, Pricing, Technical, Channel — to move in the same direction? Do you lead by influence or by rank?</div>
+
+        <div class="star-section">
+          <span class="star-label star-s">S — Situation</span>
+          <p>In BT's SMB unit, Marketing and Sales were operating in silos. Marketing was generating leads based on its own definition of quality. Sales and the Call Centre were processing those leads with a completely different definition. The result: investment decisions in Marketing were not connected to the revenue outcomes that Sales was being held to.</p>
+        </div>
+
+        <div class="star-section">
+          <span class="star-label star-t">T — Task</span>
+          <p>Build the bridge between Marketing and Sales — align the two teams around a shared commercial view of performance, and ensure the feedback loop from Sales back into Marketing was operational, not just theoretical.</p>
+        </div>
+
+        <div class="star-section">
+          <span class="star-label star-a">A — Action</span>
+          <p>Ran working sessions with Sales, Call Centre, and Retention leads to map where the data broke down. Built a performance framework that all three functions could recognise as their own — not a Marketing framework imposed on Sales, but a shared commercial language. Embedded myself as the person who translated between the two worlds: running regular joint reviews, flagging where Marketing investment was driving demand that Sales could not convert, surfacing Call Centre feedback that pointed to proposition gaps.</p>
+        </div>
+
+        <div class="star-section">
+          <span class="star-label star-r">R — Result</span>
+          <p>Over two and a half years, became the recognised SME for SMB performance — the person both sides brought in when they needed an independent read. The bridge became structural, not dependent on one person. Drove end-to-end funnel visibility and influenced budget allocation in ways that had been impossible before.</p>
+        </div>
+
+        <div class="hook-box">
+          <strong>BT Consumer Hook</strong>
+          The JD describes working with Product Tribes, Technical teams, Pricing, and channel leads simultaneously. That is a larger-scale version of the same challenge. The discipline is the same: build a shared commercial language, run joint reviews, and make sure the feedback loop from customer-facing teams feeds back into the proposition brief. I have done this at BT. The relationships and the methods already exist.
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-header-left">
+          <span class="card-label label-backup">Backup STAR</span>
+          <span class="card-title">Cross-Functional Leadership — Santander Effectiveness Team of 4</span>
+        </div>
+        <span class="card-chevron">▾</span>
+      </div>
+      <div class="card-body">
+        <div class="star-section">
+          <span class="star-label star-r">R — Result (lead with this)</span>
+          <p>Led a team of four specialists acting as internal consultants to Credit Card, Business Banking, and other product teams. Embedded the econometrics approach as the bank-wide standard for investment strategy — not just one team's tool, but the shared methodology for how Santander balanced brand building and performance optimisation across the full portfolio.</p>
+        </div>
+
+        <div class="hook-box">
+          <strong>BT Consumer Hook</strong>
+          The new organisational structure at BT Consumer — integrating BT and EE marketing teams — requires exactly this kind of influence leadership. The Customer Marketing Manager role needs to be the person who translates commercial ambition into a brief that Product Tribes, Technical, and channel leads can all execute against. I have done this as an internal consultant. I know how to make cross-functional teams want to follow the brief.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- GTM Execution -->
+  <div class="section" id="star-gtm">
+    <div class="card">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-header-left">
+          <span class="card-label label-primary">Primary STAR</span>
+          <span class="card-title">Go-to-Market Execution — Santander Bikes (Multi-Stakeholder Launch)</span>
+        </div>
+        <span class="card-chevron">▾</span>
+      </div>
+      <div class="card-body">
+        <div class="callout callout-accent"><strong>What they're really asking:</strong> Can you actually launch something — not just develop it? Do you understand the difference between a proposition on a slide and a proposition in market?</div>
+
+        <div class="star-section">
+          <span class="star-label star-a">A — Action (execution emphasis)</span>
+          <p>Three risk points in the brief-to-launch journey:</p>
+          <ol>
+            <li>TFL's operational timeline was not aligned with Santander's campaign calendar. Ran a joint planning session and built a shared timeline both organisations signed off on.</li>
+            <li>Channel briefing was fragmented — above-the-line was briefed separately from CRM and digital. A customer could see the campaign on TV but get a completely different message in an email the same week. Designed a unified channel brief treating the customer journey as a single narrative.</li>
+            <li>The conversion journey from scheme user to bank customer was 11 clicks. Escalated to Product and reduced to 4 clicks before launch.</li>
+          </ol>
+        </div>
+
+        <div class="star-section">
+          <span class="star-label star-r">R — Result</span>
+          <p>Successful market entry across all three customer journey stages — awareness, consideration, and conversion — for a proposition involving two organisations, multiple external vendors, and four internal functions. Zero launch-day issues attributed to brief misalignment.</p>
+        </div>
+
+        <div class="hook-box">
+          <strong>BT Consumer Hook</strong>
+          A BT Consumer proposition launch — especially one involving both the BT and EE brands — requires exactly this level of briefing discipline. The customer cannot experience two different messages from the same launch. I have designed for that before.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Senior Stakeholder -->
+  <div class="section" id="star-stakeholder">
+    <div class="card">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-header-left">
+          <span class="card-label label-primary">Primary STAR</span>
+          <span class="card-title">Senior Stakeholder — Private Banking Business Case (£30M Outcome)</span>
+        </div>
+        <span class="card-chevron">▾</span>
+      </div>
+      <div class="card-body">
+        <div class="callout callout-accent"><strong>What they're really asking:</strong> Are you comfortable in the room with Directors and MDs? Do you know how to pitch, not just present? Can you handle pushback without losing your position?</div>
+
+        <p>See Commercial Analysis Backup STAR (Card 7) for full detail. The stakeholder emphasis version:</p>
+
+        <div class="star-section">
+          <span class="star-label star-a">A — Stakeholder Interaction</span>
+          <p>Presented the LinkedIn channel recommendation to the Private Banking Managing Director — a senior stakeholder sceptical about social media as a channel for high-net-worth acquisition. Rather than defending the channel on principle, built the business case around three things they cared about: (1) cost per qualified client versus the current approach, (2) audience concentration data showing LinkedIn over-indexed for the target segment, (3) a risk-limiting structure — a 90-day test at a defined budget cap before committing to a long-term shift.</p>
+          <p>When the pushback came, addressed it directly and with specificity. Anticipated the objection before it became a reason to say no.</p>
+        </div>
+
+        <div class="star-section">
+          <span class="star-label star-r">R — Result</span>
+          <p><strong>£30M in new client acquisition within 30 days. 7x performance improvement.</strong></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== PRE-INTERVIEW ANALYSIS ====== -->
+  <div class="section" id="analysis">
+    <div class="section-title">Pre-Interview Analysis</div>
+
+    <div class="card open">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-header-left">
+          <span class="card-label label-analysis">Analysis</span>
+          <span class="card-title">BT Consumer Proposition Audit — What I Found Before This Interview</span>
+        </div>
+        <span class="card-chevron">▾</span>
+      </div>
+      <div class="card-body">
+        <div class="callout callout-purple">Frame this in the interview as: "Before coming in today, I spent some time looking at where BT Consumer's proposition sits commercially and competitively. A few things stood out..."</div>
+
+        <h3>The Commercial Picture (FY25 / H1 FY26)</h3>
+        <div class="metric-row">
+          <div class="metric-card">
+            <div class="metric-label">Broadband ARPU</div>
+            <div class="metric-value">£41.9</div>
+            <div class="metric-delta delta-down">↓ from £42.2 (FY25) — 1.4% slide in H1 FY26</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-label">Base Change FY25</div>
+            <div class="metric-value">-85k</div>
+            <div class="metric-delta delta-up">↑ Returned to growth Q4 (+4k)</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-label">Churn Rate</div>
+            <div class="metric-value">1.2%</div>
+            <div class="metric-delta delta-down">Stable — but competitive pressure rising</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-label">Group NPS</div>
+            <div class="metric-value">31.4</div>
+            <div class="metric-delta delta-up">↑ Record high. Up 5.2pts YoY</div>
+          </div>
+        </div>
+
+        <div class="callout callout-orange">
+          <strong>The core tension:</strong> NPS is at a record high, but ARPU is falling. Customers are feeling better served but spending less. This is not a service problem — it is a proposition problem. Customers are not seeing enough value to justify price increases or premium upgrades.
+        </div>
+
+        <h3>Competitive Map</h3>
+        <table class="data-table">
+          <thead>
+            <tr><th>Competitor</th><th>Main strength</th><th>Gap vs BT/EE</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Virgin Media O2</strong></td>
+              <td>Speed (fastest widely available), Volt bundle (broadband + mobile in one bill), price at entry level</td>
+              <td>Losing on convergence bundle simplicity. Volt is a cleaner value proposition than BT/EE's equivalent at the moment.</td>
+            </tr>
+            <tr>
+              <td><strong>Sky</strong></td>
+              <td>Content depth (Sky Sports, Sky Cinema), strong family bundles, brand trust in TV</td>
+              <td>Sky owns the "TV-first" customer. BT/EE needs a clearer TV proposition or a stronger "connectivity-first" counter.</td>
+            </tr>
+            <tr>
+              <td><strong>Vodafone</strong></td>
+              <td>5G coverage expansion, Pro II router, converged home/mobile positioning</td>
+              <td>EE's 5G SA advantage is real — but not yet packaged as a customer proposition. Technical spec, not a customer offer.</td>
+            </tr>
+            <tr>
+              <td><strong>Alt-nets (CityFibre, Hyperoptic)</strong></td>
+              <td>Pure gigabit speeds, aggressive urban pricing, often cheaper than BT/EE for equivalent speeds</td>
+              <td>Highest threat in urban areas. Not currently countered by a clear BT/EE differentiation story beyond Openreach coverage breadth.</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>The Three Proposition Gaps</h3>
+
+        <div class="gap-card">
+          <div class="gap-card-num">Gap 1</div>
+          <div class="gap-card-title">Full fibre upgrade journey — the biggest missed commercial moment</div>
+          <p>Openreach has passed 16 million full fibre premises. Most BT broadband customers are still on FTTC. The FTTP upgrade delivers ~20% ARPU uplift — but BT Consumer does not have a clear customer-facing proposition for the upgrade journey. The technology is there. The customer offer is not.</p>
+        </div>
+
+        <div class="gap-card">
+          <div class="gap-card-num">Gap 2</div>
+          <div class="gap-card-title">Convergence proposition doesn't yet beat Virgin's Volt on simplicity</div>
+          <p>Virgin's Volt bundle gives broadband + mobile in one bill at a clear price point. BT and EE's equivalent exists but is not packaged with Volt's simplicity or pricing aggression. The "one provider" benefit is not landing clearly enough in market. This is a proposition design problem, not a product problem.</p>
+        </div>
+
+        <div class="gap-card">
+          <div class="gap-card-num">Gap 3</div>
+          <div class="gap-card-title">Youth segment (EE) has ingredients but no clear proposition</div>
+          <p>EE has 5G standalone, HBO Max, exclusive gaming hardware. The youth segment (18-30) is the highest lifetime value cohort for a mobile-first converged provider. But EE does not have a clear proposition that packages these into a "first broadband + mobile" offer for someone leaving university or first renting. Ingredients without a brief.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 90-Day Plan -->
+  <div class="section" id="plan">
+    <div class="card open">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-header-left">
+          <span class="card-label label-plan">90-Day Plan</span>
+          <span class="card-title">First 90 Days — What I Would Prioritise</span>
+        </div>
+        <span class="card-chevron">▾</span>
+      </div>
+      <div class="card-body">
+        <div class="plan-phase">
+          <div class="plan-phase-label">Weeks 1–4 — Build the commercial picture</div>
+          <ul>
+            <li>Read the consumer ARPU and churn data by segment (broadband, TV, mobile) and by customer cohort — identify exactly where the £41.9 ARPU is leaking and to whom</li>
+            <li>Map the full fibre premise coverage against the existing BT broadband base — quantify the upgrade opportunity by region and by contract status</li>
+            <li>Meet every Product Tribe and Pricing lead to understand the current proposition roadmap and commercial constraints</li>
+            <li>Understand the new organisational structure — who owns what in the BT/EE split and where the handoffs are between brands</li>
+          </ul>
+        </div>
+
+        <div class="plan-phase">
+          <div class="plan-phase-label">Weeks 3–6 — Understand the customer signal</div>
+          <ul>
+            <li>Review existing NPS data by segment — where are the scores lowest, and is that correlated with churn? (Group NPS is 31.4 — but what does that look like for the family segment specifically?)</li>
+            <li>Run a competitor proposition audit from the customer's point of view — specifically Virgin Volt versus BT/EE convergence offer: pricing, simplicity, perceived value at each price tier</li>
+            <li>Identify the top three reasons customers choose Virgin or Sky over BT/EE in the switching data — not the marketing team's view, the customer's actual stated reason</li>
+          </ul>
+        </div>
+
+        <div class="plan-phase">
+          <div class="plan-phase-label">Weeks 5–8 — First proposition brief</div>
+          <ul>
+            <li>Based on the data, identify the highest-ROI proposition opportunity: likely either (a) full fibre upgrade for existing FTTC base or (b) youth convergence bundle for EE</li>
+            <li>Build the proposition brief with the commercial case — ARPU impact model, acquisition cost estimate, competitive differentiation rationale</li>
+            <li>Present to Matt Hughes and the Consumer leadership team for sign-off</li>
+          </ul>
+        </div>
+
+        <div class="plan-phase">
+          <div class="plan-phase-label">Month 3 — In market</div>
+          <ul>
+            <li>Test version of the highest-priority proposition live — with measurement framework in place from day one</li>
+            <li>NPS tracking, ARPU uplift per converted customer, conversion rate versus existing base proposition</li>
+            <li>Review findings and iterate the brief for the next proposition cycle</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== PROPOSITION CONCEPT ====== -->
+  <div class="section" id="prop-concept">
+    <div class="section-title">Pre-Interview Proposition Concept — 18-30 Youth Segment</div>
+
+    <div class="callout callout-purple" style="margin-bottom:16px;">
+      Use this if asked: "How would you approach the youth segment?" or "What proposition would you prioritise?" Shows research depth — you know what already exists, you can diagnose why it is not landing, and you have a specific improvement to propose.
+    </div>
+
+    <div class="card open">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-header-left">
+          <span class="card-label label-analysis">Proposition</span>
+          <span class="card-title">EE One for First-Renters — Activating an Existing Product in the Right Moment</span>
+        </div>
+        <span class="card-chevron">▾</span>
+      </div>
+      <div class="card-body">
+
+        <h3>What Already Exists (Do Not Claim to Invent This)</h3>
+        <div class="callout callout-blue">
+          <strong>EE One</strong> — when a customer has EE broadband and EE mobile on the same account, they unlock household SIM discounts: up to £20/month off additional mobile SIMs, unlimited data boost on eligible existing plans, no cap on number of SIMs. The mechanic is already there. It is not being activated for the 18-30 first-renter segment.
+        </div>
+
+        <h3>The Actual Gap — Why EE One Is Not Reaching This Segment</h3>
+
+        <div class="gap-card">
+          <div class="gap-card-num">Gap 1 — Wrong moment, wrong channel</div>
+          <div class="gap-card-title">EE One is marketed as a generic household saving. It is invisible at the decision moment.</div>
+          <p>When a 23-year-old signs a tenancy on SpareRoom, they Google "cheap broadband for renters" within 48 to 72 hours. EE One does not appear in that search. Virgin Volt does. The product exists — the channel targeting does not. No contextual presence on SpareRoom, Rightmove, or any rental platform at the moment of the broadband decision.</p>
+        </div>
+
+        <div class="gap-card">
+          <div class="gap-card-num">Gap 2 — The billing blocker</div>
+          <div class="gap-card-title">EE One puts all SIMs under one account and one bill. In a flatshare, that is a deal-breaker.</div>
+          <p>The person who sets up the broadband becomes the billing account holder for every flatmate's mobile plan. No 23-year-old wants to be on the hook for their flatmates' phone bills. EE One structurally requires one person to take financial responsibility for the whole household. There is no split-billing mechanic — each flatmate pays their own mobile plan while still benefiting from the shared broadband discount. This one friction point stops EE One from being adopted in flatshare households, which is the primary living situation of the 18-30 target segment.</p>
+        </div>
+
+        <div class="gap-card">
+          <div class="gap-card-num">Gap 3 — No segment identity</div>
+          <div class="gap-card-title">EE One is a tariff name, not a proposition with a clear audience.</div>
+          <p>It is not packaged or named for the moment of a first rental. It does not speak to the "moving in with friends" context. The emotional landing for a 23-year-old is not "household savings" — it is "sort your flat in one go." The product mechanics are right. The packaging, messaging and naming are not built for this segment.</p>
+        </div>
+
+        <h3>The Proposition: EE One, Activated for First-Renters</h3>
+        <p>Not a new product. Three specific additions to make EE One land with the 18-30 segment:</p>
+
+        <ol style="line-height:2;">
+          <li><strong>Move-in moment targeting</strong> — contextual presence on SpareRoom and Rightmove at the point of rental search and tenancy signing. "Found your flat? Sort your broadband and get your flatmates' phones covered at the same time." One CTA, one moment.</li>
+          <li><strong>Split-billing mechanic</strong> — each flatmate's EE mobile plan links to the shared broadband account for the EE One discount but pays their own bill independently. The broadband account holder gets the household discount unlocked. Everyone else pays their own phone bill. The financial liability is personal, the commercial benefit is shared. This is a product build (Rachel Ward's domain) — the Customer Marketing brief needs to define this as a hard requirement for the proposition to work in a flatshare context.</li>
+          <li><strong>First-renter packaging</strong> — name it clearly for the audience. "EE One — Move In" or equivalent. Position it not as a tariff but as a life moment solution: "Everything your flat needs, from one provider, without the admin."</li>
+        </ol>
+
+        <h3>Commercial Logic</h3>
+        <div class="metric-row">
+          <div class="metric-card">
+            <div class="metric-label">Current state</div>
+            <div class="metric-value" style="font-size:15px;">£20/mo</div>
+            <div class="metric-delta">EE mobile only. No broadband.</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-label">With EE One bundle</div>
+            <div class="metric-value" style="font-size:15px;">£50/mo</div>
+            <div class="metric-delta delta-up">Broadband + mobile, one bill</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-label">With 2 flatmates linked</div>
+            <div class="metric-value" style="font-size:15px;">£86/mo</div>
+            <div class="metric-delta delta-up">2 flatmate SIMs at ~£18/mo each</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-label">ARPU uplift</div>
+            <div class="metric-value" style="font-size:15px;">4.3x</div>
+            <div class="metric-delta delta-up">From one existing EE mobile customer</div>
+          </div>
+        </div>
+
+        <div class="callout callout-orange">
+          <strong>The risk of inaction:</strong> EE already has this customer on mobile at £20/month. If they sign up for Virgin broadband in their new flat, Virgin upsells them to Volt (broadband + mobile together) within 12 months. EE loses the broadband AND potentially the mobile to the competitor. The cost of not acting in this moment is not just missing broadband revenue — it is churn risk on the mobile line EE already holds.
+        </div>
+
+        <h3>What to Validate First (shows commercial discipline)</h3>
+        <ul>
+          <li>What percentage of EE mobile customers aged 18-30 are signing new tenancies each year?</li>
+          <li>Of those, how many switch to Virgin or another provider for broadband within 90 days of moving?</li>
+          <li>That churn-to-Virgin number is the size of the prize before committing to the brief.</li>
+        </ul>
+
+        <div class="hook-box">
+          <strong>How to say this in the room (90-second version)</strong><br><br>
+          "Before giving a view on the youth segment, I want to be clear about what already exists — because EE One is actually a strong product. Broadband plus mobile on one account, up to £20 a month off household SIMs, no cap on the number of lines. The mechanics are right.<br><br>
+          The problem is that EE One is not reaching the 18-30 segment at the moment it matters. When someone signs a tenancy on SpareRoom, they Google broadband within 48 hours. EE One is not in that search. And even if they find it, EE One requires one person to be responsible for all the flatmates' phone bills — which is a deal-breaker in a shared house.<br><br>
+          So the proposition I would build is not a new product. It is three additions to EE One: move-in moment targeting on SpareRoom and Rightmove, a split-billing mechanic so each flatmate pays their own phone bill while sharing the broadband discount, and packaging that speaks to the 'moving in with friends' moment rather than 'household savings.'<br><br>
+          The commercial logic: an EE mobile customer worth £20 a month becomes worth £85 to £90 a month if we capture the broadband decision and link two flatmates at the point of move-in. The first thing I would want to validate is the churn-to-Virgin rate among 18-30 EE mobile customers in the 90 days after moving — because that number tells us exactly how large the prize is."
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== QUESTIONS ====== -->
+  <div class="section" id="questions">
+    <div class="section-title">Smart Question Bank</div>
+
+    <div class="card open">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-header-left">
+          <span class="card-label label-question">Questions</span>
+          <span class="card-title">Questions to Ask Matt Hughes</span>
+        </div>
+        <span class="card-chevron">▾</span>
+      </div>
+      <div class="card-body">
+        <ol>
+          <li style="margin-bottom:12px;"><strong>"The JD references the new organisational structure. What does the Customer Marketing team structure look like now, and how does this role connect to the Product Tribes on the EE side?"</strong></li>
+
+          <li style="margin-bottom:12px;"><strong>"The broadband base returned to growth in Q4 FY25 after falling 85,000 over the year. Was that driven by a specific proposition change, or broader market conditions? And what does the team think it will take to sustain that growth?"</strong></li>
+
+          <li style="margin-bottom:12px;"><strong>"Where does the team currently sit on the full fibre upgrade proposition? Is there a clear customer-facing offer for the copper-to-fibre upgrade journey, or is that still being designed?"</strong></li>
+
+          <li style="margin-bottom:12px;"><strong>"The JD names youth, families, and high-value as the key segments. Which one has the clearest existing proposition and which one has the most open white space right now?"</strong></li>
+
+          <li style="margin-bottom:12px;"><strong>"How does performance get measured for this role — specifically, which metrics sit with Customer Marketing and which sit with Pricing or Product?"</strong></li>
+        </ol>
+
+        <div class="callout callout-accent">
+          <strong>The closer — always finish with this:</strong><br>
+          "What is the single problem that, if this role solved it in the first six months, would make the biggest difference to the Consumer business?"
+        </div>
+
+        <h3>Questions to ask Rachel Ward specifically</h3>
+        <ul>
+          <li>"You've been in BT TV Content Partnerships for five years and you're now leading product for Devices and In Home Experiences at EE. How does this Customer Marketing Manager role interface with your team — is the connected home proposition (broadband, router, TV device, smart home as a single experience) something this role would be building customer-facing briefs around?"</li>
+          <li>"From a product perspective, what's the hardest constraint in turning a BT or EE proposition idea into something that actually ships — is it technical, commercial, or something else?"</li>
+        </ul>
+
+        <h3>Commercial depth questions (use if conversation opens up)</h3>
+        <ul>
+          <li>"Broadband ARPU slipped slightly in H1 FY26 despite NPS improving. Is the team's read that this is a pricing issue, a packaging issue, or a competitive issue? I'd want to understand that before forming a point of view on where to focus."</li>
+          <li>"Openreach is targeting 25 million full fibre premises by December 2026. What is the current conversion rate from copper to fibre for the existing BT broadband base? That uplift story is one of the most interesting commercial opportunities in the proposition landscape right now."</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-header-left">
+          <span class="card-label label-question">Questions</span>
+          <span class="card-title">Questions They Will Likely Ask You</span>
+        </div>
+        <span class="card-chevron">▾</span>
+      </div>
+      <div class="card-body">
+        <ul>
+          <li>"Tell me about a customer proposition you developed end-to-end." → <strong>Current Account STAR</strong></li>
+          <li>"How do you use customer insight and NPS to shape propositions?" → <strong>Twinkl STAR</strong></li>
+          <li>"Give me an example of a go-to-market plan you led." → <strong>Santander Bikes STAR</strong></li>
+          <li>"How do you influence cross-functional teams who don't report to you?" → <strong>BT Marketing-Sales Bridge STAR</strong></li>
+          <li>"Tell me about a time you built a business case for a senior leader." → <strong>Private Banking £30M STAR</strong></li>
+          <li>"What's your view on BT's dual-brand consumer strategy?" → <strong>Use research from Card 12 — dual-brand design challenge. Show you have a view, not just awareness.</strong></li>
+          <li>"How would you approach the youth segment?" → <strong>EE has the ingredients (5G SA, HBO Max, gaming hardware). The gap is packaging. Youth proposition = first broadband + mobile bundle. Price-certain, content-rich, mobile-first.</strong></li>
+          <li>"Your BT role is SMB — how does that qualify you for a Consumer role?" → <strong>See Mock Pushback 1</strong></li>
+          <li><em>(From Rachel Ward — product lens)</em> "How do you approach working with Product teams to turn a product capability into a customer proposition?" → <strong>Santander Bikes: coordinated across Product, Ops, TFL. Reduced conversion journey from 11 clicks to 4. Show you speak product, not just marketing.</strong></li>
+          <li><em>(From Rachel Ward — TV knowledge)</em> "What's your view on BT/EE's TV proposition versus Sky?" → <strong>Sky owns the TV-first customer via content depth. EE has HBO Max advantage. The gap: BT/EE TV is not packaged compellingly as part of a convergence bundle the way Virgin Volt is for broadband + mobile. The TV proposition needs to work harder as part of the connected home bundle, not as a standalone add-on.</strong></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== MOCK PUSHBACKS ====== -->
+  <div class="section" id="pushbacks">
+    <div class="section-title">Mock Pushbacks</div>
+
+    <div class="card">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-header-left">
+          <span class="card-label label-pushback">Pushback 1</span>
+          <span class="card-title">"Your BT experience is SMB, not consumer. Why does that make you ready for this?"</span>
+        </div>
+        <span class="card-chevron">▾</span>
+      </div>
+      <div class="card-body">
+        <div class="callout callout-orange">
+          <strong>Interviewer:</strong> "We appreciate you're internal at BT. But your current role is SMB marketing analytics. This role is consumer proposition development. Those are very different things."
+        </div>
+
+        <div class="script-box">
+          "That's a fair challenge to raise. My BT experience is analytical and SMB — that's accurate. My proposition experience is at Santander, and it was consumer: mass-market current accounts, family segments, public-facing brand partnerships. I've been doing both disciplines in parallel, just in different organisations.<br><br>
+          What I bring from BT is not consumer proposition experience — it's internal knowledge of how this organisation makes decisions, who the stakeholders are in Product, Pricing, and Channel, and how the commercial data works at BT. What I bring from Santander is the proposition development capability.<br><br>
+          The reason I'm the right candidate is that those two things don't usually come together. Most consumer proposition candidates would need three to six months to understand how BT works commercially. I already know that."
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-header-left">
+          <span class="card-label label-pushback">Pushback 2</span>
+          <span class="card-title">"There are candidates with BT Consumer or EE experience directly."</span>
+        </div>
+        <span class="card-chevron">▾</span>
+      </div>
+      <div class="card-body">
+        <div class="callout callout-orange">
+          <strong>Interviewer:</strong> "We may have candidates who have already worked on broadband or mobile propositions. Why should we choose someone who hasn't done it in this specific category?"
+        </div>
+
+        <div class="script-box">
+          "I'd expect that. And I won't tell you category experience doesn't matter — it does, for the first few months. What I'd ask you to weigh against it is this:<br><br>
+          The proposition challenge in telco is not fundamentally different from the challenge in financial services. Both are high-consideration purchases with multi-year lock-in. Both have a retention problem. Both require differentiating on intangible value when the underlying product is increasingly commoditised. At Santander, every one of those challenges was real. The insight methodology, the cross-functional brief process, the commercial business case — those travel across categories.<br><br>
+          And on top of that, I have the BT insider advantage that no external telco candidate has. I would back that combination."
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-header-left">
+          <span class="card-label label-pushback">Pushback 3</span>
+          <span class="card-title">"You founded your own consultancy. Are you actually committed to BT long-term?"</span>
+        </div>
+        <span class="card-chevron">▾</span>
+      </div>
+      <div class="card-body">
+        <div class="callout callout-orange">
+          <strong>Interviewer:</strong> "You've got your own company on the side — MDB Growth Capital. How do we know you're not going to leave in 18 months to go and run it full time?"
+        </div>
+
+        <div class="script-box">
+          "MDB Growth Capital is real and I'm proud of what I've built there. But founding it has reinforced something — the most interesting go-to-market work happens when you have scale, data, and distribution that a consultancy can advise on but can't own.<br><br>
+          At BT Consumer, a proposition I build could reach millions of households. A consultancy client relationship gives me influence for a project cycle. A role here gives me ownership of the outcome. I want to own the outcome.<br><br>
+          The entrepreneurial experience has also made me better at the corporate work — I think more commercially, I move faster, and I'm less precious about internal process. Those are assets in this role, not liabilities."
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-header-left">
+          <span class="card-label label-pushback">Pushback 4</span>
+          <span class="card-title">"This is a sideways move — grade D to grade D. Why is this a real step forward?"</span>
+        </div>
+        <span class="card-chevron">▾</span>
+      </div>
+      <div class="card-body">
+        <div class="script-box">
+          "The grade is the same but the work is completely different — and that is the point. My current role is performance measurement and analytics in B2B. This role is consumer proposition development: insight, design, go-to-market, lifecycle management. That is a fundamentally different type of marketing work, and it is the type I want to build my career around.<br><br>
+          I could stay in SMB analytics and make incremental progress. Or I could move into the consumer proposition function, where the work I do directly shapes what millions of customers see and buy. For someone who built propositions at Santander and then spent two and a half years developing analytical rigour at BT — this role is the natural synthesis. That is the step forward."
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== STRESS TESTS ====== -->
+  <div class="section" id="stress">
+    <div class="section-title">Stress Tests</div>
+
+    <div class="card">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-header-left">
+          <span class="card-label label-stress">Stress Test 1</span>
+          <span class="card-title">The Knowledge Trap — "Walk me through the full fibre upgrade business case"</span>
+        </div>
+        <span class="card-chevron">▾</span>
+      </div>
+      <div class="card-body">
+        <div class="callout callout-red"><strong>What they're testing:</strong> Can you think commercially in the room? Or do you freeze when asked to be specific about something you haven't built internally before?</div>
+
+        <div class="script-box">
+          "I'd start with the commercial opportunity. Full fibre typically delivers around 20% higher ARPU than part-fibre for the same customer — so the model starts with: how many FTTC customers do we have, what is the current ARPU, and what is the projected ARPU uplift on conversion? That gives you the revenue opportunity.<br><br>
+          Then the cost side: what does it cost to prompt a customer to upgrade — CRM, incentive offer, installation coordination? And what is the conversion rate at each intervention point?<br><br>
+          Then the competitive context: what does Virgin or Sky offer the same customer if we don't contact them first? That is the retention risk of inaction.<br><br>
+          The business case would show: revenue uplift per converted customer, cost of conversion, net contribution, and the payback period. I would overlay the full fibre premise rollout map against the customer base to prioritise which cohorts to target first — starting with customers in full fibre-ready postcodes who are mid-to-late contract.<br><br>
+          That is the structure. The specific numbers I would need to pull from internal data. But the model is not complicated — the challenge is usually the incentive design and the channel sequencing, not the maths."
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-header-left">
+          <span class="card-label label-stress">Stress Test 2</span>
+          <span class="card-title">The Contradiction — "Aren't you really just a marketing analyst?"</span>
+        </div>
+        <span class="card-chevron">▾</span>
+      </div>
+      <div class="card-body">
+        <div class="callout callout-red"><strong>What they're testing:</strong> Will you accept a reductive label under pressure? Or do you hold your framing?</div>
+
+        <div class="script-box">
+          "That's a fair challenge to make based on how I've described my BT experience — and the BT role is analytical. But the Santander work tells a different story. Developing the Current Account repositioning brief, building the Twinkl family segment proposition, running the Santander Bikes go-to-market — those are proposition-building roles, not measurement roles.<br><br>
+          The BT role built analytical rigour. The Santander roles built proposition development capability. I have been building both deliberately. This role requires both — it says so in the JD: 'skilled in commercial analysis and storytelling to influence decisions.' That is not a measurement person. That is a proposition builder who can make the commercial case. That is what I am."
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-header-left">
+          <span class="card-label label-stress">Stress Test 3</span>
+          <span class="card-title">The Experience Gap — "Do you know anything about the telco consumer market?"</span>
+        </div>
+        <span class="card-chevron">▾</span>
+      </div>
+      <div class="card-body">
+        <div class="script-box">
+          "Before this interview, I spent time looking at the commercial and competitive picture specifically. Broadband ARPU has slid from £42.2 to £41.9 in H1 FY26 — which is interesting because NPS is at a record high at the same time. That tells me this is not a customer experience problem. It is a value perception and proposition design problem.<br><br>
+          Competitively: Virgin's Volt bundle is the most direct threat because it reframes the purchase decision as 'one bill, broadband plus mobile' rather than 'pick the fastest broadband.' EE has the ingredients to match that — 5G, HBO Max, gaming hardware — but the packaging is not yet as clean as Volt.<br><br>
+          And the full fibre rollout creates an upsell proposition opportunity that most operators would love to have. Openreach at 16 million premises and climbing — each one a customer on a copper contract who could be upgraded at approximately 20% ARPU uplift.<br><br>
+          I have been paying attention. I know I am coming from the SMB side and I have things to learn about the Consumer team and customer specifically. But the commercial picture — I have done that homework."
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== BT BEHAVIOURS ====== -->
+  <div class="section" id="behaviour-cf">
+    <div class="section-title">BT Behaviours — STAR Bank</div>
+
+    <div class="callout callout-accent" style="margin-bottom:16px;">
+      BT's 5 Behaviours are woven through the interview. Expect at least one question per behaviour. Each STAR below maps to the specific behaviour language — mirror the words they use.
+    </div>
+
+    <!-- Customer First -->
+    <div class="card open">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-header-left">
+          <span class="card-label label-primary">Customer First</span>
+          <span class="card-title">Own outcomes end-to-end, prioritise what matters most, act with accountability</span>
+        </div>
+        <span class="card-chevron">▾</span>
+      </div>
+      <div class="card-body">
+        <div class="callout callout-accent"><strong>Predicted questions:</strong> "Tell me about a time you owned an outcome end-to-end." / "When have you had to prioritise ruthlessly when everything felt urgent?" / "Describe a time you took personal accountability for a result."</div>
+
+        <div class="star-section">
+          <span class="star-label star-s">S — Situation</span>
+          <p>BT's SMB Marketing team had no single view of marketing performance. Budget allocation decisions were being made with incomplete data. No one owned the full picture — acquisition was tracked in one place, retention in another, revenue in a third. The consequence was a disconnect between what Marketing reported and what Sales was being held to commercially.</p>
+        </div>
+
+        <div class="star-section">
+          <span class="star-label star-t">T — Task</span>
+          <p>No one asked me to connect these systems. My remit was performance reporting. But I identified that the real problem — the one that mattered most commercially — was the fragmentation of the data, not the quality of any single report.</p>
+        </div>
+
+        <div class="star-section">
+          <span class="star-label star-a">A — Action</span>
+          <p>I owned the outcome end-to-end without being asked: built the single source of truth connecting acquisition, retention, and revenue; ran joint reviews with Sales, Call Centre, and Retention; and took personal accountability for the quality of the commercial narrative that went to senior leadership. When the data told a story leadership did not want to hear — investment gaps, underperforming channels — I surfaced it transparently rather than softening it.</p>
+        </div>
+
+        <div class="star-section">
+          <span class="star-label star-r">R — Result</span>
+          <p>Became the recognised SME for SMB performance. Influenced budget allocation decisions directly tied to revenue commitments. The framework I built became structural — still used after I moved on to other priorities.</p>
+        </div>
+
+        <div class="hook-box">
+          <strong>BT Consumer Hook</strong>
+          Customer First in the proposition context means owning the proposition outcome — not just the brief or the research, but the acquisition, ARPU, and NPS result that follows launch. That is the standard I hold myself to.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Clear -->
+  <div class="section" id="behaviour-cl">
+    <div class="card open">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-header-left">
+          <span class="card-label label-primary">Clear</span>
+          <span class="card-title">Communicate plainly and respectfully, weigh different views, decide transparently</span>
+        </div>
+        <span class="card-chevron">▾</span>
+      </div>
+      <div class="card-body">
+        <div class="callout callout-accent"><strong>Predicted questions:</strong> "Tell me about a time you had to simplify a complex recommendation for a senior stakeholder." / "Describe a situation where you weighed conflicting views and made a transparent decision." / "When have you had to communicate something people did not want to hear?"</div>
+
+        <div class="star-section">
+          <span class="star-label star-s">S — Situation</span>
+          <p>Santander Private Banking had a channel allocation problem. The leadership team believed existing channels were performing adequately. My analysis showed they were not — and that the solution was LinkedIn, a channel the Managing Director viewed with scepticism ("too public for our clients").</p>
+        </div>
+
+        <div class="star-section">
+          <span class="star-label star-t">T — Task</span>
+          <p>Present a recommendation that contradicted the MD's existing view — clearly enough that he could make a real decision, without losing the relationship or hedging so much the recommendation became useless.</p>
+        </div>
+
+        <div class="star-section">
+          <span class="star-label star-a">A — Action</span>
+          <p>I structured the recommendation around three things he cared about — cost per qualified client, audience quality evidence, and risk limitation. I addressed his objection directly and specifically: "LinkedIn's targeting is invisible to non-targeted users. Your clients will not see these ads unless they are already in the target segment." I did not soften the conclusion or give him a middle option that diluted the recommendation. I made the ask specific: approve a 90-day test at a defined budget cap. He could say yes or no — no ambiguity.</p>
+        </div>
+
+        <div class="star-section">
+          <span class="star-label star-r">R — Result</span>
+          <p>He approved the test. £30 million in new client acquisition within 30 days. 7x improvement over the previous approach. The clarity of the recommendation — and the respect shown in addressing the objection directly rather than dismissing it — is what got it over the line.</p>
+        </div>
+
+        <div class="hook-box">
+          <strong>BT Consumer Hook</strong>
+          In a dual-brand environment with multiple Product Tribes and Pricing stakeholders, clear communication — weighing different views and making transparent decisions — is what moves a proposition from internal debate to a market-ready brief. That is the standard I work to.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Challengers -->
+  <div class="section" id="behaviour-ch">
+    <div class="card open">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-header-left">
+          <span class="card-label label-primary">Challengers</span>
+          <span class="card-title">Use ambitious outcomes, seek ideas from inside and outside BT, adapt them fast</span>
+        </div>
+        <span class="card-chevron">▾</span>
+      </div>
+      <div class="card-body">
+        <div class="callout callout-accent"><strong>Predicted questions:</strong> "Tell me about a time you challenged the status quo or an assumption the team held." / "When have you brought an idea from outside your industry or function?" / "Describe a time you set an ambitious outcome that others thought was unrealistic."</div>
+
+        <div class="star-section">
+          <span class="star-label star-s">S — Situation</span>
+          <p>Santander needed to grow brand consideration among the family segment. The internal brief was heading toward a product-feature response — a slightly better interest rate for family accounts. This would have made Santander marginally more competitive on a single metric that was not the primary driver of the family segment's decision-making.</p>
+        </div>
+
+        <div class="star-section">
+          <span class="star-label star-t">T — Task</span>
+          <p>Identify whether the internal assumption — that the family segment needed a better product — was actually correct. And if not, find a more ambitious and differentiated path.</p>
+        </div>
+
+        <div class="star-section">
+          <span class="star-label star-a">A — Action</span>
+          <p>I ran the customer insight before committing to the brief. The data showed that families were not leaving Santander for better rates — they were disengaged because Santander had no role in their family financial life beyond the transaction. The insight: families trusted educational organisations more than banks on financial topics relevant to their children.</p>
+          <p>I challenged the rate-led brief entirely. Brought in Twinkl — a primary school educational platform — as a non-obvious partner from completely outside financial services. No one in the proposition team had considered an EdTech company. I adapted the idea fast: developed it into a specific brief, got sign-off, and launched the Number Games proposition within the financial year.</p>
+        </div>
+
+        <div class="star-section">
+          <span class="star-label star-r">R — Result</span>
+          <p>Proposition launched and gave Santander a credible, ownable space in family financial education that no competitor had claimed. Created a differentiated position that a rate increase would never have achieved.</p>
+        </div>
+
+        <div class="hook-box">
+          <strong>BT Consumer Hook</strong>
+          The youth segment at EE is the most obvious Challengers opportunity right now. Every telco is running "faster speeds, more data" messages. The insight question is: what does a 22-year-old moving into their first flat actually need from a broadband and mobile provider that no one is giving them yet? The answer to that question — not a feature list — is where the differentiated proposition lives.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Committed -->
+  <div class="section" id="behaviour-co">
+    <div class="card open">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-header-left">
+          <span class="card-label label-primary">Committed</span>
+          <span class="card-title">Deliver against ambitious goals, go beyond what is asked, show resilience under pressure</span>
+        </div>
+        <span class="card-chevron">▾</span>
+      </div>
+      <div class="card-body">
+        <div class="callout callout-accent"><strong>Predicted questions:</strong> "Tell me about a time you delivered a result under significant pressure." / "Describe a time you went beyond your remit to get something done." / "When have you stayed committed to a goal despite obstacles?"</div>
+
+        <div class="star-section">
+          <span class="star-label star-s">S — Situation</span>
+          <p>Santander Private Banking needed a qualified client acquisition breakthrough. The existing channels were not delivering at the pace the business needed. There was no existing playbook for LinkedIn in Private Banking acquisition — the channel had never been used for this audience in this way at Santander. The ask was ambitious: meaningful acquisition impact within a defined test window.</p>
+        </div>
+
+        <div class="star-section">
+          <span class="star-label star-t">T — Task</span>
+          <p>Build a case, secure approval, execute, and deliver commercial results — in a 90-day window, in a channel with no internal precedent, with a sceptical stakeholder who had to be brought along at every stage.</p>
+        </div>
+
+        <div class="star-section">
+          <span class="star-label star-a">A — Action</span>
+          <p>Built the business case from scratch with no template. Managed the stakeholder through the objection. Set up the campaign targeting, the creative brief, the audience segmentation, and the measurement framework — none of which existed before. Ran the campaign end-to-end, tracking performance daily and adjusting targeting mid-flight when early signals showed a more specific audience subset was converting at a significantly higher rate. Did not wait for the 90-day review to adapt.</p>
+        </div>
+
+        <div class="star-section">
+          <span class="star-label star-r">R — Result</span>
+          <p><strong>£30 million in new client acquisition within 30 days. 7x performance improvement.</strong> The campaign ran within the 90-day commitment. The ambition of the outcome — matched by the commitment to execute without a blueprint — is what made it possible.</p>
+        </div>
+
+        <div class="hook-box">
+          <strong>BT Consumer Hook</strong>
+          The full fibre upgrade proposition is a similar commitment challenge — there is no existing brief, no proven playbook for the copper-to-fibre upgrade journey at scale. The commitment required is to build something that works before it is obvious how it works. I have done that before.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Connected -->
+  <div class="section" id="behaviour-cn">
+    <div class="card open">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-header-left">
+          <span class="card-label label-primary">Connected</span>
+          <span class="card-title">Enable people and systems to work at their best, foster collaboration, share accountability</span>
+        </div>
+        <span class="card-chevron">▾</span>
+      </div>
+      <div class="card-body">
+        <div class="callout callout-accent"><strong>Predicted questions:</strong> "Tell me about a time you brought people together across teams to deliver something." / "Describe how you enable others to do their best work." / "Give me an example of shared accountability — where you gave others ownership rather than keeping it yourself."</div>
+
+        <div class="star-section">
+          <span class="star-label star-s">S — Situation</span>
+          <p>BT's Marketing and Sales teams were operating in silos. Marketing was measuring success by lead volume. Sales was measuring success by revenue quality. Neither team had enough visibility of the other's world to hold themselves accountable for the shared commercial outcome.</p>
+        </div>
+
+        <div class="star-section">
+          <span class="star-label star-t">T — Task</span>
+          <p>Enable Marketing and Sales to work better together — not by building another reporting layer, but by creating a shared framework that both teams could own and act on. Fostering genuine collaboration rather than just information exchange.</p>
+        </div>
+
+        <div class="star-section">
+          <span class="star-label star-a">A — Action</span>
+          <p>Rather than building a Marketing framework and asking Sales to adopt it, I ran joint sessions with the Sales, Call Centre, and Retention leads to co-design the performance framework. Each team contributed their definition of success. The single source of truth that emerged was genuinely co-owned — Sales could see acquisition quality, Marketing could see conversion and revenue. I made sure the framework served both teams, not just Marketing.</p>
+          <p>As the bridge between the two functions, I actively gave accountability back to both teams — the framework was their tool, not mine. My role was to enable the connection, not to own the output permanently.</p>
+        </div>
+
+        <div class="star-section">
+          <span class="star-label star-r">R — Result</span>
+          <p>The bridge became structural. Two teams that had been working in parallel were now working toward the same commercial number. The shared accountability model meant both teams had skin in the outcome — not just ownership of their own metrics. This is still the standard for how SMB performance is reviewed.</p>
+        </div>
+
+        <div class="hook-box">
+          <strong>BT Consumer Hook</strong>
+          Connected is the most important behaviour in the new organisational structure. BT and EE consumer marketing being unified means teams that previously worked separately now need to collaborate on the same proposition briefs. Enabling that to work — building the shared language, the joint review cadence, the mutual accountability — is exactly the work I have done at BT before.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== WEAKNESS / FAILURE ====== -->
+  <div class="section" id="weakness">
+    <div class="section-title">Weakness and Failure Questions</div>
+
+    <div class="card open">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-header-left">
+          <span class="card-label label-stress">Weakness</span>
+          <span class="card-title">"What is your greatest weakness?" / "What would your manager say you need to develop?"</span>
+        </div>
+        <span class="card-chevron">▾</span>
+      </div>
+      <div class="card-body">
+        <div class="callout callout-red"><strong>The rule:</strong> The weakness must be genuine, non-fatal to this role, and come with a specific mitigation. Never say "I work too hard" or "I am a perfectionist." Never pick a weakness that is a core competency for the role (e.g., do not say "stakeholder management" when the JD requires it). Pick something real that you are actively working on.</div>
+
+        <div class="script-box">
+          "My natural instinct is to be thorough before I make a recommendation. I want to be confident in the data before I commit to a direction. In an analytics role, that is usually a strength. In a proposition development role — where speed to market matters and the window to act on an insight closes fast — it can mean I spend longer in the analysis phase than the commercial reality demands.<br><br>
+          I have been working on this consciously over the last two years. At BT, I started setting a 'brief date' — a deadline to produce a recommendation — before the analysis feels complete. Because I know from experience that a good brief launched in three weeks beats a perfect brief in eight. The Twinkl proposition at Santander is probably the clearest example: at the point I moved to brief, I did not have everything I wanted from the research. But I had enough to make a directional call, and the rest would come from testing in market.<br><br>
+          It is not fully resolved — I still have to consciously override the instinct to go back for one more data point. But I am a lot faster than I was two years ago, and the quality of the output has not suffered."
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-header-left">
+          <span class="card-label label-stress">Failure</span>
+          <span class="card-title">"Tell me about a time you failed or made a significant mistake."</span>
+        </div>
+        <span class="card-chevron">▾</span>
+      </div>
+      <div class="card-body">
+        <div class="callout callout-red"><strong>The rule:</strong> Pick a real failure with real consequences. Not "the team missed a target we had no control over." Show genuine ownership, the lesson learned, and evidence that you applied it. Do not blame others. Do not pick a failure so small it looks like you have never made a real mistake.</div>
+
+        <div class="script-box">
+          "When I first started developing the Current Account proposition brief at Santander, my initial framing was rate-led. I had looked at the competitive landscape and concluded that Santander needed a more competitive interest rate structure. I was wrong.<br><br>
+          I had looked at what competitors were offering but I had not yet looked at why Santander customers were actually staying or leaving. When I ran the proper customer insight analysis — which should have been the starting point, not a step I got to later — it showed that rate was not the primary driver. Trust and familiarity were. I had nearly committed budget and agency time to a direction that would have made Santander marginally more competitive on a metric that was not the deciding factor.<br><br>
+          The cost was time — a few weeks of early work that had to be redirected. It was not catastrophic. But the lesson was concrete: run the customer insight first, before forming a hypothesis, not after. I have not made that mistake since. Every proposition brief I have written since starts with the insight question, not the product question."
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-header-left">
+          <span class="card-label label-stress">Difficult situation</span>
+          <span class="card-title">"Tell me about a time you had a difficult relationship with a stakeholder."</span>
+        </div>
+        <span class="card-chevron">▾</span>
+      </div>
+      <div class="card-body">
+        <div class="script-box">
+          "When I was building the Marketing-Sales bridge at BT, the Sales lead was initially resistant. From his perspective, Marketing had spent years generating lead volume without caring about the quality of what came through — and here was someone from Marketing asking to review his conversion data. The implicit message he heard was: 'We think the problem might be on your side.'<br><br>
+          I had to acknowledge that perception directly. In our first joint session, I opened with: 'I am not here to tell you that Sales is the problem. I am here because I think the data disconnect between our two teams is costing both of us commercially, and I want to build something we both own.' That reframe changed the dynamic. I made sure the framework we built served his team as clearly as it served mine — he could see acquisition quality, not just volume. He could stop wasting call centre time on leads that would never convert.<br><br>
+          By the end of the first quarter, he was actively bringing me into discussions I had not been invited to before. The relationship went from resistant to collaborative because I addressed the underlying concern — that this was going to be used against him — rather than pushing the data project forward regardless."
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== CLOSING ====== -->
+  <div class="section" id="closing">
+    <div class="section-title">Closing</div>
+
+    <div class="card open">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-header-left">
+          <span class="card-label label-closing">Closing Pitch</span>
+          <span class="card-title">"Why Should We Hire You?" — 60-Second Pitch</span>
+        </div>
+        <span class="card-chevron">▾</span>
+      </div>
+      <div class="card-body">
+        <div class="callout callout-blue">Target: 60 seconds exactly. Use the timer above. Set to 60s. Memorise this structure — three reasons, no qualifiers at the end, no apology for the length.</div>
+
+        <div class="script-box">
+          "Three reasons.<br><br>
+          First, I have built consumer propositions from insight to market. At Santander: the Current Account repositioning, the Santander Bikes go-to-market, the Twinkl family proposition. End-to-end. Not just optimising an existing brief — starting from a customer gap and building to a commercial offer.<br><br>
+          Second, I am already at BT. I know how this organisation makes decisions, who the stakeholders are in Product, Pricing, and Channel, and how the commercial data works. An external hire would need months to build that. I am already there.<br><br>
+          Third, I have the commercial rigour this role requires. Two and a half years building analytical capability at BT, plus the econometrics foundation from Santander, means that when I build a proposition brief, it comes with a business case the finance team will recognise and a commercial model the leadership team can defend. The proposition development capability and the analytical rigour — that combination is what you are actually looking for, and it is not common."
+        </div>
+        <p><em>Stop. Do not add a qualifier. Do not say "I hope that answers your question."</em></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- HM Profile -->
+  <div class="section" id="hm-profile">
+    <div class="card">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-header-left">
+          <span class="card-label label-cheat">Interviewer Intel</span>
+          <span class="card-title">Interviewer Intel — Rachel Ward and Matt Hughes</span>
+        </div>
+        <span class="card-chevron">▾</span>
+      </div>
+      <div class="card-body">
+        <h3>Rachel Ward — Second Interviewer</h3>
+        <div class="callout callout-blue">
+          <strong>Actual background:</strong> Rachel Ward is Head of Product at EE — Devices and In Home Experiences (Nov 2024–present). Before that, 6+ years at BT: Senior Product Manager, BT TV Content Partnerships (2020–2025) and Product Manager, BT TV Content Partnerships (2019–2020). Earlier: 3.5 years at Domestic and General in product strategy and new business development. She is a product person, not a marketer.
+        </div>
+
+        <div class="callout callout-orange">
+          <strong>Critical framing shift:</strong> Rachel Ward sits on the product side. She will evaluate whether Jean can work effectively with product teams — not just build marketing briefs, but turn product capabilities into customer propositions that work technically and commercially. Her lens is: "Will this person actually understand what Product can and cannot deliver?"
+        </div>
+
+        <ul>
+          <li><strong>BT TV Content Partnerships — 5+ years.</strong> She knows the TV competitive landscape intimately: BT Sport, Sky, Disney+, HBO Max, the whole content stack. She will have strong views on the TV proposition gap versus Sky. Show you understand this space — it is directly relevant to the role's scope across Broadband, TV and Mobile.</li>
+          <li><strong>Head of Product — Devices and In Home Experiences.</strong> Her current world is routers, set-top boxes, Wi-Fi pods, smart home. The connected home proposition — broadband + router + TV device as a single experience — is something she is actively building. Frame propositions around the end-to-end in-home experience, not just a price point or a headline speed.</li>
+          <li><strong>Domestic and General background.</strong> Product strategy and new business development in B2C insurance/warranty products. She understands proposition design in high-churn, service-based B2C — directly relevant to the telco challenge.</li>
+          <li><strong>What she will probe for:</strong> Does Jean understand how to brief a Product Tribe? Does he know the difference between a marketing proposition and a product requirement? Can he work in the constraints of what EE/BT can technically deliver, not just what sounds good in a brief?</li>
+          <li><strong>What she will respect:</strong> Evidence that Jean has worked across Product, Pricing and Marketing simultaneously (Santander Bikes GTM is the strongest example — coordinating across product mechanics, pricing, and channel). Show you speak product, not just marketing.</li>
+        </ul>
+
+        <div class="callout callout-accent">
+          <strong>Smart question to ask Rachel Ward specifically:</strong> "You are currently leading product for Devices and In Home Experiences at EE. From a proposition standpoint, the connected home — broadband, router, TV, smart home as one package — feels like one of the most interesting untapped areas in the market right now. Is that something this Customer Marketing Manager role would work on directly with your team?"
+        </div>
+
+        <h3>Matt Hughes — Hiring Manager</h3>
+        <p>Not found in public sources. Grade D hiring manager within BT Consumer proposition/marketing team. Focus on commercial depth, proposition process, and stakeholder alignment.</p>
+
+        <h3>His Likely Concerns (Matt Hughes)</h3>
+        <ul>
+          <li><strong>"Can this person actually build a proposition, or are they an analytics person who wants to move laterally?"</strong><br>The BT CV is analytical. The Santander CV is propositional. Make the Santander work feel as recent and relevant as the BT work — it was 2-5 years ago but the skills are exactly what the role requires.</li>
+          <li><strong>"Will they understand consumer telco fast enough to contribute in Q1?"</strong><br>Your answer: yes, because (a) you know BT's commercial levers already, (b) the proposition methodology transfers from financial services to telco, (c) you have already done the pre-interview analysis on their competitive position and can speak to it in the room.</li>
+          <li><strong>"Is this person just trying to escape SMB?"</strong><br>Demonstrate genuine enthusiasm for consumer proposition work — specific, commercial, connected to BT Consumer's actual situation. Not "I want broader scope." Specific.</li>
+        </ul>
+
+        <h3>What Will Excite Him</h3>
+        <ul>
+          <li>Evidence that you have already looked at their competitive position (the pre-interview analysis)</li>
+          <li>STAR answers that show process discipline — not just "I had this idea" but "here is how I built the brief, aligned the stakeholders, and measured the outcome"</li>
+          <li>A 90-day plan specific enough to show you have thought about their actual problems (ARPU slide, full fibre opportunity, new org structure)</li>
+          <li>Comfort with commercial numbers — ARPU, churn, acquisition cost — without needing to be taught the vocabulary</li>
+          <li>Proof that you have opinions, not just experience. "My view is that the youth segment gap is a packaging problem, not a product problem" lands better than "I would investigate the youth segment."</li>
+        </ul>
+
+        <h3>Red Flags He Will Watch For</h3>
+        <ul>
+          <li>Generic answers that could apply to any company in any industry</li>
+          <li>Heavy emphasis on analytics without clear examples of output — a proposition, a launch, a market-ready brief</li>
+          <li>Inability to speak to the BT/EE competitive landscape — he will expect you to know it</li>
+          <li>Passive framing: "I supported the team" rather than "I owned this"</li>
+          <li>Uncertainty about whether you want Consumer specifically, or just a change from SMB</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top:40px; padding-top:24px; border-top:1px solid var(--border); font-size:12px; color:var(--text-muted);">
+    Strategy and prep research by Jean Mundabi Fala
+  </div>
+
+</main>
+
+<script>
+// Toggle card
+function toggleCard(header) {
+  const card = header.closest('.card');
+  card.classList.toggle('open');
+}
+
+// Expand / collapse all
+function expandAll() {
+  document.querySelectorAll('.card').forEach(c => c.classList.add('open'));
+}
+function collapseAll() {
+  document.querySelectorAll('.card').forEach(c => c.classList.remove('open'));
+}
+
+// Dark mode
+function toggleDark() {
+  document.body.classList.toggle('dark-mode');
+}
+
+// Scroll to section
+function navTo(id) {
+  const el = document.getElementById(id);
+  if (el) { el.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+  document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+  const navItems = document.querySelectorAll('.nav-item');
+  navItems.forEach(item => {
+    if (item.getAttribute('onclick') && item.getAttribute('onclick').includes(id)) {
+      item.classList.add('active');
+    }
+  });
+}
+
+// Timer
+let timerDuration = 0;
+let timerRemaining = 0;
+let timerInterval = null;
+let timerRunning = false;
+
+function setTimer(seconds) {
+  clearInterval(timerInterval);
+  timerRunning = false;
+  timerDuration = seconds;
+  timerRemaining = seconds;
+  document.getElementById('timerDisplay').textContent = formatTime(seconds);
+  document.querySelectorAll('.timer-btn').forEach(b => b.classList.remove('active'));
+  event.target.classList.add('active');
+}
+
+function formatTime(s) {
+  const m = Math.floor(s / 60);
+  const sec = s % 60;
+  return m + ':' + String(sec).padStart(2, '0');
+}
+
+function startTimer() {
+  if (timerDuration === 0) return;
+  if (timerRunning) return;
+  timerRunning = true;
+  timerInterval = setInterval(() => {
+    timerRemaining--;
+    document.getElementById('timerDisplay').textContent = formatTime(timerRemaining);
+    if (timerRemaining <= 0) {
+      clearInterval(timerInterval);
+      timerRunning = false;
+      document.getElementById('timerDisplay').textContent = '⏱ Done!';
+      document.getElementById('timerDisplay').style.color = 'var(--emerald)';
+    }
+    if (timerRemaining === 10) {
+      document.getElementById('timerDisplay').style.color = 'var(--red)';
+    }
+  }, 1000);
+}
+
+function pauseTimer() {
+  clearInterval(timerInterval);
+  timerRunning = false;
+}
+
+function resetTimer() {
+  clearInterval(timerInterval);
+  timerRunning = false;
+  timerRemaining = timerDuration;
+  document.getElementById('timerDisplay').textContent = timerDuration > 0 ? formatTime(timerDuration) : '—';
+  document.getElementById('timerDisplay').style.color = 'var(--accent)';
+}
+
+// Auto-highlight active section on scroll
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const id = e.target.id;
+      document.querySelectorAll('.nav-item').forEach(i => {
+        const onclick = i.getAttribute('onclick') || '';
+        i.classList.toggle('active', onclick.includes("'" + id + "'"));
+      });
+    }
+  });
+}, { threshold: 0.3 });
+
+document.querySelectorAll('.section[id]').forEach(s => observer.observe(s));
+</script>
+</body>
+</html>
